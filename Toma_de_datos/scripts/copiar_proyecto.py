@@ -1,26 +1,31 @@
-import shutil
 import os
+import shutil
 
-# Nombre del archivo original
+# Nombre base del archivo .trk original
 archivo_base = "../tracker_proyects/clip_001.trk"
 
-# Carpeta destino
-clips_path = "../tracker_proyects/"
+# Número final hasta donde quieres hacer las copias
+numero_final = 609  # Ajusta este número según necesites
 
-# Cantidad de clips
-numero_final = 609  # Cantidad de clips
+# Ruta relativa o nombre base del video (por ejemplo: video_001.mp4, video_002.mp4, ...)
+nombre_video_base = "../clips_indi/clip"
 
-# Verifica que el archivo base exista
+# Verifica que el archivo base existe
 if not os.path.exists(archivo_base):
-    print(f"El archivo '{archivo_base}' no existe en esta carpeta.")
+    print(f"El archivo '{archivo_base}' no existe.")
 else:
+    with open(archivo_base, "r", encoding="utf-8") as f:
+        contenido_base = f.read()
+
     for i in range(2, numero_final + 1):
-        
-        # Nombre de la copia
-        nuevo_nombre = f"clip_{i:03d}.trk"
-        
-        # Construir el path de salida
-        path_out = os.path.join(clips_path, nuevo_nombre)
-        
-        shutil.copyfile(archivo_base, path_out)
-        print(f"Copiado: {archivo_base} → {nuevo_nombre}")
+        nuevo_nombre = f"../tracker_proyects/clip_{i:03d}.trk"
+        nuevo_video = f"{nombre_video_base}_{i:03d}.mp4"
+
+        # Reemplaza el nombre del video en el contenido
+        # Se asume que el nombre original del video es video_001.mp4
+        contenido_modificado = contenido_base.replace("clip_001.mp4", nuevo_video)
+
+        with open(nuevo_nombre, "w", encoding="utf-8") as f:
+            f.write(contenido_modificado)
+
+        print(f"{nuevo_nombre} creado con video '{nuevo_video}'")
