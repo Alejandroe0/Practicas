@@ -5,7 +5,7 @@ import shutil
 archivo_base = "../tracker_proyects/clip_001.trk"
 
 # Número final hasta donde quieres hacer las copias
-numero_final = 609  # Ajusta este número según necesites
+numero_final = 609  # Ajusta este número según de videos
 
 # Ruta relativa o nombre base del video (por ejemplo: video_001.mp4, video_002.mp4, ...)
 nombre_video_base = "../clips_indi/clip"
@@ -22,7 +22,7 @@ else:
         nuevo_video = f"{nombre_video_base}_{i:03d}.mp4"
 
         # Reemplaza el nombre del video en el contenido
-        # Se asume que el nombre original del video es video_001.mp4
+        # Se asume que el nombre original del video es clip_001.mp4
         contenido_modificado = contenido_base.replace("clip_001.mp4", nuevo_video)
 
         with open(nuevo_nombre, "w", encoding="utf-8") as f:
