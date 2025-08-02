@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <object class="org.opensourcephysics.cabrillo.tracker.TrackerPanel">
-    <property name="semantic_version" type="string">6.3.0</property>
+    <property name="semantic_version" type="string">6.3.1</property>
     <property name="width" type="double">1920.0</property>
     <property name="height" type="double">1080.0</property>
-    <property name="magnification" type="double">0.31498026247371824</property>
-    <property name="center_x" type="int">364</property>
-    <property name="center_y" type="int">200</property>
+    <property name="magnification" type="double">1.0</property>
+    <property name="center_x" type="int">1042</property>
+    <property name="center_y" type="int">845</property>
     <property name="videoclip" type="object">
     <object class="org.opensourcephysics.media.core.VideoClip">
         <property name="video" type="object">
         <object class="org.opensourcephysics.media.xuggle.XuggleVideo">
-            <property name="path" type="string">../clips_indi/../clips_indi/clip_302.mp4</property>
+            <property name="path" type="string">../clips_indi/clip_302.mp4</property>
             <property name="start_times" type="array" class="[D">
-                <property name="array" type="string">{0.0,16.666,33.333,50,66.666,83.333,100,116.666,133.333,150,166.666,183.333,200,216.666,233.333,250,266.666,283.333,300,316.666,333.333,350,366.666,383.333,400,416.666,433.333,450,466.666,483.333,500,516.666,533.333}</property>
+                <property name="array" type="string">{0.0,16.666,33.333,50,66.666,83.333,100,116.666,133.333,150,166.666,183.333,200,216.666,233.333,250,266.666,283.333,300,316.666,333.333,350,366.666,383.333,400,416.666,433.333,450,466.666,483.333,500,516.666,533.333,550,566.666,583.333,600,616.666,633.333,650,666.666,683.333,700,716.666,733.333,750,766.666,783.333,800,816.666,833.333,850,866.666,883.333,900,916.666,933.333,950,966.666,983.333,1000,1016.666,1033.333,1050,1066.666,1083.333,1100,1116.666,1133.333,1150,1166.666,1183.333,1200,1216.666,1233.333,1250,1266.666,1283.333,1300,1316.666,1333.333,1350,1366.666,1383.333,1400,1416.666,1433.333,1450,1466.666,1483.333,1500,1516.666,1533.333,1550,1566.666,1583.333,1600,1616.666,1633.333,1650,1666.666,1683.333,1700,1716.666,1733.333,1750,1766.666,1783.333,1800}</property>
             </property>
-            <property name="duration" type="double">0.55</property>
-            <property name="frame_count" type="int">33</property>
+            <property name="duration" type="double">1.817</property>
+            <property name="frame_count" type="int">109</property>
             <property name="frame_rate" type="int">60</property>
             <property name="platform" type="string">Java</property>
         </object>
         </property>
-        <property name="video_framecount" type="int">33</property>
+        <property name="video_framecount" type="int">109</property>
         <property name="startframe" type="int">0</property>
         <property name="stepsize" type="int">1</property>
-        <property name="stepcount" type="int">33</property>
+        <property name="stepcount" type="int">109</property>
         <property name="starttime" type="double">0.0</property>
         <property name="readout" type="string">frame</property>
         <property name="playallsteps" type="boolean">true</property>
@@ -33,7 +33,7 @@
     <object class="org.opensourcephysics.media.core.StepperClipControl">
         <property name="rate" type="double">1.0</property>
         <property name="delta_t" type="double">16.666666666666668</property>
-        <property name="frame" type="int">0</property>
+        <property name="frame" type="int">108</property>
     </object>
     </property>
     <property name="coords" type="object">
@@ -108,9 +108,686 @@
             </property>
         </object>
         </property>
+        <property name="item" type="object">
+        <object class="org.opensourcephysics.cabrillo.tracker.PointMass">
+            <property name="mass" type="double">1.0</property>
+            <property name="name" type="string">masa A</property>
+            <property name="color" type="object">
+            <object class="java.awt.Color">
+                <property name="red" type="int">255</property>
+                <property name="green" type="int">0</property>
+                <property name="blue" type="int">0</property>
+                <property name="alpha" type="int">255</property>
+            </object>
+            </property>
+            <property name="footprint" type="string">Footprint.Diamond</property>
+            <property name="visible" type="boolean">true</property>
+            <property name="trail" type="boolean">true</property>
+            <property name="framedata" type="array" class="[Lorg.opensourcephysics.cabrillo.tracker.PointMass$FrameData;">
+                <property name="[0]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">978.0</property>
+                    <property name="y" type="double">593.0</property>
+                </object>
+                </property>
+                <property name="[1]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">979.7242979942694</property>
+                    <property name="y" type="double">593.2055639748864</property>
+                </object>
+                </property>
+                <property name="[2]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">979.8165757906218</property>
+                    <property name="y" type="double">593.1921898928026</property>
+                </object>
+                </property>
+                <property name="[3]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">981.0588533371943</property>
+                    <property name="y" type="double">593.153149891383</property>
+                </object>
+                </property>
+                <property name="[4]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">981.0820802783646</property>
+                    <property name="y" type="double">593.1483479993358</property>
+                </object>
+                </property>
+                <property name="[5]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">982.035436671239</property>
+                    <property name="y" type="double">593.2126921917395</property>
+                </object>
+                </property>
+                <property name="[6]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">982.0175972192048</property>
+                    <property name="y" type="double">593.2151040096473</property>
+                </object>
+                </property>
+                <property name="[7]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">982.5024227740764</property>
+                    <property name="y" type="double">593.31940840685</property>
+                </object>
+                </property>
+                <property name="[8]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.2738234356741</property>
+                    <property name="y" type="double">593.3850820842256</property>
+                </object>
+                </property>
+                <property name="[9]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.3113577023498</property>
+                    <property name="y" type="double">593.318116359447</property>
+                </object>
+                </property>
+                <property name="[10]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.4350910921908</property>
+                    <property name="y" type="double">593.2455735753608</property>
+                </object>
+                </property>
+                <property name="[11]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.3929468772435</property>
+                    <property name="y" type="double">593.226161369193</property>
+                </object>
+                </property>
+                <property name="[12]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.2939824850428</property>
+                    <property name="y" type="double">593.1472103004292</property>
+                </object>
+                </property>
+                <property name="[13]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.23946882773</property>
+                    <property name="y" type="double">593.0863904200723</property>
+                </object>
+                </property>
+                <property name="[14]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.2212313895782</property>
+                    <property name="y" type="double">593.1035842293907</property>
+                </object>
+                </property>
+                <property name="[15]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.2492562361736</property>
+                    <property name="y" type="double">593.0607389438328</property>
+                </object>
+                </property>
+                <property name="[16]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.2569515156263</property>
+                    <property name="y" type="double">593.0929157215146</property>
+                </object>
+                </property>
+                <property name="[17]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.1610932475883</property>
+                    <property name="y" type="double">593.0291659411457</property>
+                </object>
+                </property>
+                <property name="[18]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.1768496420048</property>
+                    <property name="y" type="double">593.0446988973706</property>
+                </object>
+                </property>
+                <property name="[19]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.1677279777941</property>
+                    <property name="y" type="double">593.0539556157887</property>
+                </object>
+                </property>
+                <property name="[20]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.2618303020326</property>
+                    <property name="y" type="double">593.0961333806313</property>
+                </object>
+                </property>
+                <property name="[21]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.225816177104</property>
+                    <property name="y" type="double">593.080157797549</property>
+                </object>
+                </property>
+                <property name="[22]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.2653195406328</property>
+                    <property name="y" type="double">593.0775906513145</property>
+                </object>
+                </property>
+                <property name="[23]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.2422222222222</property>
+                    <property name="y" type="double">593.0748816768087</property>
+                </object>
+                </property>
+                <property name="[24]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.0880162491537</property>
+                    <property name="y" type="double">593.0071238831201</property>
+                </object>
+                </property>
+                <property name="[25]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.1186595174263</property>
+                    <property name="y" type="double">592.999251976918</property>
+                </object>
+                </property>
+                <property name="[26]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.1196903117807</property>
+                    <property name="y" type="double">593.0175236096538</property>
+                </object>
+                </property>
+                <property name="[27]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.1260154547256</property>
+                    <property name="y" type="double">593.0258254000405</property>
+                </object>
+                </property>
+                <property name="[28]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.1389770023791</property>
+                    <property name="y" type="double">593.0816287878788</property>
+                </object>
+                </property>
+                <property name="[29]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.3853775552775</property>
+                    <property name="y" type="double">593.2760406856282</property>
+                </object>
+                </property>
+                <property name="[30]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.3389447752002</property>
+                    <property name="y" type="double">593.2433661161626</property>
+                </object>
+                </property>
+                <property name="[31]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.4812759386159</property>
+                    <property name="y" type="double">593.3278910337363</property>
+                </object>
+                </property>
+                <property name="[32]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.7317708333335</property>
+                    <property name="y" type="double">593.4564180398959</property>
+                </object>
+                </property>
+                <property name="[33]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.8366986984552</property>
+                    <property name="y" type="double">593.492391097584</property>
+                </object>
+                </property>
+                <property name="[34]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.950583107551</property>
+                    <property name="y" type="double">593.6772445820434</property>
+                </object>
+                </property>
+                <property name="[35]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">983.9536752136751</property>
+                    <property name="y" type="double">593.9708994708994</property>
+                </object>
+                </property>
+                <property name="[36]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">984.0990117825922</property>
+                    <property name="y" type="double">593.8696969696971</property>
+                </object>
+                </property>
+                <property name="[37]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">984.6013029315961</property>
+                    <property name="y" type="double">594.0414710485134</property>
+                </object>
+                </property>
+                <property name="[38]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">984.6971227425774</property>
+                    <property name="y" type="double">594.0416666666665</property>
+                </object>
+                </property>
+                <property name="[39]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">985.2008602711157</property>
+                    <property name="y" type="double">594.0281962978906</property>
+                </object>
+                </property>
+                <property name="[40]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">985.2531889290012</property>
+                    <property name="y" type="double">594.1327160493827</property>
+                </object>
+                </property>
+                <property name="[41]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">985.2413378248316</property>
+                    <property name="y" type="double">594.0990675990674</property>
+                </object>
+                </property>
+                <property name="[42]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">985.2222352115969</property>
+                    <property name="y" type="double">594.0881057268723</property>
+                </object>
+                </property>
+                <property name="[43]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">985.469403824522</property>
+                    <property name="y" type="double">593.9449660928535</property>
+                </object>
+                </property>
+                <property name="[44]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">985.4753785815449</property>
+                    <property name="y" type="double">594.0178663904712</property>
+                </object>
+                </property>
+                <property name="[45]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">985.7968772078566</property>
+                    <property name="y" type="double">594.1644370122631</property>
+                </object>
+                </property>
+                <property name="[46]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">985.9086755052131</property>
+                    <property name="y" type="double">594.1323818897638</property>
+                </object>
+                </property>
+                <property name="[47]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">985.9704603580562</property>
+                    <property name="y" type="double">594.0699667434128</property>
+                </object>
+                </property>
+                <property name="[48]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">985.94418344519</property>
+                    <property name="y" type="double">594.1978183002279</property>
+                </object>
+                </property>
+                <property name="[49]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">985.9537095751425</property>
+                    <property name="y" type="double">594.1673572062741</property>
+                </object>
+                </property>
+                <property name="[50]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">985.9789283874293</property>
+                    <property name="y" type="double">594.1398650548215</property>
+                </object>
+                </property>
+                <property name="[51]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">985.9876091100632</property>
+                    <property name="y" type="double">594.1240087503418</property>
+                </object>
+                </property>
+                <property name="[52]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">986.0905672639497</property>
+                    <property name="y" type="double">594.0736983622587</property>
+                </object>
+                </property>
+                <property name="[53]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">986.0906536804646</property>
+                    <property name="y" type="double">593.989077669903</property>
+                </object>
+                </property>
+                <property name="[54]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">986.2248949089212</property>
+                    <property name="y" type="double">593.8921612541994</property>
+                </object>
+                </property>
+                <property name="[55]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">986.2031405557063</property>
+                    <property name="y" type="double">593.8647573587909</property>
+                </object>
+                </property>
+                <property name="[56]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">986.3742913704671</property>
+                    <property name="y" type="double">593.775565123789</property>
+                </object>
+                </property>
+                <property name="[57]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">986.3307252079048</property>
+                    <property name="y" type="double">593.8111510791368</property>
+                </object>
+                </property>
+                <property name="[58]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">986.3413102660929</property>
+                    <property name="y" type="double">593.732992368891</property>
+                </object>
+                </property>
+                <property name="[59]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">986.3138302493267</property>
+                    <property name="y" type="double">593.7597170271588</property>
+                </object>
+                </property>
+                <property name="[60]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">986.4697356116637</property>
+                    <property name="y" type="double">593.7303484602917</property>
+                </object>
+                </property>
+                <property name="[61]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">986.4988861280096</property>
+                    <property name="y" type="double">593.6328151402499</property>
+                </object>
+                </property>
+                <property name="[62]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">986.4454501568912</property>
+                    <property name="y" type="double">593.758962917372</property>
+                </object>
+                </property>
+                <property name="[63]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">986.4892896987726</property>
+                    <property name="y" type="double">593.7534188034188</property>
+                </object>
+                </property>
+                <property name="[64]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">986.7027009479289</property>
+                    <property name="y" type="double">593.9556199821586</property>
+                </object>
+                </property>
+                <property name="[65]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">987.3256200177148</property>
+                    <property name="y" type="double">593.8692563203545</property>
+                </object>
+                </property>
+                <property name="[66]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">987.2596072635135</property>
+                    <property name="y" type="double">593.8904291011831</property>
+                </object>
+                </property>
+                <property name="[67]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">987.3691413942497</property>
+                    <property name="y" type="double">593.870154373928</property>
+                </object>
+                </property>
+                <property name="[68]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">987.561123214718</property>
+                    <property name="y" type="double">594.0800479198433</property>
+                </object>
+                </property>
+                <property name="[69]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">988.1430615922823</property>
+                    <property name="y" type="double">594.0828338527931</property>
+                </object>
+                </property>
+                <property name="[70]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">988.0732895681608</property>
+                    <property name="y" type="double">594.1048826736194</property>
+                </object>
+                </property>
+                <property name="[71]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">988.1702373450955</property>
+                    <property name="y" type="double">594.2005334626576</property>
+                </object>
+                </property>
+                <property name="[72]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">988.0417575877802</property>
+                    <property name="y" type="double">594.0817490494296</property>
+                </object>
+                </property>
+                <property name="[73]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">988.0284498422111</property>
+                    <property name="y" type="double">594.2461002323266</property>
+                </object>
+                </property>
+                <property name="[74]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">988.0281369174959</property>
+                    <property name="y" type="double">594.1715499560505</property>
+                </object>
+                </property>
+                <property name="[75]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">988.0044048734771</property>
+                    <property name="y" type="double">594.186567164179</property>
+                </object>
+                </property>
+                <property name="[76]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">988.1844613076855</property>
+                    <property name="y" type="double">594.1557337220602</property>
+                </object>
+                </property>
+                <property name="[77]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">988.1999105545617</property>
+                    <property name="y" type="double">594.0681222707424</property>
+                </object>
+                </property>
+                <property name="[78]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">988.1815247192005</property>
+                    <property name="y" type="double">594.0668586052464</property>
+                </object>
+                </property>
+                <property name="[79]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">988.6871500933084</property>
+                    <property name="y" type="double">594.0816221765913</property>
+                </object>
+                </property>
+                <property name="[80]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">989.3240286298569</property>
+                    <property name="y" type="double">596.5491228070175</property>
+                </object>
+                </property>
+                <property name="[81]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">989.2423671689135</property>
+                    <property name="y" type="double">596.7220943613347</property>
+                </object>
+                </property>
+                <property name="[82]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">990.2715187939289</property>
+                    <property name="y" type="double">603.9839221014493</property>
+                </object>
+                </property>
+                <property name="[83]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">990.24562782472</property>
+                    <property name="y" type="double">603.9705882352941</property>
+                </object>
+                </property>
+                <property name="[84]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">990.3087333474309</property>
+                    <property name="y" type="double">603.8475266123983</property>
+                </object>
+                </property>
+                <property name="[85]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">991.4074647746577</property>
+                    <property name="y" type="double">616.4955599407992</property>
+                </object>
+                </property>
+                <property name="[86]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">991.3610500143445</property>
+                    <property name="y" type="double">616.3643332817096</property>
+                </object>
+                </property>
+                <property name="[87]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">992.4916291049581</property>
+                    <property name="y" type="double">633.7177669472751</property>
+                </object>
+                </property>
+                <property name="[88]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">992.4117347976407</property>
+                    <property name="y" type="double">633.7699662542182</property>
+                </object>
+                </property>
+                <property name="[89]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">991.0</property>
+                    <property name="y" type="double">665.0</property>
+                </object>
+                </property>
+                <property name="[90]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">991.0</property>
+                    <property name="y" type="double">665.0</property>
+                </object>
+                </property>
+                <property name="[91]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">991.1558711778541</property>
+                    <property name="y" type="double">691.2459658828952</property>
+                </object>
+                </property>
+                <property name="[92]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">991.1366735233619</property>
+                    <property name="y" type="double">691.1688892041425</property>
+                </object>
+                </property>
+                <property name="[93]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">992.2133830694274</property>
+                    <property name="y" type="double">721.6717072101687</property>
+                </object>
+                </property>
+                <property name="[94]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">992.1841131181523</property>
+                    <property name="y" type="double">721.75525990099</property>
+                </object>
+                </property>
+                <property name="[95]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">995.0</property>
+                    <property name="y" type="double">768.0</property>
+                </object>
+                </property>
+                <property name="[96]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">995.0</property>
+                    <property name="y" type="double">768.0</property>
+                </object>
+                </property>
+                <property name="[97]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">992.3080808080808</property>
+                    <property name="y" type="double">808.9011093777085</property>
+                </object>
+                </property>
+                <property name="[98]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">994.6981492361929</property>
+                    <property name="y" type="double">809.692422205148</property>
+                </object>
+                </property>
+                <property name="[99]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">993.0</property>
+                    <property name="y" type="double">854.0</property>
+                </object>
+                </property>
+                <property name="[100]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">993.059042597707</property>
+                    <property name="y" type="double">853.9586134940878</property>
+                </object>
+                </property>
+                <property name="[101]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">990.8853546910755</property>
+                    <property name="y" type="double">887.4600665557402</property>
+                </object>
+                </property>
+                <property name="[102]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">990.9573358867965</property>
+                    <property name="y" type="double">885.6038406827879</property>
+                </object>
+                </property>
+                <property name="[103]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">997.0</property>
+                    <property name="y" type="double">968.0</property>
+                </object>
+                </property>
+                <property name="[104]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">996.0</property>
+                    <property name="y" type="double">1028.0</property>
+                </object>
+                </property>
+                <property name="[105]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">996.0</property>
+                    <property name="y" type="double">1028.0</property>
+                </object>
+                </property>
+                <property name="[106]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">993.0</property>
+                    <property name="y" type="double">1070.0</property>
+                </object>
+                </property>
+                <property name="[107]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">993.0</property>
+                    <property name="y" type="double">1070.0</property>
+                </object>
+                </property>
+                <property name="[108]" type="object">
+                <object class="org.opensourcephysics.cabrillo.tracker.PointMass$FrameData">
+                    <property name="x" type="double">993.0</property>
+                    <property name="y" type="double">1070.0</property>
+                </object>
+                </property>
+            </property>
+            <property name="keyFrames" type="array" class="[I">
+                <property name="array" type="string">{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108}</property>
+            </property>
+        </object>
+        </property>
     </property>
+    <property name="selectedtrack" type="string">masa A</property>
     <property name="dividers" type="array" class="[D">
-        <property name="array" type="string">{0.7416750756811302,0.5923566878980892,1.0,0.33703329969727547}</property>
+        <property name="array" type="string">{0.7971473851030111,0.5812274368231047,1.0,0.26465927099841524}</property>
     </property>
     <property name="selected_view_types" type="array" class="[I">
         <property name="array" type="string">{0,1,2,3}</property>
@@ -129,4 +806,6 @@
         <property name="stretch_acceleration" type="int">1</property>
     </object>
     </property>
+    <property name="track_control_x" type="int">223</property>
+    <property name="track_control_y" type="int">86</property>
 </object>
