@@ -2,7 +2,7 @@ import os
 import shutil
 
 # Nombre base del archivo .trk original
-archivo_base = "../tracker_proyects/clip_337.trk"
+archivo_base = "../tracker_proyects/clip_550.trk"
 
 # Número final hasta donde quieres hacer las copias
 numero_final = 609  # Ajusta este número según de videos
@@ -23,7 +23,7 @@ else:
 
         # Reemplaza el nombre del video en el contenido
         # Se asume que el nombre original del video es clip_001.mp4
-        contenido_modificado = contenido_base.replace("clip_337.mp4", nuevo_video)
+        contenido_modificado = contenido_base.replace("clip_550.mp4", nuevo_video)
 
         with open(nuevo_nombre, "w", encoding="utf-8") as f:
             f.write(contenido_modificado)
