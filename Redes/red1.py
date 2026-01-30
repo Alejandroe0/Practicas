@@ -10,10 +10,10 @@ DATA_DIR = "/home/alejandro/Practicas/Toma_de_datos/datos"
 FILE_GLOB = os.path.join(DATA_DIR, "*.txt")
 
 name = 'red1'
-epocas = 400
+epocas = 700
 
 # ================================================================
-# 1. Lectura de datos
+# 1. Lectura de datos (solo t e y)
 # ================================================================
 def read_freefall_file(path):
     """
@@ -46,21 +46,17 @@ class FreefallDataset(Dataset):
                 continue
             t = arr[:,0]
             y = arr[:,2]
-            vy = arr[:,4]
-            ay = arr[:,6]
+            
+            # Solo usamos t e y, filtramos NaN
             mask = ~np.isnan(t) & ~np.isnan(y)
             t = t[mask]
             y = y[mask]
-            vy = vy[mask]
-            ay = ay[mask]
 
-            # Rellenar NaN después del filtrado
-            vy = np.where(np.isnan(vy), 0.0, vy)
-            ay = np.where(np.isnan(ay), 0.0, ay)
-
-            for ti, vyi, ayi, yi in zip(t, vy, ay, y):
-                self.X.append([ti, vyi, ayi])
+            for ti, yi in zip(t, y):
+                # Entrada: solo tiempo, Salida: posición y
+                self.X.append([ti])
                 self.Y.append([yi])
+                
         self.X = np.array(self.X, dtype=np.float32)
         self.Y = np.array(self.Y, dtype=np.float32)
 
@@ -75,18 +71,20 @@ class FreefallDataset(Dataset):
 
     def __len__(self):
         return len(self.Xn)
+    
     def __getitem__(self, idx):
         return torch.from_numpy(self.Xn[idx]), torch.from_numpy(self.Yn[idx])
 
 # ================================================================
-# 2. Modelo 3→2→1
+# 2. Modelo 1→2→1 (adaptado para 1 entrada)
 # ================================================================
 class SmallNet(nn.Module):
     def __init__(self):
         super().__init__()
-        self.fc1 = nn.Linear(3, 2)
+        self.fc1 = nn.Linear(1, 2)  # 1 entrada en lugar de 3
         self.act = nn.ReLU()
         self.fc2 = nn.Linear(2, 1)
+    
     def forward(self, x):
         return self.fc2(self.act(self.fc1(x)))
 
@@ -144,8 +142,13 @@ def export_weights(model, file_path="outs/pesos_red.csv"):
     print("Pesos guardados en:", file_path)
 
 def main():
+    # Crear directorio de salida si no existe
+    os.makedirs("outs", exist_ok=True)
+    
     ds = FreefallDataset(FILE_GLOB)
     print("Total muestras:", len(ds))
+    print(f"Rango de tiempo: {ds.X.min():.2f} a {ds.X.max():.2f} s")
+    print(f"Rango de posición: {ds.Y.min():.2f} a {ds.Y.max():.2f} m")
 
     model, device = train_model(ds, epochs=epocas, batch_size=512, lr=1e-3)
 
@@ -162,19 +165,22 @@ def main():
 
     # Guardar predicciones
     df = pd.DataFrame({
-        "t": ds.X[:,0],
-        "vy": ds.X[:,1],
-        "ay": ds.X[:,2],
-        "y_real": y_real.flatten(),
-        "y_pred": y_pred.flatten()
+        "t": ds.X[:,0],           # Tiempo
+        "y_real": y_real.flatten(),  # Posición real
+        "y_pred": y_pred.flatten()   # Posición predicha
     })
     df.to_csv(f"outs/predicciones_{name}_ep{epocas}.csv", index=False)
-    print("Predicciones guardadas en: predicciones.csv")
+    print(f"Predicciones guardadas en: outs/predicciones_{name}_ep{epocas}.csv")
 
     # Ajuste cuadrático sobre las predicciones
     coef = fit_quadratic(ds.X[:,0], y_pred.flatten())
     print(f"Coeficientes cuadráticos (c0, c1, c2): {coef}")
-    print(f"g_aprendido ≈ {2*coef[2]:.4f} m/s²")
+    print(f"g_aprendido ≈ {-2*coef[2]:.4f} m/s²")  # Negativo porque y aumenta hacia arriba
+
+    # También ajuste cuadrático sobre datos reales para comparar
+    coef_real = fit_quadratic(ds.X[:,0], y_real.flatten())
+    print(f"Coeficientes reales (c0, c1, c2): {coef_real}")
+    print(f"g_real ≈ {-2*coef_real[2]:.4f} m/s²")
 
 if __name__ == "__main__":
     main()
