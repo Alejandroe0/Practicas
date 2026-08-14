@@ -1,0 +1,52 @@
+\begin{thebibliography}{10}
+
+\bibitem{triola_2018_estadstica}
+M.~F. Triola, {\em Estadística}.
+\newblock Pearson Educación de México, S.A. de C.V., 2018.
+
+\bibitem{zill_1985_clculo}
+D.~G. Zill, {\em Cálculo con geometría analítica}.
+\newblock Grupo Editorial Iberoamérica, 1985.
+
+\bibitem{antonio_2023_introduccin}
+J.~Antonio, ``Introducción a las redes neuronales: explicación completa en
+  español,'' 08.
+
+\bibitem{ibm_qu}
+IBM, ``¿qué son las redes neuronales? | ibm.''
+
+\bibitem{santana_2018_1}
+C.~Santana, ``¿qué es una red neuronal? parte 1 : La neurona | dotcsv,'' 03
+  2018.
+
+\bibitem{santana_2018_2}
+C.~Santana, ``¿qué es una red neuronal? parte 2 : La red | dotcsv,'' 05 2018.
+
+\bibitem{santana_2018_3}
+C.~Santana, ``¿qué es una red neuronal? parte 3 : Backpropagation | dotcsv,''
+  10 2018.
+
+\bibitem{santana_2018_3_5}
+C.~Santana, ``¿qué es una red neuronal? parte 3.5 : Las matemáticas de
+  backpropagation | dotcsv,'' 10 2018.
+
+\bibitem{wikipediacontributors_2018_activation}
+W.~Contributors, ``Activation function,'' 11 2018.
+
+\bibitem{TensorFlow}
+www.tensorflow.com, ``Por qué tensorflow,'' 2014.
+
+\bibitem{Fisica}
+F.~J. Blatt, {\em Fundamentos de Física}.
+\newblock Prentice-Hall Hispanoamericana, S.A., 1991.
+
+\bibitem{Amita}
+S.~P. Amita~Kapoor, Antonio~Gulli, {\em Deep Learning with TensorFlow and
+  Keras}.
+\newblock Packt Publishing Ltd., 2022.
+
+\bibitem{Jesus}
+J.~Mart\'inez', {\em TensorFlow 2.0 Computer Vision Cookbook}.
+\newblock Packt Publishing Ltd., 2021.
+
+\end{thebibliography}
