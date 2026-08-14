@@ -1,0 +1,141 @@
+==============================================================================
+PROYECTO v2 — verificación del supuesto del anteproyecto
+==============================================================================
+
+Datos: /home/alejandro/Documentos/personal/Practicas/Toma_de_datos/datos
+
+[crudo]
+clips=606  muestras=20210
+  duración   media=0.539 s   rango=[0.27, 1.80]
+  puntos/clip media=33.3     rango=[17, 109]
+  v0         media=-0.213    std=0.265 m/s
+  g por clip mediana=-9.378 media=-9.002 std=2.357 m/s²
+  residuo del ajuste  mediana=0.0350 m  (suelo de ruido)
+
+[filtro de calidad: residuo < 0.08 m]  606 -> 581 clips  (25 descartados)
+clips=581  muestras=18992
+  duración   media=0.528 s   rango=[0.27, 1.02]
+  puntos/clip media=32.7     rango=[17, 62]
+  v0         media=-0.205    std=0.247 m/s
+  g por clip mediana=-9.426 media=-9.179 std=1.817 m/s²
+  residuo del ajuste  mediana=0.0343 m  (suelo de ruido)
+
+>>> Referencia experimental: g mediana = -9.426 m/s²  (3.9 % de -9.81)
+
+------------------------------------------------------------------------------
+Semilla 0: 407 clips train / 87 val / 87 test
+  base física (g global = -9.375): RMSE=0.2630 m  R²=0.752
+  base ajuste por clip (oráculo):      RMSE=0.0410 m  R²=0.994  g_med=-9.511
+  [v1     |simple   ] RMSE=0.5685  R²= 0.103  g_med= -0.000  err=100.0%  (1.5s, 81 ep)
+  [v1     |media    ] RMSE=0.4881  R²= 0.339  g_med= +0.000  err=100.0%  (2.3s, 286 ep)
+  [v1     |tanh_deep] RMSE=0.4867  R²= 0.342  g_med= -2.045  err= 79.2%  (2.5s, 181 ep)
+  [tau    |simple   ] RMSE=0.2065  R²= 0.847  g_med= -7.411  err= 24.5%  (1.5s, 165 ep)
+  [tau    |media    ] RMSE=0.2065  R²= 0.847  g_med= -7.317  err= 25.4%  (1.4s, 158 ep)
+  [tau    |tanh_deep] RMSE=0.1875  R²= 0.874  g_med= -9.049  err=  7.8%  (4.6s, 407 ep)
+  [tau_v0 |simple   ] RMSE=0.2008  R²= 0.856  g_med= +0.000  err=100.0%  (1.2s, 146 ep)
+  [tau_v0 |media    ] RMSE=0.1779  R²= 0.887  g_med= -8.290  err= 15.5%  (1.6s, 190 ep)
+  [tau_v0 |tanh_deep] RMSE=0.1533  R²= 0.916  g_med= -9.865  err=  0.6%  (3.3s, 282 ep)
+
+------------------------------------------------------------------------------
+Semilla 1: 407 clips train / 87 val / 87 test
+  base física (g global = -9.432): RMSE=0.2303 m  R²=0.799
+  base ajuste por clip (oráculo):      RMSE=0.0396 m  R²=0.994  g_med=-9.410
+  [v1     |simple   ] RMSE=0.5996  R²=-0.003  g_med= -0.000  err=100.0%  (1.2s, 152 ep)
+  [v1     |media    ] RMSE=0.4937  R²= 0.320  g_med= +0.000  err=100.0%  (0.8s, 96 ep)
+  [v1     |tanh_deep] RMSE=0.4905  R²= 0.329  g_med= -2.406  err= 75.5%  (3.0s, 271 ep)
+  [tau    |simple   ] RMSE=0.2181  R²= 0.820  g_med= +0.000  err=100.0%  (1.8s, 223 ep)
+  [tau    |media    ] RMSE=0.1956  R²= 0.855  g_med= -7.726  err= 21.2%  (1.7s, 203 ep)
+  [tau    |tanh_deep] RMSE=0.1917  R²= 0.861  g_med= -9.510  err=  3.1%  (1.2s, 109 ep)
+  [tau_v0 |simple   ] RMSE=0.1866  R²= 0.868  g_med= -7.886  err= 19.6%  (1.3s, 160 ep)
+  [tau_v0 |media    ] RMSE=0.1840  R²= 0.872  g_med= -7.195  err= 26.7%  (2.9s, 329 ep)
+  [tau_v0 |tanh_deep] RMSE=0.1647  R²= 0.897  g_med= -9.072  err=  7.5%  (1.5s, 121 ep)
+
+------------------------------------------------------------------------------
+Semilla 2: 407 clips train / 87 val / 87 test
+  base física (g global = -9.438): RMSE=0.2259 m  R²=0.796
+  base ajuste por clip (oráculo):      RMSE=0.0401 m  R²=0.994  g_med=-9.384
+  [v1     |simple   ] RMSE=0.4760  R²= 0.322  g_med= +0.000  err=100.0%  (1.2s, 137 ep)
+  [v1     |media    ] RMSE=0.4763  R²= 0.321  g_med= -0.000  err=100.0%  (1.4s, 152 ep)
+  [v1     |tanh_deep] RMSE=0.4743  R²= 0.327  g_med= -3.077  err= 68.6%  (1.6s, 123 ep)
+  [tau    |simple   ] RMSE=0.1746  R²= 0.878  g_med= -0.000  err=100.0%  (2.2s, 261 ep)
+  [tau    |media    ] RMSE=0.1314  R²= 0.931  g_med= -8.203  err= 16.4%  (2.1s, 247 ep)
+  [tau    |tanh_deep] RMSE=0.1274  R²= 0.935  g_med= -8.987  err=  8.4%  (4.7s, 356 ep)
+  [tau_v0 |simple   ] RMSE=0.1450  R²= 0.916  g_med= -7.031  err= 28.3%  (2.2s, 253 ep)
+  [tau_v0 |media    ] RMSE=0.1434  R²= 0.918  g_med= -7.974  err= 18.7%  (1.5s, 167 ep)
+  [tau_v0 |tanh_deep] RMSE=0.1181  R²= 0.944  g_med= -9.672  err=  1.4%  (4.5s, 355 ep)
+
+------------------------------------------------------------------------------
+Semilla 3: 407 clips train / 87 val / 87 test
+  base física (g global = -9.354): RMSE=0.1364 m  R²=0.935
+  base ajuste por clip (oráculo):      RMSE=0.0388 m  R²=0.995  g_med=-9.653
+  [v1     |simple   ] RMSE=0.4883  R²= 0.348  g_med= +0.000  err=100.0%  (2.0s, 219 ep)
+  [v1     |media    ] RMSE=0.4857  R²= 0.355  g_med= -2.896  err= 70.5%  (0.9s, 110 ep)
+  [v1     |tanh_deep] RMSE=0.4854  R²= 0.356  g_med= -3.472  err= 64.6%  (3.5s, 299 ep)
+  [tau    |simple   ] RMSE=0.1991  R²= 0.862  g_med= +0.000  err=100.0%  (2.5s, 319 ep)
+  [tau    |media    ] RMSE=0.1577  R²= 0.913  g_med= -7.203  err= 26.6%  (1.8s, 230 ep)
+  [tau    |tanh_deep] RMSE=0.1519  R²= 0.920  g_med= -9.048  err=  7.8%  (1.8s, 127 ep)
+  [tau_v0 |simple   ] RMSE=0.1898  R²= 0.875  g_med= -0.000  err=100.0%  (1.5s, 177 ep)
+  [tau_v0 |media    ] RMSE=0.1348  R²= 0.937  g_med= -7.004  err= 28.6%  (2.3s, 233 ep)
+  [tau_v0 |tanh_deep] RMSE=0.1325  R²= 0.939  g_med= -9.187  err=  6.4%  (3.6s, 279 ep)
+
+------------------------------------------------------------------------------
+Semilla 4: 407 clips train / 87 val / 87 test
+  base física (g global = -9.410): RMSE=0.1543 m  R²=0.923
+  base ajuste por clip (oráculo):      RMSE=0.0408 m  R²=0.995  g_med=-9.426
+  [v1     |simple   ] RMSE=0.5500  R²= 0.284  g_med= +0.000  err=100.0%  (3.4s, 397 ep)
+  [v1     |media    ] RMSE=0.5480  R²= 0.289  g_med= -3.173  err= 67.7%  (0.9s, 105 ep)
+  [v1     |tanh_deep] RMSE=0.5482  R²= 0.289  g_med= -2.838  err= 71.1%  (2.8s, 239 ep)
+  [tau    |simple   ] RMSE=0.1918  R²= 0.881  g_med= -7.684  err= 21.7%  (0.9s, 113 ep)
+  [tau    |media    ] RMSE=0.1787  R²= 0.896  g_med= -7.584  err= 22.7%  (7.0s, 800 ep)
+  [tau    |tanh_deep] RMSE=0.1766  R²= 0.899  g_med= -8.745  err= 10.9%  (2.9s, 250 ep)
+  [tau_v0 |simple   ] RMSE=0.1633  R²= 0.914  g_med= -8.462  err= 13.7%  (0.8s, 98 ep)
+  [tau_v0 |media    ] RMSE=0.1570  R²= 0.920  g_med= -7.173  err= 26.9%  (0.8s, 102 ep)
+  [tau_v0 |tanh_deep] RMSE=0.1412  R²= 0.935  g_med= -9.512  err=  3.0%  (2.0s, 171 ep)
+
+Tiempo total: 98.4 s
+
+==============================================================================
+RESUMEN  (media ± desv. est. sobre semillas, evaluado en clips no vistos)
+==============================================================================
+
+formulación arquitectura         RMSE [m]      R²         g mediana    err g
+------------------------------------------------------------------------------
+v1         media         0.4984 ± 0.0284   0.325    -1.214 ± 1.665    87.6%
+v1         simple        0.5365 ± 0.0528   0.211    +0.000 ± 0.000   100.0%
+v1         tanh_deep     0.4970 ± 0.0292   0.329    -2.767 ± 0.559    71.8%
+
+tau        media         0.1740 ± 0.0301   0.889    -7.607 ± 0.393    22.5%
+tau        simple        0.1980 ± 0.0163   0.858    -3.019 ± 4.135    69.2%
+tau        tanh_deep     0.1670 ± 0.0270   0.898    -9.068 ± 0.277     7.6%
+
+tau_v0     media         0.1594 ± 0.0213   0.907    -7.527 ± 0.568    23.3%
+tau_v0     simple        0.1771 ± 0.0226   0.886    -4.676 ± 4.299    52.3%
+tau_v0     tanh_deep     0.1420 ± 0.0181   0.926    -9.461 ± 0.330     3.8%
+
+------------------------------------------------------------------------------
+MRUV con g global (1 parám.)             RMSE=0.2020 ± 0.0540   R²= 0.841   g=-9.402
+ajuste por clip (oráculo)                RMSE=0.0401 ± 0.0009   R²= 0.994   g=-9.477
+predictor constante (media)              RMSE=0.5534
+suelo de ruido (residuo del ajuste)      RMSE≈0.0343
+
+==============================================================================
+VEREDICTO
+==============================================================================
+
+Referencias
+    g física verdadera                        -9.810 m/s²
+    g que el método clásico saca de los datos -9.477 m/s²  (sesgo del experimento: 3.4 %)
+
+Formulación v1 (la del proyecto original)
+    mejor error en g = 71.8 %  ->  el supuesto NO se puede verificar
+
+Formulación tau_v0 (corregida), arquitectura 'tanh_deep'
+    g recuperada = -9.461 ± 0.330 m/s²
+    error frente al método clásico sobre los mismos datos :   0.2 %
+    error frente al valor físico verdadero                :   3.8 %
+    RMSE = 0.1420 m  (oráculo 0.0401, trivial 0.5534)
+
+>>> El supuesto del anteproyecto SE VERIFICA.
+    Reformulado de modo que el problema sea identificable, la red
+    recupera la gravedad que contienen los datos. El resto de la
+    diferencia con -9.81 es sesgo experimental, no fallo de la red.
