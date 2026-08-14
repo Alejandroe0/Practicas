@@ -1,0 +1,65 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: anteproyectoPractica.aux
+Reallocating 'name_of_file' (item size: 1) to 7 items.
+The style file: ieeetr.bst
+Reallocating 'name_of_file' (item size: 1) to 12 items.
+Database file #1: referencias.bib
+"{" immediately follows a field part---line 27 of file referencias.bib
+ :   url = \url
+ :             {https://iartificial.blog/tipos/machine-learning/introduccion-a-las-redes-neuronales-explicacion-completa-en-espanol/},
+I'm skipping whatever remains of this entry
+"{" immediately follows a field part---line 75 of file referencias.bib
+ :   url = url
+ :            {https://www.ibm.com/es-es/topics/neural-networks},
+I'm skipping whatever remains of this entry
+Warning--entry type for "TensorFlow" isn't style-file defined
+--line 219 of file referencias.bib
+Warning--can't use both author and editor fields in triola_2018_estadstica
+Warning--can't use both author and editor fields in zill_1985_clculo
+Warning--there's a month but no year in antonio_2023_introduccin
+Warning--can't use both author and editor fields in Fisica
+Warning--can't use both author and editor fields in Amita
+Warning--can't use both author and editor fields in Jesus
+You've used 13 entries,
+            1876 wiz_defined-function locations,
+            539 strings with 4714 characters,
+and the built_in function-call counts, 1753 in all, are:
+= -- 148
+> -- 52
+< -- 0
++ -- 26
+- -- 13
+* -- 84
+:= -- 252
+add.period$ -- 17
+call.type$ -- 13
+change.case$ -- 8
+chr.to.int$ -- 0
+cite$ -- 19
+duplicate$ -- 77
+empty$ -- 245
+format.name$ -- 13
+if$ -- 437
+int.to.chr$ -- 0
+int.to.str$ -- 13
+missing$ -- 10
+newline$ -- 47
+num.names$ -- 13
+pop$ -- 77
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 42
+stack$ -- 0
+substring$ -- 0
+swap$ -- 10
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 6
+while$ -- 13
+width$ -- 15
+write$ -- 102
+(There were 2 error messages)
