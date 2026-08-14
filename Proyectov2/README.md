@@ -1,0 +1,156 @@
+# Proyecto v2 — verificación del supuesto del anteproyecto
+
+**Aquí las cosas se hacen de la forma correcta.** Esta carpeta rehace el
+experimento del año de prácticas corrigiendo el defecto de planteamiento que se
+documenta en [`../informe final/BITACORA-correcciones.md`](../informe%20final/BITACORA-correcciones.md).
+
+El código de v1 (`../Redes/`) y el informe (`../informe final/`) se dejan
+intactos: sirven de registro de lo que pasó y de control contra el cual medir.
+
+---
+
+## El supuesto que se quiere verificar
+
+Del anteproyecto (mayo 2024):
+
+> Estudiar la teoría […] para entender la estructura interna de las redes
+> neuronales aplicadas a la elaboración de modelos matemáticos que describan el
+> comportamiento de los datos de montajes experimentales de caída libre.
+
+Operacionalizado como criterio medible:
+
+> Si se entrena una red con trayectorias reales de caída libre y después se
+> ajusta una parábola a sus predicciones, ¿aparece el valor correcto de `g`?
+
+## Qué estaba mal en v1
+
+Los 606 clips se concatenaban y se pedía a la red aprender `y = f(t)`. Como cada
+clip tiene su propio origen temporal y su propia altura inicial, **el mismo `t`
+aparecía asociado a valores de `y` que difieren en más de un metro**. Ninguna
+función puede satisfacer eso: el problema no era identificable, y la mejor
+solución posible del error cuadrático era la media condicional `E[y|t]`, que es
+casi una recta y cuyo coeficiente cuadrático vale ≈ 0.
+
+La red convergía a esa solución. Respondía bien una pregunta mal hecha.
+
+## Qué se corrige aquí
+
+| | v1 | v2 |
+|---|---|---|
+| **Formulación** | `t → y`, clips concatenados | `(τ, v₀) → Δy`, cada clip a su origen |
+| **Partición** | 80/20 por **punto** (fuga entre clips) | por **clip completo**, 70/15/15 |
+| **Normalización** | sobre todo el conjunto (fuga) | ajustada solo con clips de entrenamiento |
+| **Semillas** | 1 | 5, con media ± desv. est. |
+| **Parada** | número fijo de épocas | parada temprana sobre clips de validación no vistos |
+| **Línea base** | ninguna | 3: predictor constante, MRUV con `g` global, ajuste por clip |
+| **Estimación de `g`** | un ajuste sobre **todos los clips agregados** ← el error | un ajuste **por clip** |
+| **Calidad de datos** | sin filtro | descarta clips con residuo > 8 cm (fallos de seguimiento) |
+
+con `τ = t − t₀` y `Δy = y − y₀` medidos dentro de cada clip.
+
+Bajo esa formulación la ecuación de MRUV
+
+```
+Δy = v₀·τ + ½·g·τ²
+```
+
+**sí** es una función bien definida de las entradas, con `g` como único parámetro
+compartido por todos los clips. La pregunta pasa a tener respuesta.
+
+### Por qué hace falta `v₀`
+
+Al referir cada clip a su origen, `y₀` desaparece del problema. `v₀` no: la
+velocidad inicial varía entre clips (media −0.22 m/s, desv. est. 0.49 m/s, rango
+de −3.8 a +1.6), porque no todos los clips arrancan en el instante de la
+soltada. Sin `v₀` como entrada el problema sigue siendo parcialmente ambiguo —
+por eso se evalúan las dos variantes (`tau` y `tau_v0`) y se mide la diferencia
+en vez de suponerla.
+
+`v₀` se estima por ajuste lineal a los **3 primeros puntos** de cada clip.
+*Tracker* no da velocidad en el primer fotograma (necesita uno previo), y usar
+solo el arranque evita que la estimación absorba la curvatura, que es
+precisamente lo que se quiere medir después.
+
+---
+
+## Cómo ejecutarlo
+
+Requiere `numpy`, `pandas`, `matplotlib` y `torch` (CPU basta).
+
+```bash
+cd src
+python3 run_all.py              # experimento completo, 5 semillas (~2 min)
+python3 figures.py              # figuras a partir de los resultados
+```
+
+Opciones útiles:
+
+```bash
+python3 run_all.py --seeds 2            # versión rápida
+python3 run_all.py --sin-filtro         # sin descartar clips de mala calidad
+python3 run_all.py --max-resid 0.15     # filtro más permisivo
+python3 run_all.py --epochs 1500 --lr 5e-3
+```
+
+## Estructura
+
+```
+Proyectov2/
+├── README.md
+├── src/
+│   ├── dataset.py    carga de clips, las 3 formulaciones, partición POR CLIP
+│   ├── models.py     las mismas 3 arquitecturas de v1 (para comparar de igual a igual)
+│   ├── baseline.py   las 3 líneas base clásicas
+│   ├── train.py      entrenamiento con parada temprana
+│   ├── evaluate.py   métricas y recuperación de g CLIP POR CLIP
+│   ├── run_all.py    experimento completo
+│   └── figures.py    figuras
+├── outs/             resultados (csv, resumen.txt, log)
+└── figs/             figuras
+```
+
+## Diseño experimental
+
+**3 formulaciones × 3 arquitecturas × 5 semillas = 45 entrenamientos.**
+
+Formulaciones:
+
+| clave | entrada → salida | qué prueba |
+|---|---|---|
+| `v1` | `t → y` | control: reproduce el planteamiento original, debe fallar |
+| `tau` | `τ → Δy` | ¿basta con referir cada clip a su origen? |
+| `tau_v0` | `(τ, v₀) → Δy` | formulación identificable completa |
+
+Arquitecturas (idénticas a las de v1, a propósito):
+
+| clave | red | ~parámetros |
+|---|---|---|
+| `simple` | `entrada→2→1`, ReLU | 7–9 |
+| `media` | `entrada→4→1`, ReLU | 13–17 |
+| `tanh_deep` | `entrada→32→32→1`, tanh | ~1 150 |
+
+Mantener las mismas redes es deliberado: si el resultado cambia, el cambio viene
+de **cómo se plantea el problema**, no de haber usado una red distinta.
+
+Líneas base:
+
+| base | qué es | para qué sirve |
+|---|---|---|
+| predictor constante | devuelve siempre la media | mínimo que hay que superar |
+| MRUV con `g` global | `Δy = v₀τ + ½gτ²`, una sola `g` ajustada en train | **el rival de verdad**: física con 1 parámetro |
+| ajuste por clip | parábola independiente por clip de prueba | suelo de error alcanzable (lo que queda es ruido) |
+
+## Métricas
+
+- **Nivel 1 — predicción:** RMSE, MAE, R², correlación, sobre **clips no vistos**.
+- **Nivel 2 — física:** se ajusta una parábola a las predicciones **de cada clip
+  por separado** y se compara la mediana de las `g` resultantes con −9.81 m/s².
+
+El nivel 2 es el que verifica el supuesto. Hacerlo sobre clips agregados —lo que
+se hizo en v1— produce un número sin significado físico.
+
+## Resultados
+
+Ver [`outs/resumen.txt`](outs/resumen.txt) para la corrida completa, y
+`figs/` para las figuras. El resumen está también al final de este README tras
+cada ejecución de `run_all.py`.
