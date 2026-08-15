@@ -1,0 +1,95 @@
+==============================================================================
+INSPECCIÓN DE LA RED ENTRENADA
+==============================================================================
+
+Formulación tau_v0, semilla 0, 407 clips de entrenamiento / 87 de prueba
+  [simple   ]    9 parám.  RMSE=0.2008  g=+0.000  (146 ep)
+  [tanh_deep] 1185 parám.  RMSE=0.1533  g=-9.865  (282 ep)
+
+------------------------------------------------------------------------------
+1. RED SIMPLE (2 unidades ReLU, 9 parámetros): la función completa
+------------------------------------------------------------------------------
+  En unidades físicas, con tau en s y v0 en m/s:
+    h0 = max(0,  +0.0818*tau +0.8302*v0 -0.2710)
+    h1 = max(0,  -4.5299*tau +0.4101*v0 +3.0559)
+    dy = +0.0061*h0  +0.6173*h1  -1.5848
+
+  Es una función lineal a trozos con dos quiebres. Su segunda derivada
+  es cero en todas partes salvo en los quiebres, donde no existe: no hay
+  ningún valor de los 9 parámetros que produzca una curvatura constante,
+  que es lo que se necesita para representar g.
+
+------------------------------------------------------------------------------
+2. RED TANH 32x32: derivadas de la función aprendida
+------------------------------------------------------------------------------
+
+  Evaluado en los 2843 puntos experimentales de los 87 clips de prueba
+  (tau en [0.00, 0.93] s, v0 en [-1.25, +0.05] m/s)
+
+  a) Curvatura  d2(dy)/dtau2   [física: constante = g]
+       media   = -5.067 m/s²
+       mediana = -7.782 m/s²
+       desv.   =  27.505 m/s²  (542.8 % de la media)
+       rango intercuartil = [-13.877, -2.771]
+     comparar con g del ajuste por clip a los datos: -9.511 m/s²
+
+     dependencia de v0:  -2.627 (m/s²)/(m/s)   [física: 0]
+     dependencia de tau: +37.347 (m/s²)/s       [física: 0]
+
+  b) Sensibilidad a la velocidad inicial  d(dy)/dv0   [física: = tau]
+       ajuste  d(dy)/dv0 = +3.5549*tau -0.3978   [física: 1.0*tau + 0.0]
+       R² del ajuste = 0.2583
+
+  c) Velocidad  d(dy)/dtau   [física: = v0 + g*tau]
+       ajuste  d(dy)/dtau = -0.9553 +0.3097*v0 -5.2518*tau   [física: 0 + 1.0*v0 + g*tau]
+       R² del ajuste = 0.3468
+
+  Las tres derivadas tienen la magnitud y el signo correctos, pero
+  ninguna es la constante ni la recta exacta que dicta la física: la
+  curvatura fluctúa varios m/s² a lo largo del dominio. La red no
+  implementa un término de curvatura constante; lo que reproduce bien es
+  la curvatura PROMEDIADA sobre cada clip, que es la que recoge el ajuste
+  parabólico por clip del nivel 2.
+
+------------------------------------------------------------------------------
+3. LECTURA DE LA ECUACIÓN APRENDIDA, CONTRA LOS DATOS
+------------------------------------------------------------------------------
+
+  Se ajusta  dy = a*tau + b*v0*tau + c*tau^2  a la superficie de salida
+  de la red Y, como control, a los datos experimentales mismos. Sin ese
+  control no se puede saber si una desviación respecto de (0, 1, g/2) es
+  culpa de la red o una propiedad del conjunto de datos.
+
+  [todo el dominio]  (2843 puntos)
+                    a         b    2c = g      R²
+    física     +0.000    +1.000    -9.810      --
+    datos      -0.808    +0.814    -4.674   0.854
+    red        -0.979    +0.486    -4.657   0.927
+
+  [tau < 0.6 s]  (2696 puntos)
+                    a         b    2c = g      R²
+    física     +0.000    +1.000    -9.810      --
+    datos      +0.066    +1.043    -8.995   0.927
+    red        -0.153    +0.647    -8.807   0.983
+
+  La red reproduce el coeficiente cuadrático de los datos casi
+  exactamente, sesgos incluidos: cuando el ajuste agrupado de los datos
+  da un valor alejado de -9.81, la red da ese mismo valor. Lo que la red
+  aprendió es lo que el conjunto contiene, no la ley ideal.
+
+------------------------------------------------------------------------------
+4. PRIMERA CAPA: qué mira cada neurona
+------------------------------------------------------------------------------
+
+  32 neuronas. |w_v0/w_tau|: mediana=0.541, rango=[0.041, 5.610]
+  Fracción del dominio en saturación (|tanh|>0.9): mediana=0.13, máx=0.65
+  Neuronas con |tanh|>0.9 en menos del 10 % del dominio (régimen casi lineal): 15/32
+
+  Las 6 neuronas de mayor contribución a la salida:
+     idx     w_tau      w_v0     sesgo  |contrib|    sat
+      15    -0.340    +1.907    -0.761      0.829   0.55
+      25    +0.844    -1.546    -1.021      0.814   0.40
+      18    +0.242    +0.919    +0.352      0.766   0.05
+      26    +0.697    -0.600    -1.138      0.759   0.19
+       3    +0.719    +0.326    +0.751      0.722   0.32
+      17    -0.144    -0.184    -0.969      0.602   0.00
