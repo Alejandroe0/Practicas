@@ -1,0 +1,73 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Resumen}{0}{section*.1}%
+\contentsline {section}{\numberline {1}Descripción general de la Institución}{3}{section.1}%
+\contentsline {section}{\numberline {2}Descripción del grupo de trabajo}{3}{section.2}%
+\contentsline {section}{\numberline {3}Introducción}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Movimiento rectilíneo uniformemente variado}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Herramientas Matemáticas}{5}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Suma ponderada}{5}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Mínimos cuadrados y ajuste polinómico}{5}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Coeficiente de determinación}{5}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Derivadas parciales}{6}{subsubsection.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.2.5}Regla de la cadena}{6}{subsubsection.3.2.5}%
+\contentsline {subsubsection}{\numberline {3.2.6}Normalización de los datos}{6}{subsubsection.3.2.6}%
+\contentsline {subsection}{\numberline {3.3}Red Neuronal}{6}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Neurona}{6}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Capas}{7}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Función de activación}{7}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}Función de coste}{8}{subsubsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.4}Aprendizaje automático}{9}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Backpropagation}{9}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Sobreajuste y validación}{9}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}Identificabilidad del modelo}{10}{subsubsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.5}PyTorch}{10}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Objetivos}{10}{section.4}%
+\contentsline {subsection}{\numberline {4.1}General}{10}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Específicos}{11}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Justificación}{11}{section.5}%
+\contentsline {section}{\numberline {6}Metodología}{11}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Montaje experimental y toma de datos}{11}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Preprocesamiento}{12}{subsection.6.2}%
+\contentsline {paragraph}{Filtro de calidad.}{12}{section*.3}%
+\contentsline {paragraph}{Partición.}{12}{section*.4}%
+\contentsline {subsection}{\numberline {6.3}Formulaciones evaluadas}{12}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Arquitecturas evaluadas}{13}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Líneas base}{13}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}Protocolo de evaluación}{13}{subsection.6.6}%
+\contentsline {paragraph}{Nivel 1: error de predicción.}{13}{section*.5}%
+\contentsline {paragraph}{Nivel 2: recuperación del parámetro físico.}{14}{section*.6}%
+\contentsline {paragraph}{Nivel 3: estructura interna.}{14}{section*.7}%
+\contentsline {subsection}{\numberline {6.7}Recursos computacionales}{14}{subsection.6.7}%
+\contentsline {paragraph}{No se usó GPU.}{14}{section*.8}%
+\contentsline {paragraph}{El conjunto de datos cabe holgadamente en memoria.}{15}{section*.9}%
+\contentsline {paragraph}{El proyecto completo se reproduce en menos de cinco minutos.}{15}{section*.10}%
+\contentsline {paragraph}{Una advertencia sobre reproducibilidad.}{15}{section*.11}%
+\contentsline {section}{\numberline {7}Resultados}{15}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Caracterización del conjunto de datos}{15}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Recuperación del parámetro físico}{17}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Error de predicción}{19}{subsection.7.3}%
+\contentsline {paragraph}{La red explica el 93\,\char 37\relax de la varianza.}{19}{section*.12}%
+\contentsline {paragraph}{La red supera al modelo físico analítico.}{19}{section*.13}%
+\contentsline {paragraph}{Aún queda margen.}{20}{section*.14}%
+\contentsline {subsection}{\numberline {7.4}Representación de las entradas y capacidad de la red}{20}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Coste y beneficio del número de épocas}{21}{subsection.7.5}%
+\contentsline {paragraph}{El coste es exactamente lineal.}{23}{section*.15}%
+\contentsline {paragraph}{El error de posición se estanca muy pronto.}{23}{section*.16}%
+\contentsline {paragraph}{La física no aparece al mismo ritmo que baja el error, y puede retroceder.}{23}{section*.17}%
+\contentsline {subsection}{\numberline {7.6}Inspección de la red entrenada}{23}{subsection.7.6}%
+\contentsline {subsubsection}{\numberline {7.6.1}La red simple, escrita a mano}{23}{subsubsection.7.6.1}%
+\contentsline {subsubsection}{\numberline {7.6.2}Las derivadas de la función aprendida}{24}{subsubsection.7.6.2}%
+\contentsline {subsubsection}{\numberline {7.6.3}La ecuación que la red aprendió, contra los datos}{25}{subsubsection.7.6.3}%
+\contentsline {subsubsection}{\numberline {7.6.4}Cómo está repartida la representación}{26}{subsubsection.7.6.4}%
+\contentsline {subsection}{\numberline {7.7}Síntesis}{26}{subsection.7.7}%
+\contentsline {section}{\numberline {8}Limitaciones del estudio}{27}{section.8}%
+\contentsline {section}{\numberline {9}Conclusiones}{27}{section.9}%
+\contentsline {section}{\numberline {10}Trabajo futuro}{29}{section.10}%
+\contentsline {paragraph}{Cerrar la brecha con el oráculo.}{29}{section*.18}%
+\contentsline {paragraph}{Diagnosticar el sesgo experimental.}{29}{section*.19}%
+\contentsline {paragraph}{Mejorar la calidad de los datos.}{29}{section*.20}%
+\contentsline {paragraph}{Hacer la red interpretable a propósito.}{29}{section*.21}%
+\contentsline {paragraph}{Un criterio de parada basado en la física.}{29}{section*.22}%
+\contentsline {paragraph}{Explorar el aprendizaje con restricciones físicas.}{29}{section*.23}%
+\contentsline {paragraph}{Generalizar a otros marcos teóricos.}{29}{section*.24}%
+\contentsline {section}{\numberline {11}Bibliografía}{30}{section.11}%

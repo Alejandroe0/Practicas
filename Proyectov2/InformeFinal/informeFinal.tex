@@ -166,7 +166,7 @@ Guatemala, Ciudad Universitaria 11 Avenida, Zona 12. Su lema es \emph{Id y
   enseñad a todos}.
 
 La Escuela de Ciencias Físicas y Matemáticas (ECFM) es una escuela no
-facultativa formada en el año 2009 en el evento CONVERGENCIA. Actualmente, la
+facultativa formada en el año 2009 en el evento CONVERCIENCIA. Actualmente, la
 escuela cuenta con la carrera de Licenciatura en Física Aplicada y
 Licenciatura en Matemática Aplicada. La escuela cuenta también con un
 Instituto dedicado a la investigación de las ciencias físicas y matemáticas
@@ -834,6 +834,71 @@ red por sus salidas. Como el objetivo general del anteproyecto habla de
   capa (sección~\ref{subsec:pesos}).
 \end{itemize}
 
+\subsection{Recursos computacionales}
+\label{subsec:recursos}
+
+Todos los tiempos que aparecen en este informe se midieron en el mismo equipo,
+cuyas características se detallan para que esas cifras sean interpretables y
+reproducibles.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    Equipo & Dell Precision 5770 (portátil) \\
+    Procesador & Intel Core i9-12900H, 14 núcleos / 20 hilos, hasta
+                 \unit{4.9}{\giga\hertz} \\
+    Memoria & 64\,GiB \\
+    Sistema & Pop!\_OS 24.04 LTS, núcleo 7.0.11 \\
+    \midrule
+    Lenguaje & Python 3.12 \\
+    Bibliotecas & PyTorch 2.13 (compilación para CPU), NumPy 2.5, pandas 3.0 \\
+    Hilos usados & 4 (\texttt{torch.set\_num\_threads(4)}) \\
+    \bottomrule
+  \end{tabular}
+  \caption{Equipo y entorno en que se ejecutaron todos los entrenamientos.}
+  \label{tab:recursos}
+\end{table}
+
+Conviene subrayar tres cosas.
+
+\paragraph{No se usó GPU.} El equipo dispone de una NVIDIA RTX A3000 y de una
+Intel Iris Xe integrada, pero \emph{ninguna de las dos intervino}: se instaló
+deliberadamente la compilación de PyTorch para CPU y el entrenamiento se limitó
+a cuatro hilos. Las redes de este trabajo tienen entre 9 y \num{1185}
+parámetros; a esa escala el coste lo domina el recorrido de los datos y no la
+aritmética, de modo que una GPU no aportaría nada. Todos los tiempos de la
+tabla~\ref{tab:epocas} deben leerse, por tanto, como tiempos de CPU con cuatro
+hilos.
+
+\paragraph{El conjunto de datos cabe holgadamente en memoria.} Las
+\num{18\,992} muestras con dos entradas y una salida ocupan
+223\,KiB en precisión simple. No hay carga por lotes desde disco ni
+ninguna limitación de memoria: todo el conjunto reside en RAM durante el
+entrenamiento, y el uso máximo del proceso es de unos pocos cientos de
+megabytes, casi todos del propio intérprete y de las bibliotecas.
+
+\paragraph{El proyecto completo se reproduce en menos de cinco minutos.} El
+experimento principal ---45 entrenamientos, tres formulaciones por tres
+arquitecturas por cinco semillas, con parada temprana--- tarda
+\SI{138}{\second}. El estudio de épocas ---15 entrenamientos llevados hasta 800
+épocas--- tarda \SI{121}{\second}. La inspección de la red tarda
+\SI{5}{\second}. En total, poco más de \emph{cuatro minutos} de cómputo en un
+portátil. Esto merece decirse explícitamente: el resultado central de este
+trabajo no requirió ni un clúster, ni una GPU, ni horas de entrenamiento. 
+
+\paragraph{Una advertencia sobre reproducibilidad.} Las semillas fijan la
+partición de los clips y la inicialización de los pesos, pero el cálculo
+multihilo no garantiza un orden de reducción idéntico entre ejecuciones. Al
+repetir el experimento completo en el mismo equipo, las configuraciones
+estables ---en particular la red $\tanh$ bajo la formulación completa, que es
+la que sostiene las conclusiones--- se reproducen cifra por cifra, mientras que
+las inestables (la red simple, sujeta al fenómeno de ReLU muerta) pueden
+cambiar de régimen. Los promedios sobre las cinco semillas de las
+tablas~\ref{tab:g} y~\ref{tab:rmse} coinciden entre ejecuciones en las cuatro
+primeras cifras decimales, es decir, muy por debajo de la precisión con que se
+reportan.
+
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \section{Resultados}
@@ -901,6 +966,8 @@ su propio origen y la distribución completa de las 581 estimaciones de $g$.
     los 581 clips; la mediana está a un \SI{3.9}{\percent} del valor físico.}
   \label{fig:datos}
 \end{figure}
+
+\clearpage
 
 \subsection{Recuperación del parámetro físico}
 \label{subsec:g}
@@ -1145,8 +1212,8 @@ semillas.
   \end{tabular}
   \caption{Tiempo acumulado de entrenamiento, error de predicción sobre clips
     no vistos y error relativo en $g$ frente al número de épocas. Media sobre
-    cinco semillas. El tiempo corresponde a un procesador de escritorio con
-    cuatro hilos.}
+    cinco semillas. Los tiempos corresponden al equipo de la
+    tabla~\ref{tab:recursos}: CPU Intel i9-12900H con cuatro hilos, sin GPU.}
   \label{tab:epocas}
 \end{table}
 
