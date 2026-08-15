@@ -19,7 +19,8 @@ números; se mantienen en paralelo para decidir cuál conviene presentar.
 | Formulaciones | `v1` / `tau` / `tau_v0` | directa / referida / completa |
 | Estudio de épocas | sí, con datos de la formulación inicial | sí, de la formulación completa |
 | Inspección de pesos | no | sí (§7.6) |
-| Extensión | 31 págs. | 30 págs. |
+| Recursos computacionales | no | sí (§6.8) |
+| Extensión | 31 págs. | 31 págs. |
 
 ## Compilación
 
@@ -111,3 +112,11 @@ figuras y revisar los números de las tablas contra `../outs/resumen.txt`,
   lineal de la tanh y la representación está repartida.
 - Conclusión: la física está en el **comportamiento** de la red, no en una
   estructura interna legible.
+
+**Recursos computacionales (§6.8)**
+
+Intel i9-12900H, 4 hilos, **sin GPU**, 223 KiB de datos. Reproducir todo el
+proyecto cuesta poco más de cuatro minutos. Incluye una advertencia sobre
+reproducibilidad: el cálculo multihilo hace que las configuraciones inestables
+varíen entre corridas, aunque los promedios coinciden en las cuatro primeras
+cifras decimales. Detalle completo en el README de `../`.

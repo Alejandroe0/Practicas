@@ -96,14 +96,56 @@ python3 epocas.py --seeds 2             # versión rápida
 python3 pesos.py --seed 3               # inspeccionar la red de otra semilla
 ```
 
-### Entorno
+### Entorno y recursos
 
-Los resultados publicados en `outs/` se reprodujeron bit a bit con
-`/home/alejandro/Documentos/envs/practicas` (Python 3.12, torch 2.13 CPU,
-numpy 2.5, pandas 3.0). Si se recrea el entorno conviene verificar que la
-semilla 0 sigue dando `RMSE=0.1533  g=-9.865` para `tau_v0 | tanh_deep`; si no
-coincide, el flujo de números aleatorios cambió y las cifras del informe habría
-que regenerarlas.
+Entorno: `/home/alejandro/Documentos/envs/practicas` — Python 3.12,
+torch 2.13 **CPU**, numpy 2.5, pandas 3.0.
+
+Equipo en que se midieron todos los tiempos:
+
+| | |
+|---|---|
+| Equipo | Dell Precision 5770 |
+| CPU | Intel i9-12900H, 14 núcleos / 20 hilos, hasta 4.9 GHz |
+| Memoria | 64 GiB |
+| Sistema | Pop!_OS 24.04 LTS, kernel 7.0.11 |
+| Hilos usados | 4 (`torch.set_num_threads(4)` en `train.py`) |
+
+**Sin GPU, a propósito.** El equipo tiene una RTX A3000, pero se instaló la
+compilación CPU de torch y no interviene. Con redes de 9 a 1185 parámetros el
+coste lo domina el recorrido de los datos, no la aritmética. El conjunto entero
+ocupa 223 KiB en precisión simple y vive en RAM.
+
+Coste de reproducir todo, medido en ese equipo:
+
+| Script | Qué hace | Tiempo |
+|---|---|---|
+| `run_all.py` | 45 entrenamientos (3 form. × 3 arq. × 5 semillas) | 138 s |
+| `epocas.py` | 15 entrenamientos hasta 800 épocas | 121 s |
+| `pesos.py` | 2 entrenamientos + derivadas | 5 s |
+
+Poco más de **cuatro minutos** en un portátil. Ni clúster, ni GPU, ni horas de
+entrenamiento.
+
+### Reproducibilidad: leer esto antes de comparar corridas
+
+Las semillas fijan la partición y la inicialización, pero el cálculo multihilo
+**no garantiza un orden de reducción idéntico entre ejecuciones**. Al repetir
+`run_all.py` en el mismo equipo:
+
+- las configuraciones **estables** se reproducen cifra por cifra — en
+  particular `tau_v0 | tanh_deep`, que es la que sostiene las conclusiones
+  (semilla 0: `RMSE=0.1533  g=-9.865  282 ep`, idéntico entre corridas);
+- las **inestables** (`simple`, sujeta a ReLU muerta) pueden cambiar de régimen
+  y mover su `g` en varias unidades;
+- los promedios sobre las cinco semillas coinciden en las **cuatro primeras
+  cifras decimales**, muy por debajo de la precisión que reporta el informe;
+- las líneas base clásicas, que son numpy puro, coinciden hasta el redondeo de
+  punto flotante.
+
+Si al recrear el entorno la semilla 0 de `tau_v0 | tanh_deep` deja de dar
+`RMSE=0.1533  g=-9.865`, entonces sí cambió el flujo de números aleatorios y
+las cifras del informe habría que regenerarlas.
 
 ## Estructura
 
