@@ -91,8 +91,8 @@ def fig_formulaciones(df):
              for a in ARQS]
         s = [df[(df.formulacion == form) & (df.arquitectura == a)].g_mediana.std()
              for a in ARQS]
-        ax[0].bar(xs + (k - 1) * w, m, w, yerr=s, capsize=3,
-                  color=COLOR[form], label=ETIQUETA[form], alpha=0.9)
+        ax[0].errorbar(xs + (k - 1) * w, m, yerr=s, fmt="o", ms=6, capsize=3,
+                       color=COLOR[form], label=ETIQUETA[form])
     ax[0].axhline(G_REF, color="k", ls="--", lw=1.3, label=f"$g$ real = {G_REF}")
     ax[0].set_xticks(xs)
     ax[0].set_xticklabels([ARQ_ETQ[a] for a in ARQS])
@@ -106,8 +106,8 @@ def fig_formulaciones(df):
              for a in ARQS]
         s = [df[(df.formulacion == form) & (df.arquitectura == a)].rmse.std()
              for a in ARQS]
-        ax[1].bar(xs + (k - 1) * w, m, w, yerr=s, capsize=3,
-                  color=COLOR[form], label=ETIQUETA[form], alpha=0.9)
+        ax[1].errorbar(xs + (k - 1) * w, m, yerr=s, fmt="o", ms=6, capsize=3,
+                       color=COLOR[form], label=ETIQUETA[form])
     b = pd.read_csv(os.path.join(OUTS, "baselines.csv"))
     ax[1].axhline(b[b.modelo == "ajuste_por_clip"].rmse.mean(), color="k", ls=":",
                   lw=1.3, label="ajuste por clip (oráculo)")
@@ -119,7 +119,7 @@ def fig_formulaciones(df):
     ax[1].set_xticklabels([ARQ_ETQ[a] for a in ARQS])
     ax[1].set_ylabel("RMSE en clips no vistos [m]")
     ax[1].set_title("(b) Error de predicción")
-    ax[1].legend(fontsize=7, loc="upper right")
+    ax[1].legend(fontsize=7, loc="center right")
 
     fig.tight_layout()
     fig.savefig(os.path.join(IMGS, "01_formulaciones.png"), bbox_inches="tight")
@@ -273,13 +273,14 @@ def fig_pesos():
         else:
             j = 1 if k == 1 else 2
             v = [2 * gr[j][2] for gr in grupos]
-        ax[1].bar(xs + (k - 1) * w, v, w, color=c, label=etq, alpha=0.9)
+        ax[1].plot(xs + (k - 1) * w, v, "o", ms=8, color=c, label=etq)
     ax[1].set_xticks(xs)
     ax[1].set_xticklabels([g[0] for g in grupos])
+    ax[1].set_xlim(-0.6, len(grupos) - 0.4)
     ax[1].set_ylabel(r"$g$ del ajuste agrupado [m/s$^2$]")
     ax[1].set_title(r"(b) $g$ leída de $\Delta y = a\tau + b\,v_0\tau + c\tau^2$",
                     fontsize=9.5)
-    ax[1].legend(fontsize=7.5, loc="lower right")
+    ax[1].legend(fontsize=7.5, loc="center")
 
     # (c) primera capa
     W1, contrib = z["W1"], z["contrib"]

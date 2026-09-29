@@ -15,6 +15,19 @@
 \usepackage{amsfonts, amsmath, amssymb}%
 \usepackage{physics}
 \usepackage{float}
+\usepackage{subcaption}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+% Estilo común de las gráficas de funciones de activación.
+\pgfplotsset{activacion/.style={
+    scale only axis, width=0.78\linewidth, height=0.62\linewidth,
+    axis lines=middle, no markers, xmin=-5.5, xmax=5.5, domain=-5:5, samples=200,
+    xtick={-4,-2,0,2,4}, grid=major, grid style={gray!25},
+    tick label style={font=\scriptsize},
+    xlabel={$x$}, ylabel={$f(x)$},
+    every axis x label/.style={at={(current axis.right of origin)}, anchor=west},
+    every axis y label/.style={at={(current axis.above origin)}, anchor=south},
+    every axis plot post/.append style={thick, color=teal!70!black}}}
 \usepackage[amssymb]{SIunits}%
 % SIunits no define \num ni \SI (son de siunitx); se añaden como atajos
 % para que el texto quede uniforme sin cambiar de paquete de unidades.
@@ -124,6 +137,21 @@ pero la estimación de la gravedad ya no mejora. Por otro lado, dentro de la red
 no aparece la ecuación de movimiento de forma explícita, sino que la física
 está en el comportamiento de todas las neuronas juntas y no en una en
 particular.
+
+En la sección~\ref{sec:institucion} se describe la institución y en la
+sección~\ref{sec:grupo} el grupo de trabajo en el que se realizaron las
+prácticas. La introducción (sección~\ref{sec:introduccion}) plantea la pregunta
+del trabajo y reúne la teoría que se usa después: el movimiento rectilíneo
+uniformemente variado, cómo está formada una red neuronal y cómo aprende, las
+herramientas matemáticas del entrenamiento y la biblioteca PyTorch. Siguen los
+objetivos y la justificación. En la metodología
+(sección~\ref{sec:metodologia}) se explica el montaje experimental y la toma de
+datos, el preprocesamiento, las formulaciones y arquitecturas que se compararon
+y el protocolo con que se evaluaron. La sección~\ref{sec:resultados} presenta
+los resultados: la gravedad que recupera cada red, su error de predicción, el
+efecto del número de épocas y lo que se encontró al revisar la red por dentro.
+Al final se discuten las limitaciones del estudio, se enumeran las conclusiones
+y se proponen las líneas de trabajo futuro.
 
 \newpage
 \pagestyle{plain}
@@ -277,6 +305,87 @@ hace una suma ponderada, le aplica una función de activación y transmite el
 resultado a la siguiente neurona o, en su defecto, a la
 salida~\cite{antonio_2023_introduccin,ibm_qu,santana_2018_1,santana_2018_2,santana_2018_3,santana_2018_3_5}.
 
+\subsubsection{Función de activación}
+La función de activación determina la salida de una neurona a partir de su suma
+ponderada. Su papel es introducir no linealidad: sin ella, una red de cualquier
+profundidad colapsa a una única transformación
+lineal~\cite{wikipediacontributors_2018_activation}. Para un valor $x$ igual a
+la suma ponderada de entradas y pesos, las funciones más comunes son:
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.31\linewidth}
+    \centering
+    \begin{tikzpicture}
+      \begin{axis}[activacion, ymin=-0.1, ymax=1.2, ytick={0,0.5,1}]
+        \addplot {1/(1+exp(-x))};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{Sigmoide.}
+    \label{fig:sigmoide}
+  \end{subfigure}\hfill
+  \begin{subfigure}[b]{0.31\linewidth}
+    \centering
+    \begin{tikzpicture}
+      \begin{axis}[activacion, ymin=-1.3, ymax=1.3, ytick={-1,1}]
+        \addplot {tanh(x)};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{Tangente hiperbólica.}
+    \label{fig:tanh}
+  \end{subfigure}\hfill
+  \begin{subfigure}[b]{0.31\linewidth}
+    \centering
+    \begin{tikzpicture}
+      \begin{axis}[activacion, ymin=-1, ymax=5.5, ytick={0,2,4}]
+        \addplot {max(0,x)};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{ReLU.}
+    \label{fig:relu}
+  \end{subfigure}
+  \caption{Funciones de activación usadas en este trabajo. Fuente: elaboración
+    propia.}
+  \label{fig:activacion}
+\end{figure}
+
+\begin{enumerate}
+\item \textbf{Función sigmoide:} lleva los valores al intervalo $(0,1)$. Se usa
+  sobre todo cuando se necesita predecir probabilidades, como en clasificación
+  binaria. Se define con la ecuación~\eqref{eq:sigmoide} y su gráfica se
+  muestra en la figura~\ref{fig:sigmoide},
+  \begin{equation}
+    f(x)=\frac{1}{1+e^{-x}}.
+    \label{eq:sigmoide}
+  \end{equation}
+
+\item \textbf{Tangente hiperbólica ($\tanh$):} su rango es $(-1,1)$. Es similar
+  a la sigmoide pero centrada en el origen, lo que suele mejorar la
+  convergencia. Está dada por la ecuación~\eqref{eq:tanh}, y en la
+  figura~\ref{fig:tanh} se puede ver su forma,
+  \begin{equation}
+    f(x)=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}.
+    \label{eq:tanh}
+  \end{equation}
+
+\item \textbf{Rectificadora lineal (ReLU):} devuelve 0 para valores negativos y
+  el valor original para valores positivos, como indica la
+  ecuación~\eqref{eq:relu}; su gráfica aparece en la figura~\ref{fig:relu},
+  \begin{equation}
+    f(x)=\max(0,x).
+    \label{eq:relu}
+  \end{equation}
+
+  La ReLU es barata de evaluar y su derivada no se satura para
+  $x>0$~\cite{goodfellow_2016_deep}, pero
+  tiene un modo de falla conocido. Si durante el entrenamiento el argumento de
+  una neurona se vuelve negativo para todos los datos, su gradiente queda en
+  cero de forma permanente y la neurona deja de aprender. Este fenómeno se
+  conoce como \emph{ReLU muerta}~\cite{lu_2020_dying} y es más probable cuanto menos neuronas tenga
+  la capa; se retomará en la sección~\ref{subsec:capacidad} para explicar el
+  comportamiento de la red con dos neuronas ocultas.
+\end{enumerate}
+
 \subsubsection{Capas}
 Hay diferentes tipos de capas neuronales:
 \begin{itemize}
@@ -295,72 +404,6 @@ primera capa oculta y terminando en la de salida. Así, la red $\to2\to1$ tiene
 una capa oculta con dos neuronas y una neurona de salida, y la red
 $\to32\to32\to1$ tiene dos capas ocultas de 32 neuronas y una neurona de
 salida.
-
-\subsubsection{Función de activación}
-La función de activación determina la salida de una neurona a partir de su suma
-ponderada. Su papel es introducir no linealidad: sin ella, una red de cualquier
-profundidad colapsa a una única transformación
-lineal~\cite{wikipediacontributors_2018_activation}. Para un valor $x$ igual a
-la suma ponderada de entradas y pesos, las funciones más comunes son:
-
-\begin{enumerate}
-\item \textbf{Función sigmoide:} lleva los valores al intervalo $(0,1)$. Se usa
-  sobre todo cuando se necesita predecir probabilidades, como en clasificación
-  binaria. Se define con la ecuación~\eqref{eq:sigmoide} y su gráfica se
-  muestra en la figura~\ref{fig:sigmoide},
-  \begin{equation}
-    f(x)=\frac{1}{1+e^{-x}}.
-    \label{eq:sigmoide}
-  \end{equation}
-
-  \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.4\linewidth]{sigmoide}
-    \caption{Gráfica de la función sigmoide. Fuente: elaboración propia.}
-    \label{fig:sigmoide}
-  \end{figure}
-
-\item \textbf{Tangente hiperbólica ($\tanh$):} su rango es $(-1,1)$. Es similar
-  a la sigmoide pero centrada en el origen, lo que suele mejorar la
-  convergencia. Está dada por la ecuación~\eqref{eq:tanh}, y en la
-  figura~\ref{fig:tanh} se puede ver su forma,
-  \begin{equation}
-    f(x)=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}.
-    \label{eq:tanh}
-  \end{equation}
-
-  \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.4\linewidth]{tanh}
-    \caption{Gráfica de la función tangente hiperbólica. Fuente: elaboración
-      propia.}
-    \label{fig:tanh}
-  \end{figure}
-
-\item \textbf{Rectificadora lineal (ReLU):} devuelve 0 para valores negativos y
-  el valor original para valores positivos, como indica la
-  ecuación~\eqref{eq:relu}; su gráfica aparece en la figura~\ref{fig:relu},
-  \begin{equation}
-    f(x)=\max(0,x).
-    \label{eq:relu}
-  \end{equation}
-
-  \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.4\linewidth]{relu}
-    \caption{Gráfica de la función ReLU. Fuente: elaboración propia.}
-    \label{fig:relu}
-  \end{figure}
-
-  La ReLU es barata de evaluar y su derivada no se satura para
-  $x>0$~\cite{goodfellow_2016_deep}, pero
-  tiene un modo de falla conocido. Si durante el entrenamiento el argumento de
-  una neurona se vuelve negativo para todos los datos, su gradiente queda en
-  cero de forma permanente y la neurona deja de aprender. Este fenómeno se
-  conoce como \emph{ReLU muerta}~\cite{lu_2020_dying} y es más probable cuanto menos neuronas tenga
-  la capa; se retomará en la sección~\ref{subsec:capacidad} para explicar el
-  comportamiento de la red $\to2\to1$.
-\end{enumerate}
 
 La cantidad de neuronas ocultas y la función de activación determinan la
 \emph{capacidad expresiva} de la red, que es el tipo de funciones que la red
@@ -865,7 +908,7 @@ Sus características se detallan en el cuadro~\ref{tab:recursos} para que esas
 cifras sean
 interpretables y reproducibles.
 
-\begin{table}[H]
+\begin{table}
   \centering
   \begin{tabular}{ll}
     \toprule
@@ -916,7 +959,7 @@ del propio intérprete y de las bibliotecas.
 Antes de evaluar alguna red hay que establecer si los datos se pueden describir por algún marco teórico. El
 cuadro~\ref{tab:datos} resume las propiedades del conjunto antes y después del control de calidad de los datos.
 
-\begin{table}[H]
+\begin{table}
   \centering
   \begin{tabular}{lrr}
     \toprule
@@ -960,7 +1003,7 @@ a la corta duración de cada uno, con una media de \unit{0.53}{\second} y unos
 33 puntos, combinada con la resolución espacial del seguimiento. La media del residuo del ajuste, de \unit{3.4}{\centi\meter}, marca el mínimo de ruido del conjunto. En la figura~\ref{fig:datos} aparecen unos cuantos clips ya referidos a su propio origen junto con la distribución completa de las 581 estimaciones
 de $g$.
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   \includegraphics[width=\linewidth]{imgs/00_datos.png}
   \caption{(a) Seis clips experimentales referidos a su propio origen, con su
@@ -976,7 +1019,7 @@ de $g$.
 
 El cuadro~\ref{tab:g} recoge el resultado principal del trabajo.
 
-\begin{table}[H]
+\begin{table}
   \centering
   \begin{tabular}{llrrr}
     \toprule
@@ -1026,7 +1069,7 @@ figura~\ref{fig:hist} muestra las distribuciones completas. Bajo la formulación
 directa, las estimaciones de la red y las de los datos, forman dos poblaciones
 separadas, mientras que bajo la formulación completa se superponen.
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   \includegraphics[width=\linewidth]{imgs/01_formulaciones.png}
   \caption{(a) Gravedad recuperada por formulación y arquitectura; la línea
@@ -1036,7 +1079,7 @@ separadas, mientras que bajo la formulación completa se superponen.
   \label{fig:form}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   \includegraphics[width=\linewidth]{imgs/02_g_por_clip.png}
   \caption{Distribución de la $g$ estimada clip por clip para la red
@@ -1048,7 +1091,7 @@ separadas, mientras que bajo la formulación completa se superponen.
 
 En la figura~\ref{fig:tray} se puede ver qué hay detrás de estos resultados. Con la formulación directa, la red produce prácticamente la misma curva para los cuatro clips, ya que su única entrada, $t$, no le permite distinguir entre uno u otro clip. Es por ello que los errores pueden llegar a alcanzar un metro. En cambio, con la formulación completa, la misma arquitectura es capaz de seguir la parábola correspondiente a cada clip.
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   \includegraphics[width=\linewidth]{imgs/03_trayectorias.png}
   \caption{Cuatro clips de prueba con las predicciones de la red
@@ -1065,7 +1108,7 @@ En la figura~\ref{fig:tray} se puede ver qué hay detrás de estos resultados. C
 El cuadro~\ref{tab:rmse} sitúa el error de predicción de la red frente a las
 tres líneas base de la sección~\ref{subsec:baselines}.
 
-\begin{table}[H]
+\begin{table}
   \centering
   \begin{tabular}{lrrr}
     \toprule
@@ -1122,7 +1165,7 @@ El comportamiento de la red $\to2\to1$ con la formulación completa ($g=\num{-4.
 
 La figura~\ref{fig:scatter} resume las 45 corridas en un solo gráfico y muestra que ambos ejes, el error de predicción y el error en $g$, mejoran de la mano, aunque solo la combinación de formulación identificable y capacidad suficiente baja del \SI{5}{\percent} de error en el parámetro físico.
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   \includegraphics[width=0.78\linewidth]{imgs/04_rmse_vs_error_g.png}
   \caption{Error relativo en $g$ frente al RMSE para las 45 corridas
@@ -1138,7 +1181,7 @@ La figura~\ref{fig:scatter} resume las 45 corridas en un solo gráfico y muestra
 
 Entrenar durante más épocas requiere más tiempo de cómputo. Para saber si este tiempo adicional compensa, se entrenó cada arquitectura con la formulación completa y se evaluó en distintos puntos del mismo entrenamiento. Por lo tanto el tiempo reportado para la época $N$ corresponde al tiempo real acumulado hasta llegar esa época, y la curva de error muestra cómo aprende la red, en lugar de comparar entrenamientos independientes. El cuadro~\ref{tab:epocas} y la figura~\ref{fig:epocas} muestran estos resultados, promediados sobre las cinco semillas.
 
-\begin{table}[H]
+\begin{table}
   \centering
   \begin{tabular}{lrrrrr}
     \toprule
@@ -1181,7 +1224,7 @@ Entrenar durante más épocas requiere más tiempo de cómputo. Para saber si es
   \label{tab:epocas}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   \includegraphics[width=\linewidth]{imgs/05_epocas.png}
   \caption{(a) Tiempo acumulado de entrenamiento, estrictamente lineal en el
@@ -1259,7 +1302,7 @@ Para la red $\tanh$ $32\times32$, la función que aprende la red ya no se puede 
 
 Estas son tres condiciones que permiten comprobar qué está haciendo la red internamente, y son más exigentes que simplemente comprobar si sus salidas se parecen a una parábola. Se evaluaron sobre los \num{2843} puntos experimentales de los 87 clips de prueba. No se utilizó una malla rectangular, porque esta incluiría combinaciones de $(\tau,v_0)$ que no aparecen en los datos y obligaría a la red a extrapolar. El resultado se muestra en el cuadro~\ref{tab:derivadas}:
 
-\begin{table}[H]
+\begin{table}
   \centering
   \begin{tabular}{llr}
     \toprule
@@ -1284,12 +1327,15 @@ Los resultados, por tanto, no permiten dar una respuesta concisa. La red sí apr
 
 Lo que sí consigue reproducir es la curvatura promedio de cada clip. Esa es precisamente la información que recoge el ajuste parabólico por clip del nivel~2 y la que permite obtener $g=\num{-9.46}$ en el cuadro~\ref{tab:g}. Por tanto, la red consigue aprender una relación que funciona bien para estimar $g$, aunque su función interna no sea exactamente la ecuación física.
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   \includegraphics[width=\linewidth]{imgs/06_pesos.png}
   \caption{(a) Segunda derivada de la función aprendida, punto a punto sobre
     los datos de prueba, con su mediana por tramos. Oscila alrededor del valor
-    experimental (línea discontinua) en vez de ser constante. (b) $g$ obtenida
+    experimental (línea discontinua) en vez de ser constante. La sombra verde azulado está formada por
+    los valores de la segunda derivada en cada punto de prueba, dibujados
+    semitransparentes; se ordena en columnas porque $\tau$ solo toma los
+    instantes de muestreo del video, separados por \unit{1/60}{\second}. (b) $g$ obtenida
     ajustando el modelo de MRUV agrupado a la salida de la red y, como control,
     a los datos experimentales mismos: la red sigue a los datos, no a la física
     ideal. (c) Pesos de entrada de las 32 neuronas de la primera capa; el
@@ -1301,11 +1347,11 @@ La figura~\ref{fig:pesos} tiene otros dos paneles, que se estudian con más
 detalle en las dos secciones siguientes. En el panel~(b) se compara la gravedad
 que resulta de ajustar un solo modelo de MRUV a todos los puntos juntos
 (ecuación~\eqref{eq:modelo_agrupado}) en tres casos: la salida de la red, los
-datos experimentales y la física ideal, para dos rangos de $\tau$. La barra de
-la red y la de los datos tienen casi la misma altura en los dos rangos, y las
+datos experimentales y la física ideal, para dos rangos de $\tau$. El punto de
+la red y el de los datos quedan casi en el mismo valor en los dos rangos, y las
 dos quedan igual de lejos del valor ideal. Con todo el dominio ambas están
 cerca de $\num{-4.7}~\meter\per\second\squared$, y si se toma solo
-$\tau<\unit{0.6}{\second}$ suben a alrededor de
+$\tau<\unit{0.6}{\second}$ pasan a valer alrededor de
 $\num{-9}~\meter\per\second\squared$. Esto quiere decir que la red reproduce lo
 que tienen los datos, con sus sesgos, y no la ley ideal
 (sección~\ref{subsubsec:ecuacion}). En el panel~(c) cada punto es una de las 32
@@ -1330,7 +1376,7 @@ salida de la red como a los datos experimentales mismos. Este segundo ajuste es
 el que hace útil la comparación; sin ese control los números no significarían
 gran cosa.
 
-\begin{table}[H]
+\begin{table}
   \centering
   \begin{tabular}{llrrr}
     \toprule
@@ -1563,52 +1609,54 @@ acotan lo que puede lograrse con ellos, con red o sin ella.
 Las siguientes líneas quedan abiertas, ordenadas de la más inmediata a la más
 ambiciosa, y constituyen la continuación natural hacia el EPS.
 
-\paragraph{Cerrar la brecha con el oráculo.} La red alcanza
-RMSE~$=\num{0.142}~\meter$ frente a los $\num{0.040}~\meter$ del ajuste por
-clip. Parte de esa diferencia es irreducible, porque el oráculo dispone de tres
-parámetros por clip, pero conviene medir cuánta. Hay dos vías: predecir
-directamente los coeficientes $(c_0,c_1,c_2)$ de cada clip en lugar de puntos
-sueltos, y estimar $v_0$ con más robustez, con un ajuste local en vez de tres
-puntos.
+\begin{enumerate}
+\item Cerrar la brecha con el oráculo. La red alcanza
+  RMSE~$=\num{0.142}~\meter$ frente a los $\num{0.040}~\meter$ del ajuste por
+  clip. Parte de esa diferencia es irreducible, porque el oráculo dispone de tres
+  parámetros por clip, pero conviene medir cuánta. Hay dos vías: predecir
+  directamente los coeficientes $(c_0,c_1,c_2)$ de cada clip en lugar de puntos
+  sueltos, y estimar $v_0$ con más robustez, con un ajuste local en vez de tres
+  puntos.
 
-\paragraph{Diagnosticar el sesgo experimental.} El método clásico da
-$\num{-9.43}~\meter\per\second\squared$ sobre estos datos, un
-\SI{3.9}{\percent} por debajo del valor real. Antes de perseguir mejoras en el
-modelo conviene identificar si el sesgo viene de la calibración de la escala
-espacial, de la velocidad de fotogramas declarada o del arrastre del aire, y
-corregirlo en la toma de datos.
+\item Diagnosticar el sesgo experimental. El método clásico da
+  $\num{-9.43}~\meter\per\second\squared$ sobre estos datos, un
+  \SI{3.9}{\percent} por debajo del valor real. Antes de perseguir mejoras en el
+  modelo conviene identificar si el sesgo viene de la calibración de la escala
+  espacial, de la velocidad de fotogramas declarada o del arrastre del aire, y
+  corregirlo en la toma de datos.
 
-\paragraph{Mejorar la calidad de los datos.} Grabar clips más largos o desde
-mayor altura, para que el término cuadrático domine sobre el ruido, y aumentar
-la resolución espacial o la frecuencia de muestreo. Con \unit{0.53}{\second} de
-media por clip, la señal cuadrática es débil frente a la cuantización de píxel.
+\item Mejorar la calidad de los datos. Grabar clips más largos o desde
+  mayor altura, para que el término cuadrático domine sobre el ruido, y aumentar
+  la resolución espacial o la frecuencia de muestreo. Con \unit{0.53}{\second} de
+  media por clip, la señal cuadrática es débil frente a la cuantización de píxel.
 
-\paragraph{Hacer la red interpretable a propósito.} La inspección de la
-sección~\ref{subsec:pesos} muestra que la física no está codificada de forma
-legible en los pesos. Si se quiere que lo esté hay que forzarlo, por ejemplo
-con redes que tengan una capa de cuello de botella de una sola unidad, con
-activaciones polinómicas, o aplicando regresión simbólica sobre la función
-aprendida. Cualquiera de las tres convertiría \enquote{la red predice bien} en
-\enquote{la red entrega una ecuación}, que es el objetivo natural del EPS.
+\item Hacer la red interpretable a propósito. La inspección de la
+  sección~\ref{subsec:pesos} muestra que la física no está codificada de forma
+  legible en los pesos. Si se quiere que lo esté hay que forzarlo, por ejemplo
+  con redes que tengan una capa de cuello de botella de una sola unidad, con
+  activaciones polinómicas, o aplicando regresión simbólica sobre la función
+  aprendida. Cualquiera de las tres convertiría \enquote{la red predice bien} en
+  \enquote{la red entrega una ecuación}, que es el objetivo natural del EPS.
 
-\paragraph{Un criterio de parada basado en la física.} Dado que el error de
-predicción y el error en $g$ no cambian de la misma forma durante el entrenamiento
-(sección~\ref{subsec:epocas}), tiene sentido explorar una parada temprana que
-vigile directamente la $g$ estimada sobre los clips de validación en lugar del
-MSE.
+\item Un criterio de parada basado en la física. Dado que el error de
+  predicción y el error en $g$ no cambian de la misma forma durante el entrenamiento
+  (sección~\ref{subsec:epocas}), tiene sentido explorar una parada temprana que
+  vigile directamente la $g$ estimada sobre los clips de validación en lugar del
+  MSE.
 
-\paragraph{Explorar el aprendizaje con restricciones físicas.} Incorporar el
-residuo de la ecuación de movimiento a la función de coste (\emph{physics-informed
-neural networks}) permitiría comparar cuánta física aporta la arquitectura
-frente a cuánta aporta la función de coste, y previsiblemente reduciría la
-dispersión entre semillas.
+\item Explorar el aprendizaje con restricciones físicas. Incorporar el
+  residuo de la ecuación de movimiento a la función de coste (\emph{physics-informed
+  neural networks}) permitiría comparar cuánta física aporta la arquitectura
+  frente a cuánta aporta la función de coste, y previsiblemente reduciría la
+  dispersión entre semillas.
 
-\paragraph{Generalizar a otros marcos teóricos.} Con el protocolo ya validado
-sobre la caída libre, extender el estudio a movimiento en dos dimensiones, a
-sistemas con fricción y a osciladores, que es el objetivo planteado para el
-EPS. El procedimiento desarrollado aquí, esto es, formular el problema de modo
-que sea identificable, comparar contra una línea base clásica y estimar el
-parámetro físico caso por caso, es directamente transferible a esos sistemas.
+\item Generalizar a otros marcos teóricos. Con el protocolo ya validado
+  sobre la caída libre, extender el estudio a movimiento en dos dimensiones, a
+  sistemas con fricción y a osciladores, que es el objetivo planteado para el
+  EPS. El procedimiento desarrollado aquí, esto es, formular el problema de modo
+  que sea identificable, comparar contra una línea base clásica y estimar el
+  parámetro físico caso por caso, es directamente transferible a esos sistemas.
+\end{enumerate}
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
