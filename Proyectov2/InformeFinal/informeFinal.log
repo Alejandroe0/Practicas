@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.12.15)  29 SEP 2026 00:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.12.15)  29 SEP 2026 00:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -590,7 +590,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.55 ..., escrita a mano}{24}{subsubsection.7.6.1}
+l.55 ..., escrita a mano}{23}{subsubsection.7.6.1}
                                                   % [1])
 \tf@toc=\write4
 \openout4 = `informeFinal.toc'.
@@ -618,50 +618,46 @@ Package pdftex.def Info: relu.png  used on input line 348.
 <imgs/00_datos.png, id=502, 787.743pt x 281.853pt>
 File: imgs/00_datos.png Graphic file (type png)
 <use imgs/00_datos.png>
-Package pdftex.def Info: imgs/00_datos.png  used on input line 977.
+Package pdftex.def Info: imgs/00_datos.png  used on input line 983.
 (pdftex.def)             Requested size: 430.00462pt x 153.85843pt.
  [16] [17 <./imgs/00_datos.png>]
-<imgs/01_formulaciones.png, id=520, 787.743pt x 281.853pt>
+<imgs/01_formulaciones.png, id=521, 787.743pt x 281.853pt>
 File: imgs/01_formulaciones.png Graphic file (type png)
 <use imgs/01_formulaciones.png>
-Package pdftex.def Info: imgs/01_formulaciones.png  used on input line 1045.
+Package pdftex.def Info: imgs/01_formulaciones.png  used on input line 1049.
 (pdftex.def)             Requested size: 430.00462pt x 153.85843pt.
- [18
-
-]
-<imgs/02_g_por_clip.png, id=528, 787.743pt x 258.2448pt>
+<imgs/02_g_por_clip.png, id=522, 787.743pt x 258.2448pt>
 File: imgs/02_g_por_clip.png Graphic file (type png)
 <use imgs/02_g_por_clip.png>
-Package pdftex.def Info: imgs/02_g_por_clip.png  used on input line 1055.
+Package pdftex.def Info: imgs/02_g_por_clip.png  used on input line 1059.
 (pdftex.def)             Requested size: 430.00462pt x 140.97113pt.
-<imgs/03_trayectorias.png, id=530, 860.013pt x 428.3202pt>
+<imgs/03_trayectorias.png, id=524, 860.013pt x 428.3202pt>
 File: imgs/03_trayectorias.png Graphic file (type png)
 <use imgs/03_trayectorias.png>
-Package pdftex.def Info: imgs/03_trayectorias.png  used on input line 1071.
+Package pdftex.def Info: imgs/03_trayectorias.png  used on input line 1075.
 (pdftex.def)             Requested size: 430.00462pt x 214.15958pt.
- [19 <./imgs/01_formulaciones.png> <./imgs/02_g_por_clip.png>] [20 <./imgs/03_t
+ [18 <./imgs/01_formulaciones.png> <./imgs/02_g_por_clip.png>] [19 <./imgs/03_t
 rayectorias.png>]
-<imgs/04_rmse_vs_error_g.png, id=554, 462.528pt x 379.1766pt>
+<imgs/04_rmse_vs_error_g.png, id=549, 462.528pt x 379.1766pt>
 File: imgs/04_rmse_vs_error_g.png Graphic file (type png)
 <use imgs/04_rmse_vs_error_g.png>
-Package pdftex.def Info: imgs/04_rmse_vs_error_g.png  used on input line 1172.
+Package pdftex.def Info: imgs/04_rmse_vs_error_g.png  used on input line 1176.
 (pdftex.def)             Requested size: 335.40308pt x 274.9741pt.
- [21]
-[22 <./imgs/04_rmse_vs_error_g.png>]
-<imgs/05_epocas.png, id=571, 931.3194pt x 279.444pt>
+ [20] [21 <./imgs/04_rmse_vs_error_g.png>]
+<imgs/05_epocas.png, id=567, 931.3194pt x 279.444pt>
 File: imgs/05_epocas.png Graphic file (type png)
 <use imgs/05_epocas.png>
-Package pdftex.def Info: imgs/05_epocas.png  used on input line 1238.
+Package pdftex.def Info: imgs/05_epocas.png  used on input line 1242.
 (pdftex.def)             Requested size: 430.00462pt x 129.02336pt.
- [23 <./imgs/05_epocas.png>] [24]
-<imgs/06_pesos.png, id=594, 926.9832pt x 274.626pt>
+ [22 <./imgs/05_epocas.png>] [23]
+<imgs/06_pesos.png, id=590, 926.9832pt x 274.626pt>
 File: imgs/06_pesos.png Graphic file (type png)
 <use imgs/06_pesos.png>
-Package pdftex.def Info: imgs/06_pesos.png  used on input line 1380.
+Package pdftex.def Info: imgs/06_pesos.png  used on input line 1384.
 (pdftex.def)             Requested size: 430.00462pt x 127.39386pt.
- [25]
-[26 <./imgs/06_pesos.png>] [27] [28] [29] [30] (./informeFinal.bbl [31])
-[32] (./informeFinal.aux
+ [24] [25 <./imgs/06_pesos.png>] [26] [27] [28] [29] (./informeFinal.bbl [30]) 
+[31]
+(./informeFinal.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
@@ -673,8 +669,8 @@ Package rerunfilecheck Info: File `informeFinal.out' has not changed.
 (rerunfilecheck)             Checksum: 991AC15F6A7829FC23449F0950322925;10162.
  ) 
 Here is how much of TeX's memory you used:
- 14652 strings out of 474222
- 222145 string characters out of 5748732
+ 14651 strings out of 474222
+ 222138 string characters out of 5748732
  1940975 words of memory out of 5000000
  36499 multiletter control sequences out of 15000+600000
  568343 words of font info for 75 fonts, out of 8000000 for 9000
@@ -695,10 +691,10 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on informeFinal.pdf (34 pages, 1206973 bytes).
+Output written on informeFinal.pdf (33 pages, 1206853 bytes).
 PDF statistics:
- 818 PDF objects out of 1000 (max. 8388607)
- 716 compressed objects within 8 object streams
- 201 named destinations out of 1000 (max. 500000)
+ 814 PDF objects out of 1000 (max. 8388607)
+ 713 compressed objects within 8 object streams
+ 200 named destinations out of 1000 (max. 500000)
  469 words of extra memory for PDF output out of 10000 (max. 10000000)
 

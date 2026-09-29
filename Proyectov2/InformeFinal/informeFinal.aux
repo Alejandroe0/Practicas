@@ -132,59 +132,59 @@
 \newlabel{eq:gexp}{{17}{16}{Caracterización del conjunto de datos}{equation.7.17}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces (a) Seis clips experimentales referidos a su propio origen, con su ajuste parabólico. Bajo esta representación todas las trayectorias arrancan en el mismo punto y comparten la misma curvatura, que es lo que fija $g$. (b) Distribución de la $g$ obtenida ajustando una parábola a cada uno de los 581 clips; la mediana está a un 3.9\,\char 37\relax  del valor físico.}}{17}{figure.4}\protected@file@percent }
 \newlabel{fig:datos}{{4}{17}{(a) Seis clips experimentales referidos a su propio origen, con su ajuste parabólico. Bajo esta representación todas las trayectorias arrancan en el mismo punto y comparten la misma curvatura, que es lo que fija $g$. (b) Distribución de la $g$ obtenida ajustando una parábola a cada uno de los 581 clips; la mediana está a un \SI {3.9}{\percent } del valor físico}{figure.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Recuperación del parámetro físico}{18}{subsection.7.2}\protected@file@percent }
-\newlabel{subsec:g}{{7.2}{18}{Recuperación del parámetro físico}{subsection.7.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Mediana de la $g$ recuperada ajustando una parábola a las predicciones de cada clip de prueba, en \meter  \per  \ensuremath  {\SI@fstyle  {s}}\squared  . Media y desviación estándar sobre cinco semillas, evaluadas siempre sobre clips que la red no vio durante el entrenamiento.}}{18}{table.3}\protected@file@percent }
-\newlabel{tab:g}{{3}{18}{Mediana de la $g$ recuperada ajustando una parábola a las predicciones de cada clip de prueba, en \meter \per \second \squared . Media y desviación estándar sobre cinco semillas, evaluadas siempre sobre clips que la red no vio durante el entrenamiento}{table.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces (a) Gravedad recuperada por formulación y arquitectura; la línea discontinua es el valor físico. (b) RMSE sobre clips no vistos, con las tres líneas base como referencia. Barras de error: desviación estándar sobre cinco semillas.}}{19}{figure.5}\protected@file@percent }
-\newlabel{fig:form}{{5}{19}{(a) Gravedad recuperada por formulación y arquitectura; la línea discontinua es el valor físico. (b) RMSE sobre clips no vistos, con las tres líneas base como referencia. Barras de error: desviación estándar sobre cinco semillas}{figure.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Distribución de la $g$ estimada clip por clip para la red $\tanh $ $32\times 32$; en azul la de los datos experimentales y en color la de las predicciones. Al pasar de la formulación directa a la completa las dos distribuciones dejan de estar separadas y se superponen.}}{19}{figure.6}\protected@file@percent }
-\newlabel{fig:hist}{{6}{19}{Distribución de la $g$ estimada clip por clip para la red $\tanh $ $32\times 32$; en azul la de los datos experimentales y en color la de las predicciones. Al pasar de la formulación directa a la completa las dos distribuciones dejan de estar separadas y se superponen}{figure.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Cuatro clips de prueba con las predicciones de la red $\tanh $ $32\times 32$. Arriba, formulación directa: la red no puede distinguir un clip de otro y predice esencialmente la misma curva para todos. Abajo, formulación completa: la red reproduce la trayectoria de cada clip.}}{20}{figure.7}\protected@file@percent }
-\newlabel{fig:tray}{{7}{20}{Cuatro clips de prueba con las predicciones de la red $\tanh $ $32\times 32$. Arriba, formulación directa: la red no puede distinguir un clip de otro y predice esencialmente la misma curva para todos. Abajo, formulación completa: la red reproduce la trayectoria de cada clip}{figure.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Error de predicción}{20}{subsection.7.3}\protected@file@percent }
-\newlabel{subsec:error}{{7.3}{20}{Error de predicción}{subsection.7.3}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Error de predicción sobre clips no vistos, promediado sobre cinco semillas. Todas las cantidades en metros.}}{20}{table.4}\protected@file@percent }
-\newlabel{tab:rmse}{{4}{20}{Error de predicción sobre clips no vistos, promediado sobre cinco semillas. Todas las cantidades en metros}{table.4}{}}
-\@writefile{toc}{\contentsline {paragraph}{La red explica el 93\,\char 37\relax  de la varianza.}{20}{section*.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{La red supera al modelo físico analítico.}{20}{section*.13}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Aún queda margen.}{21}{section*.14}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Representación de las entradas y capacidad de la red}{21}{subsection.7.4}\protected@file@percent }
-\newlabel{subsec:capacidad}{{7.4}{21}{Representación de las entradas y capacidad de la red}{subsection.7.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Error relativo en $g$ frente al RMSE para las 45 corridas (3 formulaciones $\times $ 3 arquitecturas $\times $ 5 semillas). Las corridas con la formulación directa se agrupan arriba a la derecha; solo la formulación completa con la red $\tanh $ profunda baja del 5\,\char 37\relax  de error.}}{22}{figure.8}\protected@file@percent }
-\newlabel{fig:scatter}{{8}{22}{Error relativo en $g$ frente al RMSE para las 45 corridas (3 formulaciones $\times $ 3 arquitecturas $\times $ 5 semillas). Las corridas con la formulación directa se agrupan arriba a la derecha; solo la formulación completa con la red $\tanh $ profunda baja del \SI {5}{\percent } de error}{figure.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}Coste y beneficio del número de épocas}{22}{subsection.7.5}\protected@file@percent }
-\newlabel{subsec:epocas}{{7.5}{22}{Coste y beneficio del número de épocas}{subsection.7.5}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Tiempo acumulado de entrenamiento, error de predicción sobre clips no vistos y error relativo en $g$ frente al número de épocas. Media sobre cinco semillas. Los tiempos corresponden al equipo del cuadro~\ref {tab:recursos}: CPU Intel i9-12900H con cuatro hilos, sin GPU.}}{23}{table.5}\protected@file@percent }
-\newlabel{tab:epocas}{{5}{23}{Tiempo acumulado de entrenamiento, error de predicción sobre clips no vistos y error relativo en $g$ frente al número de épocas. Media sobre cinco semillas. Los tiempos corresponden al equipo del cuadro~\ref {tab:recursos}: CPU Intel i9-12900H con cuatro hilos, sin GPU}{table.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces (a) Tiempo acumulado de entrenamiento, estrictamente lineal en el número de épocas. (b) RMSE sobre clips no vistos. (c) Error relativo en la $g$ recuperada. Las líneas muestran la media de las cinco semillas, y la zona sombreada de cada color va desde una desviación estándar por debajo hasta una por encima de esa media; mientras más ancha es, más cambia el resultado de una semilla a otra. Nótese que el eje de épocas es logarítmico: los tramos finales de las curvas cuestan la mayor parte del tiempo total.}}{23}{figure.9}\protected@file@percent }
-\newlabel{fig:epocas}{{9}{23}{(a) Tiempo acumulado de entrenamiento, estrictamente lineal en el número de épocas. (b) RMSE sobre clips no vistos. (c) Error relativo en la $g$ recuperada. Las líneas muestran la media de las cinco semillas, y la zona sombreada de cada color va desde una desviación estándar por debajo hasta una por encima de esa media; mientras más ancha es, más cambia el resultado de una semilla a otra. Nótese que el eje de épocas es logarítmico: los tramos finales de las curvas cuestan la mayor parte del tiempo total}{figure.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.6}Inspección de la red entrenada}{24}{subsection.7.6}\protected@file@percent }
-\newlabel{subsec:pesos}{{7.6}{24}{Inspección de la red entrenada}{subsection.7.6}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.6.1}La red simple, escrita a mano}{24}{subsubsection.7.6.1}\protected@file@percent }
-\newlabel{eq:relu_explicita}{{19}{24}{La red simple, escrita a mano}{equation.7.19}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.6.2}Las derivadas de la función aprendida}{25}{subsubsection.7.6.2}\protected@file@percent }
-\newlabel{eq:predicciones_derivadas}{{20}{25}{Las derivadas de la función aprendida}{equation.7.20}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Derivadas de la función aprendida por la red, en unidades físicas, frente a lo que exige la ecuación~\eqref  {eq:mruv_ref}. Las tres tienen el signo y el orden de magnitud correctos, pero ninguna es la constante ni la recta exacta que dicta la física.}}{25}{table.6}\protected@file@percent }
-\newlabel{tab:derivadas}{{6}{25}{Derivadas de la función aprendida por la red, en unidades físicas, frente a lo que exige la ecuación~\eqref {eq:mruv_ref}. Las tres tienen el signo y el orden de magnitud correctos, pero ninguna es la constante ni la recta exacta que dicta la física}{table.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces (a) Segunda derivada de la función aprendida, punto a punto sobre los datos de prueba, con su mediana por tramos. Oscila alrededor del valor experimental (línea discontinua) en vez de ser constante. (b) $g$ obtenida ajustando el modelo de MRUV agrupado a la salida de la red y, como control, a los datos experimentales mismos: la red sigue a los datos, no a la física ideal. (c) Pesos de entrada de las 32 neuronas de la primera capa; el tamaño y el color indican su contribución a la salida.}}{26}{figure.10}\protected@file@percent }
-\newlabel{fig:pesos}{{10}{26}{(a) Segunda derivada de la función aprendida, punto a punto sobre los datos de prueba, con su mediana por tramos. Oscila alrededor del valor experimental (línea discontinua) en vez de ser constante. (b) $g$ obtenida ajustando el modelo de MRUV agrupado a la salida de la red y, como control, a los datos experimentales mismos: la red sigue a los datos, no a la física ideal. (c) Pesos de entrada de las 32 neuronas de la primera capa; el tamaño y el color indican su contribución a la salida}{figure.10}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.6.3}La ecuación que la red aprendió, contra los datos}{26}{subsubsection.7.6.3}\protected@file@percent }
-\newlabel{subsubsec:ecuacion}{{7.6.3}{26}{La ecuación que la red aprendió, contra los datos}{subsubsection.7.6.3}{}}
-\newlabel{eq:modelo_agrupado}{{21}{26}{La ecuación que la red aprendió, contra los datos}{equation.7.21}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Coeficientes del modelo~\eqref  {eq:modelo_agrupado} ajustado a la salida de la red y a los datos experimentales, en dos dominios. El coeficiente cuadrático de la red sigue al de los datos con una diferencia inferior al 2\,\char 37\relax  en ambos casos, incluso cuando el de los datos se aleja mucho del valor físico.}}{27}{table.7}\protected@file@percent }
-\newlabel{tab:ecuacion}{{7}{27}{Coeficientes del modelo~\eqref {eq:modelo_agrupado} ajustado a la salida de la red y a los datos experimentales, en dos dominios. El coeficiente cuadrático de la red sigue al de los datos con una diferencia inferior al \SI {2}{\percent } en ambos casos, incluso cuando el de los datos se aleja mucho del valor físico}{table.7}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.6.4}Cómo está repartida la representación}{27}{subsubsection.7.6.4}\protected@file@percent }
-\newlabel{subsubsec:representacion}{{7.6.4}{27}{Cómo está repartida la representación}{subsubsection.7.6.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.7}Síntesis}{27}{subsection.7.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}Limitaciones del estudio}{28}{section.8}\protected@file@percent }
-\newlabel{sec:limitaciones}{{8}{28}{Limitaciones del estudio}{section.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusiones}{29}{section.9}\protected@file@percent }
-\newlabel{sec:conclusiones}{{9}{29}{Conclusiones}{section.9}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {10}Trabajo futuro}{30}{section.10}\protected@file@percent }
-\newlabel{sec:trabajofuturo}{{10}{30}{Trabajo futuro}{section.10}{}}
-\@writefile{toc}{\contentsline {paragraph}{Cerrar la brecha con el oráculo.}{30}{section*.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Diagnosticar el sesgo experimental.}{30}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Recuperación del parámetro físico}{17}{subsection.7.2}\protected@file@percent }
+\newlabel{subsec:g}{{7.2}{17}{Recuperación del parámetro físico}{subsection.7.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Mediana de la $g$ recuperada ajustando una parábola a las predicciones de cada clip de prueba, en \meter  \per  \ensuremath  {\SI@fstyle  {s}}\squared  . Media y desviación estándar sobre cinco semillas, evaluadas siempre sobre clips que la red no vio durante el entrenamiento.}}{17}{table.3}\protected@file@percent }
+\newlabel{tab:g}{{3}{17}{Mediana de la $g$ recuperada ajustando una parábola a las predicciones de cada clip de prueba, en \meter \per \second \squared . Media y desviación estándar sobre cinco semillas, evaluadas siempre sobre clips que la red no vio durante el entrenamiento}{table.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces (a) Gravedad recuperada por formulación y arquitectura; la línea discontinua es el valor físico. (b) RMSE sobre clips no vistos, con las tres líneas base como referencia. Barras de error: desviación estándar sobre cinco semillas.}}{18}{figure.5}\protected@file@percent }
+\newlabel{fig:form}{{5}{18}{(a) Gravedad recuperada por formulación y arquitectura; la línea discontinua es el valor físico. (b) RMSE sobre clips no vistos, con las tres líneas base como referencia. Barras de error: desviación estándar sobre cinco semillas}{figure.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Distribución de la $g$ estimada clip por clip para la red $\tanh $ $32\times 32$; en azul la de los datos experimentales y en color la de las predicciones. Al pasar de la formulación directa a la completa las dos distribuciones dejan de estar separadas y se superponen.}}{18}{figure.6}\protected@file@percent }
+\newlabel{fig:hist}{{6}{18}{Distribución de la $g$ estimada clip por clip para la red $\tanh $ $32\times 32$; en azul la de los datos experimentales y en color la de las predicciones. Al pasar de la formulación directa a la completa las dos distribuciones dejan de estar separadas y se superponen}{figure.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Cuatro clips de prueba con las predicciones de la red $\tanh $ $32\times 32$. Arriba, formulación directa: la red no puede distinguir un clip de otro y predice esencialmente la misma curva para todos. Abajo, formulación completa: la red reproduce la trayectoria de cada clip.}}{19}{figure.7}\protected@file@percent }
+\newlabel{fig:tray}{{7}{19}{Cuatro clips de prueba con las predicciones de la red $\tanh $ $32\times 32$. Arriba, formulación directa: la red no puede distinguir un clip de otro y predice esencialmente la misma curva para todos. Abajo, formulación completa: la red reproduce la trayectoria de cada clip}{figure.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Error de predicción}{19}{subsection.7.3}\protected@file@percent }
+\newlabel{subsec:error}{{7.3}{19}{Error de predicción}{subsection.7.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Error de predicción sobre clips no vistos, promediado sobre cinco semillas. Todas las cantidades en metros.}}{19}{table.4}\protected@file@percent }
+\newlabel{tab:rmse}{{4}{19}{Error de predicción sobre clips no vistos, promediado sobre cinco semillas. Todas las cantidades en metros}{table.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{La red explica el 93\,\char 37\relax  de la varianza.}{19}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{La red supera al modelo físico analítico.}{19}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Aún queda margen.}{20}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Representación de las entradas y capacidad de la red}{20}{subsection.7.4}\protected@file@percent }
+\newlabel{subsec:capacidad}{{7.4}{20}{Representación de las entradas y capacidad de la red}{subsection.7.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Error relativo en $g$ frente al RMSE para las 45 corridas (3 formulaciones $\times $ 3 arquitecturas $\times $ 5 semillas). Las corridas con la formulación directa se agrupan arriba a la derecha; solo la formulación completa con la red $\tanh $ profunda baja del 5\,\char 37\relax  de error.}}{21}{figure.8}\protected@file@percent }
+\newlabel{fig:scatter}{{8}{21}{Error relativo en $g$ frente al RMSE para las 45 corridas (3 formulaciones $\times $ 3 arquitecturas $\times $ 5 semillas). Las corridas con la formulación directa se agrupan arriba a la derecha; solo la formulación completa con la red $\tanh $ profunda baja del \SI {5}{\percent } de error}{figure.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}Coste y beneficio del número de épocas}{21}{subsection.7.5}\protected@file@percent }
+\newlabel{subsec:epocas}{{7.5}{21}{Coste y beneficio del número de épocas}{subsection.7.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Tiempo acumulado de entrenamiento, error de predicción sobre clips no vistos y error relativo en $g$ frente al número de épocas. Media sobre cinco semillas. Los tiempos corresponden al equipo del cuadro~\ref {tab:recursos}: CPU Intel i9-12900H con cuatro hilos, sin GPU.}}{22}{table.5}\protected@file@percent }
+\newlabel{tab:epocas}{{5}{22}{Tiempo acumulado de entrenamiento, error de predicción sobre clips no vistos y error relativo en $g$ frente al número de épocas. Media sobre cinco semillas. Los tiempos corresponden al equipo del cuadro~\ref {tab:recursos}: CPU Intel i9-12900H con cuatro hilos, sin GPU}{table.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces (a) Tiempo acumulado de entrenamiento, estrictamente lineal en el número de épocas. (b) RMSE sobre clips no vistos. (c) Error relativo en la $g$ recuperada. Las líneas muestran la media de las cinco semillas, y la zona sombreada de cada color va desde una desviación estándar por debajo hasta una por encima de esa media; mientras más ancha es, más cambia el resultado de una semilla a otra. Nótese que el eje de épocas es logarítmico: los tramos finales de las curvas cuestan la mayor parte del tiempo total.}}{22}{figure.9}\protected@file@percent }
+\newlabel{fig:epocas}{{9}{22}{(a) Tiempo acumulado de entrenamiento, estrictamente lineal en el número de épocas. (b) RMSE sobre clips no vistos. (c) Error relativo en la $g$ recuperada. Las líneas muestran la media de las cinco semillas, y la zona sombreada de cada color va desde una desviación estándar por debajo hasta una por encima de esa media; mientras más ancha es, más cambia el resultado de una semilla a otra. Nótese que el eje de épocas es logarítmico: los tramos finales de las curvas cuestan la mayor parte del tiempo total}{figure.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.6}Inspección de la red entrenada}{23}{subsection.7.6}\protected@file@percent }
+\newlabel{subsec:pesos}{{7.6}{23}{Inspección de la red entrenada}{subsection.7.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.6.1}La red simple, escrita a mano}{23}{subsubsection.7.6.1}\protected@file@percent }
+\newlabel{eq:relu_explicita}{{19}{23}{La red simple, escrita a mano}{equation.7.19}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.6.2}Las derivadas de la función aprendida}{24}{subsubsection.7.6.2}\protected@file@percent }
+\newlabel{eq:predicciones_derivadas}{{20}{24}{Las derivadas de la función aprendida}{equation.7.20}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Derivadas de la función aprendida por la red, en unidades físicas, frente a lo que exige la ecuación~\eqref  {eq:mruv_ref}. Las tres tienen el signo y el orden de magnitud correctos, pero ninguna es la constante ni la recta exacta que dicta la física.}}{24}{table.6}\protected@file@percent }
+\newlabel{tab:derivadas}{{6}{24}{Derivadas de la función aprendida por la red, en unidades físicas, frente a lo que exige la ecuación~\eqref {eq:mruv_ref}. Las tres tienen el signo y el orden de magnitud correctos, pero ninguna es la constante ni la recta exacta que dicta la física}{table.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces (a) Segunda derivada de la función aprendida, punto a punto sobre los datos de prueba, con su mediana por tramos. Oscila alrededor del valor experimental (línea discontinua) en vez de ser constante. (b) $g$ obtenida ajustando el modelo de MRUV agrupado a la salida de la red y, como control, a los datos experimentales mismos: la red sigue a los datos, no a la física ideal. (c) Pesos de entrada de las 32 neuronas de la primera capa; el tamaño y el color indican su contribución a la salida.}}{25}{figure.10}\protected@file@percent }
+\newlabel{fig:pesos}{{10}{25}{(a) Segunda derivada de la función aprendida, punto a punto sobre los datos de prueba, con su mediana por tramos. Oscila alrededor del valor experimental (línea discontinua) en vez de ser constante. (b) $g$ obtenida ajustando el modelo de MRUV agrupado a la salida de la red y, como control, a los datos experimentales mismos: la red sigue a los datos, no a la física ideal. (c) Pesos de entrada de las 32 neuronas de la primera capa; el tamaño y el color indican su contribución a la salida}{figure.10}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.6.3}La ecuación que la red aprendió, contra los datos}{25}{subsubsection.7.6.3}\protected@file@percent }
+\newlabel{subsubsec:ecuacion}{{7.6.3}{25}{La ecuación que la red aprendió, contra los datos}{subsubsection.7.6.3}{}}
+\newlabel{eq:modelo_agrupado}{{21}{25}{La ecuación que la red aprendió, contra los datos}{equation.7.21}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Coeficientes del modelo~\eqref  {eq:modelo_agrupado} ajustado a la salida de la red y a los datos experimentales, en dos dominios. El coeficiente cuadrático de la red sigue al de los datos con una diferencia inferior al 2\,\char 37\relax  en ambos casos, incluso cuando el de los datos se aleja mucho del valor físico.}}{26}{table.7}\protected@file@percent }
+\newlabel{tab:ecuacion}{{7}{26}{Coeficientes del modelo~\eqref {eq:modelo_agrupado} ajustado a la salida de la red y a los datos experimentales, en dos dominios. El coeficiente cuadrático de la red sigue al de los datos con una diferencia inferior al \SI {2}{\percent } en ambos casos, incluso cuando el de los datos se aleja mucho del valor físico}{table.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.6.4}Cómo está repartida la representación}{26}{subsubsection.7.6.4}\protected@file@percent }
+\newlabel{subsubsec:representacion}{{7.6.4}{26}{Cómo está repartida la representación}{subsubsection.7.6.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.7}Síntesis}{26}{subsection.7.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Limitaciones del estudio}{27}{section.8}\protected@file@percent }
+\newlabel{sec:limitaciones}{{8}{27}{Limitaciones del estudio}{section.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusiones}{28}{section.9}\protected@file@percent }
+\newlabel{sec:conclusiones}{{9}{28}{Conclusiones}{section.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Trabajo futuro}{29}{section.10}\protected@file@percent }
+\newlabel{sec:trabajofuturo}{{10}{29}{Trabajo futuro}{section.10}{}}
+\@writefile{toc}{\contentsline {paragraph}{Cerrar la brecha con el oráculo.}{29}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Diagnosticar el sesgo experimental.}{29}{section*.16}\protected@file@percent }
 \citation{Fisica}
 \citation{triola_2018_estadstica}
 \citation{zill_1985_clculo}
@@ -201,14 +201,14 @@
 \bibstyle{ieeetr}
 \bibdata{referencias}
 \bibcite{tracker}{1}
-\@writefile{toc}{\contentsline {paragraph}{Mejorar la calidad de los datos.}{31}{section*.17}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Hacer la red interpretable a propósito.}{31}{section*.18}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Un criterio de parada basado en la física.}{31}{section*.19}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Explorar el aprendizaje con restricciones físicas.}{31}{section*.20}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Generalizar a otros marcos teóricos.}{31}{section*.21}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {11}Bibliografía}{31}{section.11}\protected@file@percent }
-\newlabel{sec:biografia}{{11}{31}{Bibliografía}{section.11}{}}
-\newlabel{sec:referencias}{{11}{31}{Referencias comentadas}{section*.22}{}}
+\@writefile{toc}{\contentsline {paragraph}{Mejorar la calidad de los datos.}{30}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Hacer la red interpretable a propósito.}{30}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Un criterio de parada basado en la física.}{30}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Explorar el aprendizaje con restricciones físicas.}{30}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Generalizar a otros marcos teóricos.}{30}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11}Bibliografía}{30}{section.11}\protected@file@percent }
+\newlabel{sec:biografia}{{11}{30}{Bibliografía}{section.11}{}}
+\newlabel{sec:referencias}{{11}{30}{Referencias comentadas}{section*.22}{}}
 \bibcite{antonio_2023_introduccin}{2}
 \bibcite{ibm_qu}{3}
 \bibcite{santana_2018_1}{4}
@@ -229,4 +229,4 @@
 \bibcite{Fisica}{19}
 \bibcite{Amita}{20}
 \bibcite{Jesus}{21}
-\gdef \@abspage@last{34}
+\gdef \@abspage@last{33}

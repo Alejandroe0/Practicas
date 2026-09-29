@@ -44,27 +44,27 @@
 \contentsline {paragraph}{Una advertencia sobre reproducibilidad.}{15}{section*.11}%
 \contentsline {section}{\numberline {7}Resultados}{16}{section.7}%
 \contentsline {subsection}{\numberline {7.1}Caracterización del conjunto de datos}{16}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Recuperación del parámetro físico}{18}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Error de predicción}{20}{subsection.7.3}%
-\contentsline {paragraph}{La red explica el 93\,\char 37\relax de la varianza.}{20}{section*.12}%
-\contentsline {paragraph}{La red supera al modelo físico analítico.}{20}{section*.13}%
-\contentsline {paragraph}{Aún queda margen.}{21}{section*.14}%
-\contentsline {subsection}{\numberline {7.4}Representación de las entradas y capacidad de la red}{21}{subsection.7.4}%
-\contentsline {subsection}{\numberline {7.5}Coste y beneficio del número de épocas}{22}{subsection.7.5}%
-\contentsline {subsection}{\numberline {7.6}Inspección de la red entrenada}{24}{subsection.7.6}%
-\contentsline {subsubsection}{\numberline {7.6.1}La red simple, escrita a mano}{24}{subsubsection.7.6.1}%
-\contentsline {subsubsection}{\numberline {7.6.2}Las derivadas de la función aprendida}{25}{subsubsection.7.6.2}%
-\contentsline {subsubsection}{\numberline {7.6.3}La ecuación que la red aprendió, contra los datos}{26}{subsubsection.7.6.3}%
-\contentsline {subsubsection}{\numberline {7.6.4}Cómo está repartida la representación}{27}{subsubsection.7.6.4}%
-\contentsline {subsection}{\numberline {7.7}Síntesis}{27}{subsection.7.7}%
-\contentsline {section}{\numberline {8}Limitaciones del estudio}{28}{section.8}%
-\contentsline {section}{\numberline {9}Conclusiones}{29}{section.9}%
-\contentsline {section}{\numberline {10}Trabajo futuro}{30}{section.10}%
-\contentsline {paragraph}{Cerrar la brecha con el oráculo.}{30}{section*.15}%
-\contentsline {paragraph}{Diagnosticar el sesgo experimental.}{30}{section*.16}%
-\contentsline {paragraph}{Mejorar la calidad de los datos.}{31}{section*.17}%
-\contentsline {paragraph}{Hacer la red interpretable a propósito.}{31}{section*.18}%
-\contentsline {paragraph}{Un criterio de parada basado en la física.}{31}{section*.19}%
-\contentsline {paragraph}{Explorar el aprendizaje con restricciones físicas.}{31}{section*.20}%
-\contentsline {paragraph}{Generalizar a otros marcos teóricos.}{31}{section*.21}%
-\contentsline {section}{\numberline {11}Bibliografía}{31}{section.11}%
+\contentsline {subsection}{\numberline {7.2}Recuperación del parámetro físico}{17}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Error de predicción}{19}{subsection.7.3}%
+\contentsline {paragraph}{La red explica el 93\,\char 37\relax de la varianza.}{19}{section*.12}%
+\contentsline {paragraph}{La red supera al modelo físico analítico.}{19}{section*.13}%
+\contentsline {paragraph}{Aún queda margen.}{20}{section*.14}%
+\contentsline {subsection}{\numberline {7.4}Representación de las entradas y capacidad de la red}{20}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Coste y beneficio del número de épocas}{21}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Inspección de la red entrenada}{23}{subsection.7.6}%
+\contentsline {subsubsection}{\numberline {7.6.1}La red simple, escrita a mano}{23}{subsubsection.7.6.1}%
+\contentsline {subsubsection}{\numberline {7.6.2}Las derivadas de la función aprendida}{24}{subsubsection.7.6.2}%
+\contentsline {subsubsection}{\numberline {7.6.3}La ecuación que la red aprendió, contra los datos}{25}{subsubsection.7.6.3}%
+\contentsline {subsubsection}{\numberline {7.6.4}Cómo está repartida la representación}{26}{subsubsection.7.6.4}%
+\contentsline {subsection}{\numberline {7.7}Síntesis}{26}{subsection.7.7}%
+\contentsline {section}{\numberline {8}Limitaciones del estudio}{27}{section.8}%
+\contentsline {section}{\numberline {9}Conclusiones}{28}{section.9}%
+\contentsline {section}{\numberline {10}Trabajo futuro}{29}{section.10}%
+\contentsline {paragraph}{Cerrar la brecha con el oráculo.}{29}{section*.15}%
+\contentsline {paragraph}{Diagnosticar el sesgo experimental.}{29}{section*.16}%
+\contentsline {paragraph}{Mejorar la calidad de los datos.}{30}{section*.17}%
+\contentsline {paragraph}{Hacer la red interpretable a propósito.}{30}{section*.18}%
+\contentsline {paragraph}{Un criterio de parada basado en la física.}{30}{section*.19}%
+\contentsline {paragraph}{Explorar el aprendizaje con restricciones físicas.}{30}{section*.20}%
+\contentsline {paragraph}{Generalizar a otros marcos teóricos.}{30}{section*.21}%
+\contentsline {section}{\numberline {11}Bibliografía}{30}{section.11}%
