@@ -1252,27 +1252,28 @@ semillas.
 \end{figure}
 
 Del cuadro~\ref{tab:epocas} y de la figura~\ref{fig:epocas} se pueden
-hacer tres observaciones.
+hacer tres observaciones.\\
 
-En primer lugar, el coste es lineal. El panel (a) de la
+\noindent En primer lugar, el coste es lineal. El panel (a) de la
 figura~\ref{fig:epocas} es una recta en escala doblemente logarítmica con
 pendiente 1: cada época cuesta lo mismo que la anterior. Duplicar las épocas
 duplica el tiempo, sin excepción. La red $\tanh$, con \num{1185} parámetros,
 cuesta apenas un \SI{50}{\percent} más por época que las de 9 y 17: a estos
 tamaños el coste lo domina el recorrido de los datos, no el número de
-parámetros.
+parámetros.\\
 
-En segundo lugar, el error de posición se estanca muy pronto. Las tres redes
+\noindent En segundo lugar, el error de posición se estanca muy pronto. Las tres redes
 alcanzan
 prácticamente su RMSE final hacia la época 10 o 20. De la época 50 a la 800 ---
 un factor 16 en tiempo --- la red $\tanh$ mejora el RMSE en un
 \SI{4}{\percent} y luego lo empeora. Juzgando solo por el RMSE, todo lo que se
-entrene por encima de unas 50 épocas es tiempo perdido.
+entrene por encima de unas 50 épocas es tiempo perdido.\\
 
-Por último, la física no aparece al mismo ritmo que baja el error, y puede
+\noindent Por último, la física no aparece al mismo ritmo que baja el error, y puede
 retroceder. El panel (c) muestra algo que el RMSE no deja ver (en este panel,
 igual que en los otros dos, las zonas sombreadas muestran la variación entre
-semillas).
+semillas).\\
+
 La red $\tanh$ necesita alrededor de 200 épocas para llegar a su mejor
 estimación de $g$ (\SI{4.3}{\percent} de error), es decir, cuatro veces más
 entrenamiento del que necesitaba para estabilizar el RMSE. Y la red media $(4)$

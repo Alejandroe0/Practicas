@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.12.15)  29 SEP 2026 00:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.12.15)  29 SEP 2026 00:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -590,7 +590,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.55 ..., escrita a mano}{23}{subsubsection.7.6.1}
+l.55 ..., escrita a mano}{24}{subsubsection.7.6.1}
                                                   % [1])
 \tf@toc=\write4
 \openout4 = `informeFinal.toc'.
@@ -649,15 +649,34 @@ File: imgs/05_epocas.png Graphic file (type png)
 <use imgs/05_epocas.png>
 Package pdftex.def Info: imgs/05_epocas.png  used on input line 1242.
 (pdftex.def)             Requested size: 430.00462pt x 129.02336pt.
- [22 <./imgs/05_epocas.png>] [23]
-<imgs/06_pesos.png, id=590, 926.9832pt x 274.626pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 1254--1256
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1257--1264
+
+ []
+
+[22 <./imgs/05_epocas.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 1265--1271
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1272--1276
+
+ []
+
+[23]
+<imgs/06_pesos.png, id=589, 926.9832pt x 274.626pt>
 File: imgs/06_pesos.png Graphic file (type png)
 <use imgs/06_pesos.png>
-Package pdftex.def Info: imgs/06_pesos.png  used on input line 1384.
+Package pdftex.def Info: imgs/06_pesos.png  used on input line 1385.
 (pdftex.def)             Requested size: 430.00462pt x 127.39386pt.
- [24] [25 <./imgs/06_pesos.png>] [26] [27] [28] [29] (./informeFinal.bbl [30]) 
-[31]
-(./informeFinal.aux
+ [24] [25 <./imgs/06_pesos.png>] [26] [27] [28] [29] (./informeFinal.bbl
+[30]) [31] (./informeFinal.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
@@ -691,7 +710,7 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on informeFinal.pdf (33 pages, 1206853 bytes).
+Output written on informeFinal.pdf (33 pages, 1206773 bytes).
 PDF statistics:
  814 PDF objects out of 1000 (max. 8388607)
  713 compressed objects within 8 object streams

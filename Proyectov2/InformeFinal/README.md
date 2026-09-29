@@ -39,11 +39,44 @@ pdflatex informeFinal && bibtex informeFinal && pdflatex informeFinal && pdflate
 | Archivo | Descripción |
 |---|---|
 | `informeFinal.tex` | Fuente del informe |
+| `informeFinalv2.tex` | Segunda redacción del mismo informe (ver abajo) |
 | `referencias.bib` | Bibliografía |
 | `figuras.py` | Genera las figuras de `imgs/` a partir de `../outs/` |
 | `imgs/` | Figuras del experimento |
 | `usacAzul.jpg`, `ecfmAzul.png` | Logos de la portada |
 | `sigmoide.png`, `tanh.png`, `relu.png` | Figuras del marco teórico |
+
+## Dos redacciones del mismo informe
+
+`informeFinalv2.tex` contiene exactamente los mismos datos, tablas, figuras,
+ecuaciones, etiquetas y bibliografía que `informeFinal.tex`. Lo único que
+cambia es la prosa, reescrita para que suene menos a texto generado y más a
+redacción propia:
+
+- Se eliminaron las rayas (`---`) usadas como inciso: de 70 a 3, y las tres que
+  quedan son celdas vacías de tabla. En su lugar van comas, paréntesis, dos
+  puntos o subordinadas.
+- Se quitaron las oraciones-tesis en negrita dentro del párrafo y los abridores
+  en negrita de las conclusiones. La negrita queda solo en etiquetas de lista y
+  en las celdas destacadas de las tablas.
+- Los `\paragraph{}` con título afirmativo («La red explica el 93 % de la
+  varianza.», «El coste es exactamente lineal.») se disolvieron en prosa
+  corrida o se cambiaron por títulos nominales («Memoria.», «Tiempo total.»).
+- Se retiró el andamiaje de enumeración anticipada: «Tres observaciones, y la
+  tercera es la importante», «Conviene subrayar tres cosas», «Dos análisis
+  adicionales completan el estudio».
+- Se redujo la antítesis «no es X sino Y», que aparecía decenas de veces, y las
+  sentencias de veredicto («El resultado es inequívoco», «El resultado es
+  nítido»).
+- Se varió el largo de las oraciones y se rompió el paralelismo de tríadas, que
+  en el original era demasiado regular.
+
+Se verificó que todos los valores numéricos coinciden entre las dos fuentes.
+Compila igual:
+
+```bash
+latexmk -pdf informeFinalv2.tex
+```
 
 ## Regenerar las figuras
 

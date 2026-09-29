@@ -52,7 +52,7 @@
 \contentsline {subsection}{\numberline {7.4}Representación de las entradas y capacidad de la red}{20}{subsection.7.4}%
 \contentsline {subsection}{\numberline {7.5}Coste y beneficio del número de épocas}{21}{subsection.7.5}%
 \contentsline {subsection}{\numberline {7.6}Inspección de la red entrenada}{23}{subsection.7.6}%
-\contentsline {subsubsection}{\numberline {7.6.1}La red simple, escrita a mano}{23}{subsubsection.7.6.1}%
+\contentsline {subsubsection}{\numberline {7.6.1}La red simple, escrita a mano}{24}{subsubsection.7.6.1}%
 \contentsline {subsubsection}{\numberline {7.6.2}Las derivadas de la función aprendida}{24}{subsubsection.7.6.2}%
 \contentsline {subsubsection}{\numberline {7.6.3}La ecuación que la red aprendió, contra los datos}{25}{subsubsection.7.6.3}%
 \contentsline {subsubsection}{\numberline {7.6.4}Cómo está repartida la representación}{26}{subsubsection.7.6.4}%
