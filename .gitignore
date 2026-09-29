@@ -3,3 +3,16 @@
 *.mov
 videos/
 .claude/
+
+# Auxiliares de compilación LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+# Los logs de corridas del modelo sí se versionan
+!Proyectov2/outs/*.log
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
