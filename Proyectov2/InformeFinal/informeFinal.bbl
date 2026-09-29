@@ -1,12 +1,8 @@
 \begin{thebibliography}{10}
 
-\bibitem{triola_2018_estadstica}
-M.~F. Triola, {\em Estadística}.
-\newblock Pearson Educación de México, S.A. de C.V., 2018.
-
-\bibitem{zill_1985_clculo}
-D.~G. Zill, {\em Cálculo con geometría analítica}.
-\newblock Grupo Editorial Iberoamérica, 1985.
+\bibitem{tracker}
+D.~Brown, R.~Hanson, and W.~Christian, ``Tracker: Video analysis and modeling
+  tool.'' Open Source Physics, \url{https://physlets.org/tracker/}, 2024.
 
 \bibitem{antonio_2023_introduccin}
 J.~Antonio, ``Introducción a las redes neuronales: explicación completa en
@@ -33,8 +29,50 @@ C.~Santana, ``¿qué es una red neuronal? parte 3.5 : Las matemáticas de
 \bibitem{wikipediacontributors_2018_activation}
 W.~Contributors, ``Activation function,'' 11 2018.
 
+\bibitem{goodfellow_2016_deep}
+I.~Goodfellow, Y.~Bengio, and A.~Courville, {\em Deep Learning}.
+\newblock MIT Press, 2016.
+\newblock \url{https://www.deeplearningbook.org}.
+
+\bibitem{lu_2020_dying}
+L.~Lu, Y.~Shin, Y.~Su, and G.~E. Karniadakis, ``Dying {ReLU} and
+  initialization: Theory and numerical examples,'' {\em Communications in
+  Computational Physics}, vol.~28, no.~5, pp.~1671--1706, 2020.
+
+\bibitem{kingma_2015_adam}
+D.~P. Kingma and J.~Ba, ``Adam: A method for stochastic optimization,'' in {\em
+  3rd International Conference on Learning Representations (ICLR)}, 2015.
+\newblock arXiv:1412.6980.
+
+\bibitem{triola_2018_estadstica}
+M.~F. Triola, {\em Estadística}.
+\newblock Pearson Educación de México, S.A. de C.V., 2018.
+
+\bibitem{zill_1985_clculo}
+D.~G. Zill, {\em Cálculo con geometría analítica}.
+\newblock Grupo Editorial Iberoamérica, 1985.
+
+\bibitem{rumelhart_1986_backprop}
+D.~E. Rumelhart, G.~E. Hinton, and R.~J. Williams, ``Learning representations
+  by back-propagating errors,'' {\em Nature}, vol.~323, pp.~533--536, 1986.
+
+\bibitem{hastie_2009_elements}
+T.~Hastie, R.~Tibshirani, and J.~Friedman, {\em The Elements of Statistical
+  Learning}.
+\newblock Springer, segunda~ed., 2009.
+
 \bibitem{TensorFlow}
 {Google Brain Team}, ``Por qué tensorflow,'' 2014.
+
+\bibitem{paszke_2019_pytorch}
+A.~Paszke, S.~Gross, F.~Massa, A.~Lerer, {\em et~al.}, ``{PyTorch}: An
+  imperative style, high-performance deep learning library,'' in {\em Advances
+  in Neural Information Processing Systems 32}, pp.~8024--8035, 2019.
+
+\bibitem{repositorio}
+C.~A. Barillas~Segura, ``Repositorio del proyecto de prácticas: redes
+  neuronales para la inferencia de modelos físicos.''
+  \url{https://github.com/Alejandroe0/Practicas}, 2026.
 
 \bibitem{Fisica}
 F.~J. Blatt, {\em Fundamentos de Física}.

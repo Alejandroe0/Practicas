@@ -2,8 +2,8 @@
 % Cesar Alejandro Barillas Segura
 % ECFM-USAC
 %
-% Este documento unifica el anteproyecto (mayo 2024) con los resultados
-% experimentales y numéricos del proyecto.
+% Segunda versión de redacción. Mismo contenido, tablas y figuras que
+% informeFinal.tex; cambia únicamente la prosa.
 
 \documentclass[titlepage,11pt]{article}
 
@@ -96,31 +96,33 @@ pdfkeywords={Physical Systems \& Artificial neural networks \& Machine learning}
 \section*{Resumen}
 \addcontentsline{toc}{section}{Resumen}
 
-Se estudió si una red neuronal entrenada con datos experimentales de caída
-libre permite recuperar el modelo físico que los genera, en particular el valor
-de la aceleración de la gravedad. Para esto se grabaron 609 clips de video de un
-cuerpo en caída libre y se digitalizaron sus trayectorias. Con el método
-clásico, que ajusta una parábola a cada trayectoria, se obtiene una gravedad
-\SI{3.9}{\percent} menor que la esperada. Esta diferencia viene del montaje
-experimental y limita la exactitud que puede alcanzar cualquier modelo que use
-estos datos.
+En este trabajo se estudió si una red neuronal entrenada con datos
+experimentales de caída libre permite recuperar el modelo físico que los
+genera, en particular el valor de la aceleración de la gravedad. Para esto se
+grabaron 609 clips de video de un cuerpo en caída libre y se digitalizaron sus
+trayectorias. Si a estos datos se les aplica el método clásico, que consiste en
+ajustar una parábola a cada trayectoria, se obtiene una gravedad
+aproximadamente \SI{3.9}{\percent} menor que la esperada. Esa diferencia se
+puede atribuir al montaje experimental y limita la exactitud que puede alcanzar
+cualquier modelo que use estos datos.
 
 Se entrenaron redes neuronales de distintos tamaños, con tres formas diferentes
 de presentar los datos de entrada. La red más grande, cuando cada trayectoria se
 describe desde su propio punto de partida y con su velocidad inicial, predice
 bien la posición en clips que no vio durante el entrenamiento, y la gravedad que
-se obtiene de ella difiere en \SI{0.2}{\percent} de la que da el método clásico
-con los mismos datos. También se encontró que la forma en que se presentan los
-datos pesa más que el tamaño de la red. Si las entradas no permiten distinguir
-una trayectoria de otra, usar una red más grande no mejora la estimación de la
-gravedad. Cuando sí lo permiten, la red más grande es la que da mejores
-resultados.
+se obtiene de ella difiere apenas un \SI{0.2}{\percent} de la que da el método
+clásico con los mismos datos. También se encontró que la forma en que se
+presentan los datos pesa más que el tamaño de la red. Si las entradas no
+permiten distinguir una trayectoria de otra, usar una red más grande no mejora
+la estimación de la gravedad; en cambio, cuando sí lo permiten, la red más
+grande es la que da mejores resultados. Con esto se confirma el supuesto
+planteado en el anteproyecto.
 
-Por último se analizó cuántas épocas conviene entrenar y qué aprendió la red
-por dentro. Después de unas 200 épocas el tiempo de entrenamiento sigue
-aumentando, pero la estimación de la gravedad ya no mejora. Además, dentro de
-la red no aparece la ecuación de movimiento de forma explícita; la física está
-en el comportamiento de todas las neuronas juntas y no en una neurona en
+Además se analizó cuántas épocas conviene entrenar y qué aprendió la red por
+dentro. Después de unas 200 épocas el tiempo de entrenamiento sigue aumentando,
+pero la estimación de la gravedad ya no mejora. Por otro lado, dentro de la red
+no aparece la ecuación de movimiento de forma explícita, sino que la física
+está en el comportamiento de todas las neuronas juntas y no en una en
 particular.
 
 \newpage
@@ -204,29 +206,28 @@ por el movimiento rectilíneo uniformemente variado (MRUV) que se detalla en la
 sección~\ref{subsec:mru}. La parte técnica y descriptiva de las redes
 neuronales, su arquitectura, sus funciones de activación y sus funciones de
 coste, se trata en la sección~\ref{subsec:redneuronal}. Los conocimientos
-matemáticos necesarios para construir y entrenar la red --- suma ponderada,
-mínimos cuadrados, derivadas parciales y regla de la cadena --- se resumen en
-la sección~\ref{subsec:mat}, y el mecanismo de aprendizaje en la
-sección~\ref{subsec:ML}. La implementación se realizó en
-PyTorch (sección~\ref{subsec:ts}).
+matemáticos necesarios para construir y entrenar la red (suma ponderada,
+mínimos cuadrados, derivadas parciales y regla de la cadena) se resumen en la
+sección~\ref{subsec:mat}, y el mecanismo de aprendizaje en la
+sección~\ref{subsec:ML}. La implementación se realizó en PyTorch
+(sección~\ref{subsec:ts}).
 
-La pregunta que organiza todo el trabajo no es si una red puede ajustar una
-curva --- eso se sabe desde hace décadas --- sino si de una red ya entrenada
-puede \emph{extraerse} el modelo físico subyacente. Concretamente: si se
-entrena una red con trayectorias reales de caída libre y después se ajusta una
-parábola a sus predicciones, ¿aparece el valor correcto de~$g$? Ese es el
-criterio de éxito que se adoptó, y responderlo requiere tres cosas: un montaje
-experimental que produzca datos suficientes (sección~\ref{sec:datos}), una
-formulación del problema de aprendizaje en la que la pregunta tenga respuesta
-(sección~\ref{subsec:formulaciones}) y un protocolo de evaluación que sea
-válido (sección~\ref{sec:protocolo}).
+La pregunta precursora del trabajo no es si una red puede ajustar una curva,
+cosa que se sabe desde hace décadas. Lo que interesa aquí es si de una red ya
+entrenada puede extraerse el modelo físico subyacente. Planteado de forma
+concreta: si se entrena una red con trayectorias reales de caída libre y
+después se ajusta una parábola a sus predicciones, ¿aparece el valor correcto
+de~$g$? Ese fue el criterio de éxito que se adoptó, y para responderlo hacen
+falta un montaje experimental que produzca datos suficientes
+(sección~\ref{sec:datos}), una formulación del problema de aprendizaje en la
+que la pregunta tenga respuesta (sección~\ref{subsec:formulaciones}) y un
+protocolo de evaluación que sea válido (sección~\ref{sec:protocolo}).
 
-La respuesta que se obtiene es afirmativa: la red recupera la gravedad con una
+La respuesta que se obtuvo es afirmativa: la red recupera la gravedad con una
 discrepancia del \SI{0.2}{\percent} respecto de lo que el método clásico
-obtiene de esos mismos datos (sección~\ref{sec:resultados}). El informe
-documenta además cuánto aporta cada ingrediente ---la representación de las
-entradas por un lado, la capacidad expresiva de la red por otro---, que resulta
-ser la parte más instructiva del estudio.
+obtiene de esos mismos datos (sección~\ref{sec:resultados}). El informe también
+documenta cuánto aporta cada ingrediente por separado, la representación de las
+entradas por un lado y la capacidad expresiva de la red por otro, que al final resultó ser la parte más instructiva del estudio.
 
 \subsection{Movimiento rectilíneo uniformemente variado}
 \label{subsec:mru}
@@ -238,18 +239,19 @@ la posición
   \label{eq:mruv}
 \end{equation}
 donde $y_0$ es la posición en $t=0$ y $v_0$ la velocidad inicial. En caída
-libre, despreciando el arrastre del aire, la aceleración es la de la gravedad,
-$a=g$. Para digitalizar las trayectorias se usó \emph{Tracker}~\cite{tracker}, un
+libre, si se desprecia el arrastre del aire, la aceleración es la de la
+gravedad, $a=g$. Para digitalizar las trayectorias se usó \emph{Tracker}~\cite{tracker}, un
 programa gratuito de análisis de video del proyecto \emph{Open Source Physics}
 que sirve para seguir un objeto en cada fotograma de un video y obtener su
 posición en función del tiempo. Está disponible en
-\url{https://physlets.org/tracker/}. Con el eje $y$ orientado hacia arriba --- que es la convención que usa
-\emph{Tracker} y la que se mantiene en todo este informe ---
+\url{https://physlets.org/tracker/}. Con el eje $y$ orientado hacia arriba, que es la convención
+que usa \emph{Tracker} y la que se mantiene en todo este informe,
 $g\approx\num{-9.81}~\meter\per\second\squared$, y tanto $y$ como $v_0$ pueden
 ser negativos.
 
 La ecuación~\eqref{eq:mruv} es el \enquote{marco teórico} cuya recuperación se
-busca. Tres observaciones sobre su estructura resultan decisivas más adelante:
+busca. Hay tres observaciones sobre su estructura que resultan decisivas más
+adelante:
 
 \begin{enumerate}
 \item $g$ aparece únicamente en el coeficiente cuadrático. Si se ajusta
@@ -257,11 +259,11 @@ busca. Tres observaciones sobre su estructura resultan decisivas más adelante:
   estimador que se usa en todo el trabajo.
 \item Los tres coeficientes son independientes: $y_0$ y $v_0$ son propios de
   cada lanzamiento, mientras que $g$ es común a todos. Una trayectoria queda
-  determinada por la terna $(y_0,v_0,g)$, no por $g$ sola.
-\item Por lo tanto, $t$ \emph{no} determina $y$. Dos lanzamientos distintos
-  con la misma $t$ tienen posiciones distintas si difieren en $y_0$ o $v_0$.
-  Esta observación, aparentemente trivial, es la que dicta cómo deben
-  construirse las entradas de la red (sección~\ref{subsec:formulaciones}).
+  determinada por la terna $(y_0,v_0,g)$ y no por $g$ sola.
+\item Por lo tanto, $t$ no determina $y$. Dos lanzamientos distintos con la
+  misma $t$ tienen posiciones distintas si difieren en $y_0$ o en $v_0$. Esta
+  observación parece trivial, pero es la que dicta cómo deben construirse las
+  entradas de la red (sección~\ref{subsec:formulaciones}).
 \end{enumerate}
 
 \subsection{Red Neuronal}
@@ -352,12 +354,12 @@ la suma ponderada de entradas y pesos, las funciones más comunes son:
 
   La ReLU es barata de evaluar y su derivada no se satura para
   $x>0$~\cite{goodfellow_2016_deep}, pero
-  tiene un modo de falla conocido: si durante el entrenamiento el argumento de
-  una neurona se vuelve negativo para todos los datos, su gradiente es cero de
-  forma permanente y la neurona deja de aprender. Este fenómeno, llamado
-  \emph{ReLU muerta}~\cite{lu_2020_dying}, es más probable cuanto menos neuronas tenga la capa, y se
-  invocará en la sección~\ref{subsec:capacidad} para explicar el comportamiento
-  de la red $\to2\to1$.
+  tiene un modo de falla conocido. Si durante el entrenamiento el argumento de
+  una neurona se vuelve negativo para todos los datos, su gradiente queda en
+  cero de forma permanente y la neurona deja de aprender. Este fenómeno se
+  conoce como \emph{ReLU muerta}~\cite{lu_2020_dying} y es más probable cuanto menos neuronas tenga
+  la capa; se retomará en la sección~\ref{subsec:capacidad} para explicar el
+  comportamiento de la red $\to2\to1$.
 \end{enumerate}
 
 La cantidad de neuronas ocultas y la función de activación determinan la
@@ -390,8 +392,8 @@ muestras; las funciones de coste más usadas son:
   \begin{equation}
     \mathrm{RMSE}=\sqrt{\frac{1}{n}\sum_{i=1}^{n}(\hat y_i-y_i)^2},
   \end{equation}
-  con la ventaja de estar en las mismas unidades que la variable predicha ---
-  metros, en este trabajo. Penaliza fuertemente los errores grandes.
+  con la ventaja de estar en las mismas unidades que la variable predicha, que
+  en este trabajo son metros. Penaliza fuertemente los errores grandes.
 
 \item \textbf{Error absoluto medio (MAE):} promedia los valores absolutos de
   los errores,
@@ -402,11 +404,11 @@ muestras; las funciones de coste más usadas son:
 \end{enumerate}
 
 En este punto hay que tomar en cuenta que MSE, RMSE y MAE son medidas
-\emph{relativas}, y esto define cómo se presentan los resultados. Un RMSE de
+relativas, y esto define cómo se presentan los resultados. Un RMSE de
 \num{0.5}~\meter\ es excelente si los datos varían en decenas de metros y es
-pésimo si varían en centímetros. Por eso todo RMSE reportado aquí se acompaña
-del $R^2$ de la ecuación~\eqref{eq:r2} y de las líneas base clásicas de la
-sección~\ref{subsec:baselines}.
+pésimo si varían en centímetros. Por eso todo RMSE reportado en este informe se
+acompaña del $R^2$ de la ecuación~\eqref{eq:r2} y de las líneas base clásicas
+de la sección~\ref{subsec:baselines}.
 
 Además, existen optimizadores que usan estas funciones de coste para ajustar
 los pesos:
@@ -461,18 +463,18 @@ construye la matriz de diseño
 y se busca el $\mathbf{c}$ que minimiza $\norm{\mathbf{T}\mathbf{c}-\mathbf{y}}^2$,
 cuya solución es $\mathbf{c}=(\mathbf{T}^{\mathsf T}\mathbf{T})^{-1}\mathbf{T}^{\mathsf T}\mathbf{y}$.
 Comparando con~\eqref{eq:mruv} se identifica $c_0=y_0$, $c_1=v_0$ y
-$g=2c_2$. Este ajuste es la herramienta central del trabajo: se aplica tanto a
-los datos experimentales como a las predicciones de cada red, y la comparación
-entre ambos valores de $g$ es el criterio con el que se juzga si la red capturó
-la física~\cite{triola_2018_estadstica}.
+$g=2c_2$. Este ajuste es la herramienta central del trabajo, ya que se aplica
+tanto a los datos experimentales como a las predicciones de cada red, y la
+comparación entre ambos valores de $g$ es el criterio con el que se juzga si la
+red capturó la física~\cite{triola_2018_estadstica}.
 
-Es importante notar una propiedad de este estimador, que condiciona todo el
-protocolo de evaluación: el ajuste solo tiene significado físico si todos los
-puntos $(t_i,y_i)$ que entran en él pertenecen a \emph{una misma trayectoria}.
-Si se mezclan trayectorias con distinto $y_0$, distinto $v_0$ o distinto origen
-temporal, el $c_2$ resultante no es $g/2$ sino un número sin interpretación.
-Por eso toda estimación de $g$ que aparece en este informe --- de los datos o
-de las predicciones --- se hace \emph{clip por clip}.
+El estimador tiene una propiedad que condiciona todo el protocolo de
+evaluación: el ajuste solo tiene significado físico si todos los puntos
+$(t_i,y_i)$ que entran en él pertenecen a una misma trayectoria. Cuando se
+mezclan trayectorias con distinto $y_0$, distinto $v_0$ o distinto origen
+temporal, el $c_2$ resultante ya no es $g/2$ sino un número sin interpretación.
+Por eso toda estimación de $g$ que aparece en este informe, sea de los datos o
+de las predicciones, se hace clip por clip.
 
 \subsubsection{Coeficiente de determinación}
 Para juzgar si un modelo aporta información sobre la simple media de los datos
@@ -508,10 +510,10 @@ entonces~\cite{zill_1985_clculo}
   \label{eq:cadena}
 \end{equation}
 donde $i$ toma cualquier valor entero de 1 a $k$. Como una red neuronal es una
-composición de funciones --- cada capa aplicada al resultado de la anterior ---
-la ecuación~\eqref{eq:cadena} es literalmente el mecanismo que permite
-propagar el error desde la salida hasta la primera capa, y por eso reaparece en
-la sección~\ref{subsec:ML}.
+composición de funciones, con cada capa aplicada al resultado de la anterior,
+la ecuación~\eqref{eq:cadena} es el mecanismo que permite propagar el error
+desde la salida hasta la primera capa, y por eso reaparece en la
+sección~\ref{subsec:ML}.
 
 \subsubsection{Normalización de los datos}
 \label{subsubsec:zscore}
@@ -521,16 +523,16 @@ normalización $z$ transforma cada variable según
   \tilde x = \frac{x-\mu_x}{\sigma_x},
   \label{eq:zscore}
 \end{equation}
-con $\mu_x$ y $\sigma_x$ la media y la desviación estándar muestrales. Esto
-evita que variables con rangos muy distintos --- aquí, tiempos del orden de
-$10^{-1}$~\second\ y posiciones del orden de $1$~\meter\ --- produzcan
+con $\mu_x$ y $\sigma_x$ la media y la desviación estándar muestrales. Con esto
+se evita que variables con rangos muy distintos, en este caso tiempos del orden
+de $10^{-1}$~\second\ y posiciones del orden de $1$~\meter, produzcan
 gradientes de magnitudes desbalanceadas. Los estadísticos $\mu_x$ y $\sigma_x$
-se calculan \emph{únicamente} con los clips de entrenamiento, para que ninguna
+se calculan únicamente con los clips de entrenamiento, de manera que ninguna
 información del conjunto de prueba se filtre en el preprocesamiento. Las
 predicciones se regresan a su escala original con la transformación inversa,
 $x=\mu_x+\sigma_x\tilde x$, antes de calcular
-cualquier métrica física, de modo que todos los errores reportados en este
-informe están en metros.
+cualquier métrica física, así que todos los errores reportados en este informe
+están en metros.
 
 \subsection{Aprendizaje automático}
 \label{subsec:ML}
@@ -557,24 +559,24 @@ empiece a crecer mientras el de entrenamiento sigue
 bajando~\cite{goodfellow_2016_deep,hastie_2009_elements}.
 
 La forma en que se hace esa separación importa tanto como el hecho de hacerla.
-Si los datos provienen de experimentos repetidos, repartir los puntos
+Cuando los datos provienen de experimentos repetidos, repartir los puntos
 individuales al azar hace que puntos de una misma trayectoria caigan a ambos
-lados de la partición; entonces el conjunto de validación no mide capacidad de
-generalización a un experimento nuevo, sino solo de interpolación dentro de
-experimentos ya vistos. La alternativa correcta, y la que se emplea en este
-trabajo, es particionar por \emph{experimento completo}: cada clip entra
-íntegro en entrenamiento, en validación o en prueba, y nunca se reparte entre
-ellos.
+lados de la partición; en ese caso el conjunto de validación deja de medir la
+capacidad de generalizar a un experimento nuevo y solo mide la interpolación
+dentro de experimentos ya vistos. La alternativa correcta, que es la que se
+empleó en este trabajo, consiste en particionar por experimento completo: cada
+clip entra íntegro en entrenamiento, en validación o en prueba, y nunca se
+reparte entre ellos.
 
 \subsubsection{Identificabilidad del modelo}
 \label{subsubsec:identificabilidad}
 Existe una condición previa a cualquier consideración de arquitectura o de
 entrenamiento, y es que el problema planteado tenga solución. Si se busca una
 función $f$ tal que $y\approx f(x)$ y en los datos existen pares $(x,y_a)$ y
-$(x,y_b)$ con $y_a\neq y_b$, ninguna función puede reproducir ambos: el
-problema es \emph{no identificable} a partir de $x$.
+$(x,y_b)$ con $y_a\neq y_b$, ninguna función puede reproducir ambos, de modo
+que el problema es \emph{no identificable} a partir de $x$.
 
-En ese caso la teoría de la regresión da una respuesta
+Para ese caso la teoría de la regresión da una respuesta
 precisa~\cite{hastie_2009_elements}. El minimizador
 del error cuadrático esperado es la media condicional,
 \begin{equation}
@@ -584,18 +586,18 @@ del error cuadrático esperado es la media condicional,
 y el error residual mínimo alcanzable es la varianza condicional
 $\mathbb{E}[\operatorname{Var}(y\mid x)]$, que no puede reducirse por más
 capacidad o más épocas que se le den al modelo. Una red suficientemente
-expresiva entrenada con MSE converge a~\eqref{eq:mediacondicional}, no
+expresiva entrenada con MSE converge a~\eqref{eq:mediacondicional} y no
 necesariamente a la ley física que generó los datos.
 
-Esta es la consideración que gobierna el diseño experimental de la
+Ésta es la consideración que gobierna el diseño experimental de la
 sección~\ref{subsec:formulaciones}. Aplicada a la caída libre dice lo
 siguiente: si a la red se le da como única entrada el tiempo~$t$ del video y se
-le pide la posición~$y$, un mismo $t$ queda asociado a las posiciones de
-muchas trayectorias distintas, con alturas iniciales distintas, y la media
-condicional resultante no tiene por qué parecerse a ninguna parábola física.
-Para que la pregunta tenga respuesta, las entradas deben determinar la salida,
-y eso obliga a construirlas de manera que la información propia de cada
-trayectoria esté presente.
+le pide la posición~$y$, un mismo $t$ queda asociado a las posiciones de muchas
+trayectorias distintas, con alturas iniciales distintas, y la media condicional
+resultante no tiene por qué parecerse a ninguna parábola física. Para que la
+pregunta tenga respuesta, las entradas deben determinar la salida, y eso obliga
+a construirlas de manera que la información propia de cada trayectoria esté
+presente.
 
 \subsection{PyTorch}
 \label{subsec:ts}
@@ -603,18 +605,18 @@ El anteproyecto contemplaba usar TensorFlow~\cite{TensorFlow}, la plataforma de
 aprendizaje automático desarrollada por Google y liberada en 2015. Durante la
 implementación se migró a \textbf{PyTorch}~\cite{paszke_2019_pytorch}, una biblioteca de
 código abierto para aprendizaje automático en Python,
-mantenida por Meta AI, por dos razones prácticas: su modo de ejecución
-inmediata (\emph{eager}) permite inspeccionar tensores y gradientes con un
-depurador convencional, lo que resultó decisivo para un proyecto cuyo objetivo
-es \emph{estudiar} el interior de la red y no solo entrenarla; y su API de
-módulos (\texttt{torch.nn}) expresa arquitecturas pequeñas y no estándar con
-menos código intermedio. Ambas bibliotecas implementan diferenciación
-automática sobre grafos de cómputo y son equivalentes para los fines de este
-trabajo. Los conceptos descritos en las secciones anteriores --- capas
-lineales, activaciones, función de coste, optimizador Adam
-(sección~\ref{subsubsec:coste}) --- se traducen
-directamente a las clases \texttt{nn.Linear}, \texttt{nn.ReLU}/\texttt{nn.Tanh},
-\texttt{nn.MSELoss} y \texttt{torch.optim.Adam}.
+mantenida por Meta AI, por dos razones prácticas. La primera es que su modo de
+ejecución inmediata (\emph{eager}) permite inspeccionar tensores y gradientes
+con un depurador convencional, cosa que resultó decisiva para un proyecto cuyo
+objetivo es estudiar el interior de la red y no solamente entrenarla. La
+segunda es que su API de módulos (\texttt{torch.nn}) expresa arquitecturas
+pequeñas y no estándar con menos código intermedio. Ambas bibliotecas
+implementan diferenciación automática sobre grafos de cómputo y son
+equivalentes para los fines de este trabajo. Los conceptos descritos en las
+secciones anteriores, es decir, capas lineales, activaciones, función de coste
+y optimizador Adam (sección~\ref{subsubsec:coste}), se traducen directamente a las clases \texttt{nn.Linear},
+\texttt{nn.ReLU}/\texttt{nn.Tanh}, \texttt{nn.MSELoss} y
+\texttt{torch.optim.Adam}.
 
 El entorno de trabajo se gestionó con \texttt{conda} (entorno
 \texttt{practicas}) y todos los scripts, datos y salidas quedaron versionados
@@ -688,7 +690,7 @@ entrenadas. Las tres últimas se detallan a continuación.
 \subsection{Montaje experimental y toma de datos}
 \label{sec:datos}
 
-Se grabaron \textbf{609 clips} de video de un cuerpo dejándose caer desde el
+Se grabaron 609 clips de video de un cuerpo dejándose caer desde el
 reposo, a una frecuencia de \unit{60}{\hertz} ($\Delta t = \unit{1/60}{\second}
 \approx \unit{16.7}{\milli\second}$). Cada video se segmentó en clips
 individuales y se digitalizó con \emph{Tracker}, el programa de análisis de video descrito
@@ -700,39 +702,40 @@ conocida en el campo de visión, de modo que las posiciones están en metros y e
 eje $y$ apunta hacia arriba. La digitalización de todos los clips en \emph{Tracker}
 se hizo poco a poco entre abril y agosto de 2025.
 
-De los 609 clips, \textbf{606 contienen datos utilizables}, con un total de
-\textbf{\num{20\,210} pares $(t,y)$}. Cada clip tiene en promedio 33 puntos y una
+De los 609 clips, 606 contienen datos utilizables, con un total de
+\num{20\,210} pares $(t,y)$. Cada clip tiene en promedio 33 puntos y una
 duración media de \unit{0.54}{\second}. Los archivos resultantes se almacenaron
-en formato de texto en \texttt{Toma\_de\_datos/datos/}.
+en formato de texto.
 
 \subsection{Preprocesamiento}
 \label{subsec:preproceso}
 
-Cada clip se refiere a su propio origen: con $t_0$ e $y_0$ el instante y la
+Cada clip se refiere a su propio origen. Si $t_0$ e $y_0$ son el instante y la
 posición del primer fotograma del clip, se definen
 \begin{equation}
   \tau = t - t_0, \qquad \Delta y = y - y_0 ,
 \end{equation}
-de modo que la ecuación~\eqref{eq:mruv} se convierte en
+con lo que la ecuación~\eqref{eq:mruv} se convierte en
 \begin{equation}
   \Delta y = v_0\,\tau + \frac{1}{2}g\,\tau^2 .
   \label{eq:mruv_ref}
 \end{equation}
-En esta forma $y_0$ ha desaparecido y $g$ es el único parámetro compartido por
-todas las trayectorias. La velocidad inicial $v_0$, en cambio, no es la misma
-en todos los clips ---media $\num{-0.21}~\meter\per\second$, desviación
-estándar $\num{0.25}~\meter\per\second$--- porque no todos empiezan en el
-instante exacto de la soltada, y por eso se conserva como variable. Se estima
-con un ajuste lineal a los \emph{tres primeros puntos} de cada clip:
-\emph{Tracker} no proporciona velocidad en el primer fotograma, y usar solo el
-arranque evita que la estimación absorba la curvatura, que es justamente lo que
-se quiere medir después.
+En esta forma $y_0$ ha desaparecido y $g$ queda como el único parámetro
+compartido por todas las trayectorias. La velocidad inicial $v_0$, en cambio,
+no es la misma en todos los clips (media $\num{-0.21}~\meter\per\second$,
+desviación estándar $\num{0.25}~\meter\per\second$) porque no todos empiezan en
+el instante exacto que se suelta el cuerpo, y por eso se conserva como variable. Se
+estima con un ajuste lineal a los tres primeros puntos de cada clip, por dos
+motivos: \emph{Tracker} no proporciona velocidad en el primer fotograma, y usar
+solo el arranque evita que la estimación absorba la curvatura, que es
+justamente lo que se quiere medir después.
 
 \paragraph{Filtro de calidad.} Se descartan los clips cuyo ajuste parabólico
-deja un residuo superior a \unit{8}{\centi\meter}, que corresponden a fallos de
-seguimiento de \emph{Tracker} ---el marcador salta de objeto o se pierde--- y
-no a trayectorias físicamente distintas. El filtro elimina 25 de los 606 clips
-(\SI{4}{\percent}) y deja \textbf{581 clips con \num{18\,992} muestras}.
+deja un residuo superior a \unit{8}{\centi\meter}. Estos corresponden a fallos
+de seguimiento de \emph{Tracker}, en los que el marcador salta de objeto o se
+pierde, y no a trayectorias físicamente distintas. El filtro elimina 25 de los
+606 clips (\SI{4}{\percent}) y deja 581 clips con \num{18\,992}
+muestras.
 
 \paragraph{Partición.} Los clips completos se reparten en
 \SI{70}{\percent}/\SI{15}{\percent}/\SI{15}{\percent} para entrenamiento,
@@ -744,15 +747,15 @@ entrenamiento.
 \subsection{Formulaciones evaluadas}
 \label{subsec:formulaciones}
 
-La sección~\ref{subsubsec:identificabilidad} indica que la elección de las
-entradas no es un detalle de implementación sino la condición que determina si
-el problema tiene solución. Para medir el efecto de cada ingrediente en lugar
-de darlo por supuesto, se evaluaron tres formulaciones:
+Según la sección~\ref{subsubsec:identificabilidad}, la elección de las entradas
+no es un detalle de implementación, sino que determina si el problema tiene una solución
+con interpretación física. Para medir el efecto de cada aspecto en lugar de
+darlo por supuesto, se evaluaron tres formulaciones:
 
 \begin{description}
 \item[Directa, $t\to y$.] La red recibe el tiempo del video y devuelve la
   posición, con todos los clips concatenados. Es la formulación más ingenua
-  posible y sirve de control: según el análisis de identificabilidad, un mismo
+  posible y sirve de control: según este análisis, un mismo
   $t$ está asociado a posiciones de clips distintos y el problema no queda
   determinado.
 \item[Referida, $\tau\to\Delta y$.] Solo el cambio de origen de la
@@ -782,36 +785,36 @@ capacidad expresiva con el mismo conjunto de entradas:
 Las tres se entrenaron con optimizador Adam, tasa de aprendizaje $10^{-2}$,
 función de coste MSE sobre los datos normalizados, hasta 800 épocas y con
 parada temprana sobre los clips de validación. Cada combinación de formulación
-y arquitectura se repitió con \textbf{cinco semillas} distintas, en total
-\textbf{45 entrenamientos}, y todos los resultados se reportan como media y
+y arquitectura se repitió con cinco semillas diferentes, lo que da un total
+de 45 entrenamientos; los resultados se reportan con la media y
 desviación estándar sobre esas semillas.
 
 \subsection{Líneas base}
 \label{subsec:baselines}
 
-Un RMSE aislado no significa nada, de modo que se comparó contra tres
+Un RMSE aislado no aporta nada al estudio, por lo que se comparó contra las tres
 referencias clásicas, de la más débil a la más fuerte:
 
 \begin{enumerate}
 \item \textbf{Predictor constante.} Devuelve siempre la media de los datos. Su
   RMSE es, por construcción, la desviación estándar del conjunto. Es el mínimo
-  que cualquier modelo debe superar holgadamente.
+  que cualquier modelo debe superar con holgura.
 \item \textbf{MRUV con $g$ global.} Se estima una única $g$ con los clips de
   entrenamiento y se predice $\Delta y = v_0\tau+\tfrac{1}{2}g\tau^2$ en los
-  clips de prueba. Es la ecuación de la física con \emph{un solo parámetro
-  ajustado}, y es el rival de verdad: una red con cientos de parámetros que no
+  clips de prueba. Se trata de la ecuación teórica con un solo parámetro
+  ajustado, y es el rival de verdad: una red con cientos de parámetros que no
   lo iguale no está aportando nada.
 \item \textbf{Ajuste parabólico por clip (oráculo).} Ajusta cada clip de prueba
-  por separado, con tres parámetros libres \emph{por clip}. No es un predictor
-  honesto, porque usa el propio clip que evalúa, pero marca el suelo de error
+  por separado, con tres parámetros libres por clip. No es un predictor
+  honesto, ya que usa el propio clip que evalúa, pero marca el suelo de error
   alcanzable: lo que queda por debajo es ruido de medición.
 \end{enumerate}
 
 \subsection{Protocolo de evaluación}
 \label{sec:protocolo}
 
-El desempeño se evaluó siempre sobre \emph{clips que la red no vio durante el
-entrenamiento}, y en dos niveles.
+El desempeño se evaluó siempre sobre clips que la red no vio durante el
+entrenamiento, y en dos niveles.
 
 \paragraph{Nivel 1: error de predicción.} RMSE y MAE sobre la posición
 en su escala original, en metros, y el coeficiente de determinación $R^2$ de la
@@ -820,42 +823,41 @@ de los datos y frente a las líneas base.
 
 \paragraph{Nivel 2: recuperación del parámetro físico.} Se ajusta la parábola
 de la sección~\ref{subsubsec:minimoscuadrados} a las predicciones de la red
-\emph{para cada clip de prueba por separado} y se toma $g=2c_2$; el resultado
-del nivel 2 es la mediana de esas estimaciones. El mismo procedimiento aplicado
-a los datos experimentales da el valor de referencia. Como se advirtió en la
-sección~\ref{subsubsec:minimoscuadrados}, el ajuste debe hacerse clip por clip:
-un ajuste único sobre los puntos de todos los clips agregados mezcla
+para cada clip de prueba por separado y se toma $g=2c_2$; el resultado de este nivel
+ es la mediana de esas estimaciones. El mismo procedimiento aplicado a
+los datos experimentales da el valor de referencia. Como ya se advirtió en la
+sección~\ref{subsubsec:minimoscuadrados}, el ajuste se hace clip por clip.
+Un ajuste único sobre los puntos de todos los clips agregados mezcla
 trayectorias con distinto origen y distinta altura inicial, y su coeficiente
 cuadrático no es $g/2$ sino un número sin interpretación física.
 
 Este segundo nivel es el que verifica el supuesto del anteproyecto: si una red
-\enquote{entiende} el marco teórico de la caída libre debe aproximar bien la
-posición y, además, entregar el valor correcto de $g$ al ajustarle una parábola
-a sus predicciones.
+\enquote{entiende} el marco teórico de la caída libre, se espera que se pueda aproximar bien la
+posición y, además, entregar el valor correcto de $g$ al ajustarle una parábola a sus predicciones.
 
-\paragraph{Nivel 3: estructura interna.} Los dos niveles anteriores juzgan a la
+\paragraph{Nivel 3: estructura interna.} Los dos niveles anteriores evalúan a la
 red por sus salidas. Como el objetivo general del anteproyecto habla de
-\emph{entender la estructura interna} de la red, se añadieron dos análisis más:
+entender la estructura interna de la red, se añadieron dos análisis complementarios:
 
 \begin{itemize}
 \item Un \textbf{estudio del número de épocas}, que mide el tiempo acumulado de
   entrenamiento, el RMSE y la $g$ recuperada en puntos de control a lo largo de
-  un mismo entrenamiento, para valorar el coste y el beneficio de entrenar más
+  un mismo entrenamiento, para valorar el coste/beneficio del entrenamiento.
   (sección~\ref{subsec:epocas}).
 \item Una \textbf{inspección de la red entrenada}, que escribe explícitamente
-  la función de la red pequeña, calcula por diferenciación automática las
+  la función de la red pequeña, calcula por diferenciación automática, las
   derivadas de la función aprendida por la red $\tanh$ y las contrasta con las
-  que exige la ecuación~\eqref{eq:mruv_ref}, y examina los pesos de la primera
+  presenta la ecuación~\eqref{eq:mruv_ref}, y examina los pesos de la primera
   capa (sección~\ref{subsec:pesos}).
 \end{itemize}
 
 \subsection{Recursos computacionales}
 \label{subsec:recursos}
 
-Todos los tiempos que aparecen en este informe se midieron en el mismo equipo,
-cuyas características se detallan en el cuadro~\ref{tab:recursos} para que
-esas cifras sean interpretables y
-reproducibles.
+Todos los tiempos que aparecen en este informe se midieron en el mismo equipo.
+Sus características se detallan en el cuadro~\ref{tab:recursos} para que esas
+cifras sean
+interpretables y reproducibles.
 
 \begin{table}[H]
   \centering
@@ -876,44 +878,26 @@ reproducibles.
   \label{tab:recursos}
 \end{table}
 
-Conviene subrayar tres cosas.
+Sobre este cuadro hay algunas aclaraciones pertinentes.
 
-\paragraph{No se usó GPU.} El equipo dispone de una NVIDIA RTX A3000 y de una
-Intel Iris Xe integrada, pero \emph{ninguna de las dos intervino}: se instaló
-deliberadamente la compilación de PyTorch para CPU y el entrenamiento se limitó
-a cuatro hilos. Las redes de este trabajo tienen entre 9 y \num{1185}
-parámetros; a esa escala el coste lo domina el recorrido de los datos y no la
-aritmética, de modo que una GPU no aportaría nada. Todos los tiempos del
-cuadro~\ref{tab:epocas} deben leerse, por tanto, como tiempos de CPU con cuatro
-hilos.
+\paragraph{Uso de GPU.} No se utilizó ningún procesamiento gráfico en los cálculos. Se
+instaló deliberadamente la compilación de PyTorch para CPU y el entrenamiento
+se limitó a cuatro hilos. Las redes de este trabajo tienen entre \num{9} y
+\num{1185} parámetros, y a esa escala el coste lo domina el recorrido de los
+datos (tiempo de lectura) y no la aritmética, así que una GPU podría ralentizar el tiempo de cómputo por la comunicación entre la gráfica y el CPU. Por lo tanto todos los tiempos del cuadro~\ref{tab:epocas} deben leerse como tiempos de CPU con
+cuatro hilos.
 
-\paragraph{El conjunto de datos cabe holgadamente en memoria.} Las
-\num{18\,992} muestras con dos entradas y una salida ocupan
-223\,KiB en precisión simple. No hay carga por lotes desde disco ni
-ninguna limitación de memoria: todo el conjunto reside en RAM durante el
-entrenamiento, y el uso máximo del proceso es de unos pocos cientos de
-megabytes, casi todos del propio intérprete y de las bibliotecas.
+\paragraph{Memoria.} El conjunto de datos cabe holgadamente en memoria. Las
+\num{18\,992} muestras con dos entradas y una salida ocupan alrededor de 223\,KiB en
+precisión simple, así que no hay carga por lotes desde disco ni ninguna
+limitación de memoria. Todo el conjunto reside en RAM durante el entrenamiento,
+y el uso máximo del proceso es de unos pocos cientos de megabytes, casi todos
+del propio intérprete y de las bibliotecas.
 
-\paragraph{El proyecto completo se reproduce en menos de cinco minutos.} El
-experimento principal ---45 entrenamientos, tres formulaciones por tres
-arquitecturas por cinco semillas, con parada temprana--- tarda
-\SI{138}{\second}. El estudio de épocas ---15 entrenamientos llevados hasta 800
-épocas--- tarda \SI{121}{\second}. La inspección de la red tarda
-\SI{5}{\second}. En total, poco más de \emph{cuatro minutos} de cómputo en un
-portátil. Esto merece decirse explícitamente: el resultado central de este
-trabajo no requirió ni un clúster, ni una GPU, ni horas de entrenamiento. 
+\paragraph{Tiempo total.} El experimento principal, que incluye 45 entrenamientos (tres formulaciones, tres arquitecturas y cinco semillas, con parada temprana), tarda \SI{138}{\second}. El estudio de épocas, con 15 entrenamientos de hasta 800 épocas, tarda \SI{121}{\second}. La inspección de la red toma \SI{5}{\second}. En total, todo el proceso requiere poco más de cuatro minutos de cómputo en un portátil.
 
-\paragraph{Una advertencia sobre reproducibilidad.} Las semillas fijan la
-partición de los clips y la inicialización de los pesos, pero el cálculo
-multihilo no garantiza un orden de reducción idéntico entre ejecuciones. Al
-repetir el experimento completo en el mismo equipo, las configuraciones
-estables ---en particular la red $\tanh$ bajo la formulación completa, que es
-la que sostiene las conclusiones--- se reproducen cifra por cifra, mientras que
-las inestables (la red simple, sujeta al fenómeno de ReLU muerta) pueden
-cambiar de régimen. Los promedios sobre las cinco semillas de los
-cuadros~\ref{tab:g} y~\ref{tab:rmse} coinciden entre ejecuciones en las cuatro
-primeras cifras decimales, es decir, muy por debajo de la precisión con que se
-reportan.
+
+\paragraph{Una advertencia sobre reproducibilidad.} Las semillas fijan la partición de los clips y la inicialización de los pesos, pero el cálculo multihilo puede hacer que el orden de las operaciones cambie ligeramente entre cada ejecución. Al repetir el experimento completo en el mismo equipo, las configuraciones estables se reproducen prácticamente igual. Entre ellas está la red $\tanh$ con la formulación completa, que es en la que se basan los resultados. En cambio, las configuraciones inestables como la red simple, afectada por el fenómeno de ReLU muerta, pueden cambiar de comportamiento entre ejecuciones. Los promedios sobre las cinco semillas de los cuadros~\ref{tab:g} y~\ref{tab:rmse} coinciden en las cuatro primeras cifras decimales, por lo que las pequeñas diferencias quedan muy por debajo de la precisión con la que se reportan los resultados.
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -923,10 +907,8 @@ reportan.
 \subsection{Caracterización del conjunto de datos}
 \label{subsec:datos_res}
 
-Antes de evaluar ninguna red conviene establecer qué física contienen los
-datos, porque \textbf{ningún modelo puede recuperar más de lo que hay en el
-conjunto}. El cuadro~\ref{tab:datos} resume las propiedades del conjunto antes y
-después del filtro de calidad.
+Antes de evaluar alguna red hay que establecer si los datos se pueden describir por algún marco teórico. El
+cuadro~\ref{tab:datos} resume las propiedades del conjunto antes y después del control de calidad de los datos.
 
 \begin{table}[H]
   \centering
@@ -953,24 +935,24 @@ después del filtro de calidad.
   \label{tab:datos}
 \end{table}
 
-El montaje experimental supera la prueba: el ajuste clásico clip por clip da
+Los datos pasan esta primera revisión sin problema. El ajuste clásico clip por
+clip da
 \begin{equation}
   g_{\text{exp}} = \num{-9.43}~\meter\per\second\squared ,
   \label{eq:gexp}
 \end{equation}
-a un \SI{3.9}{\percent} del valor físico $\num{-9.81}~\meter\per\second\squared$.
-La información física \emph{está presente en los datos}. Esa diferencia del
-\SI{3.9}{\percent} es un sesgo del experimento ---probablemente de calibración
-de la escala espacial o de la velocidad de fotogramas declarada--- y afecta por
-igual a la red y a cualquier método clásico, de modo que el criterio de éxito
-para la red es acercarse a $g_{\text{exp}}$, no a $\num{-9.81}$.
+a un \SI{3.9}{\percent} del valor teórico $\num{-9.81}~\meter\per\second\squared$,
+lo que confirma que los datos se ajustan al marco teórico planteado. Esa
+diferencia del \SI{3.9}{\percent} se interpreta como un sesgo del experimento,
+probablemente de la calibración de la escala espacial o de la velocidad de
+fotogramas antes mencionada, y afecta a las redes que se entrenaron, como a cualquier método clásico.
+El criterio de éxito para la red es entonces acercarse a $g_{\text{exp}}$ y no
+a $\num{-9.81}$.
 
 La dispersión de $\num{1.82}~\meter\per\second\squared$ entre clips se atribuye
-a la corta duración de cada uno ---media \unit{0.53}{\second}, unos 33
-puntos--- combinada con la resolución espacial del seguimiento; el residuo
-mediano del ajuste, \unit{3.4}{\centi\meter}, marca el suelo de ruido del
-conjunto. La figura~\ref{fig:datos} muestra unos cuantos clips ya referidos a
-su propio origen y la distribución completa de las 581 estimaciones de $g$.
+a la corta duración de cada uno, con una media de \unit{0.53}{\second} y unos
+33 puntos, combinada con la resolución espacial del seguimiento. La media del residuo del ajuste, de \unit{3.4}{\centi\meter}, marca el mínimo de ruido del conjunto. En la figura~\ref{fig:datos} aparecen unos cuantos clips ya referidos a su propio origen junto con la distribución completa de las 581 estimaciones
+de $g$.
 
 \begin{figure}[H]
   \centering
@@ -1027,17 +1009,17 @@ Con la formulación completa, la red $\tanh$ profunda recupera
 \begin{equation}
   g = \num{-9.46} \pm \num{0.33}~\meter\per\second\squared .
 \end{equation}
-La comparación pertinente no es contra $\num{-9.81}$ sino contra la referencia
-experimental $\num{-9.48}~\meter\per\second\squared$, que es lo que el método
-clásico extrae de estos mismos clips de prueba: la discrepancia es entonces de
-\textbf{\SI{0.2}{\percent}}. La red reproduce la gravedad contenida en el
-conjunto de datos prácticamente sin sesgo; el \SI{3.4}{\percent} restante
-frente al valor verdadero es la limitación del experimento discutida en la
-sección~\ref{subsec:datos_res}, común a la red y al método clásico.
+La comparación pertinente aquí no es respecto a $\num{-9.81}$ sino con la
+referencia experimental de $\num{-9.48}~\meter\per\second\squared$, que es lo
+que el marco teórico con el método clásico extrae de estos mismos clips de prueba. 
+La discrepancia baja a \SI{0.2}{\percent}. La red reproduce la gravedad de este marco teórico
+prácticamente sin sesgo, y el \SI{3.4}{\percent} restante frente al valor verdadero corresponde
+a la limitación del experimento que se discutió en la sección~\ref{subsec:datos_res}, común a la
+red y al método clásico.
 
-La figura~\ref{fig:form} presenta el mismo resultado gráficamente, y la
-figura~\ref{fig:hist} muestra las distribuciones completas: bajo la formulación
-directa las estimaciones de la red y las de los datos forman dos poblaciones
+La figura~\ref{fig:form} muestra este resultado de forma gráfica, y la
+figura~\ref{fig:hist} muestra las distribuciones completas. Bajo la formulación
+directa, las estimaciones de la red y las de los datos, forman dos poblaciones
 separadas, mientras que bajo la formulación completa se superponen.
 
 \begin{figure}[H]
@@ -1060,11 +1042,7 @@ separadas, mientras que bajo la formulación completa se superponen.
   \label{fig:hist}
 \end{figure}
 
-En la figura~\ref{fig:tray} se puede ver por qué pasa esto. Con la formulación directa la red produce prácticamente
-la misma curva para los cuatro clips ---no puede hacer otra cosa, porque su
-única entrada $t$ no distingue un clip de otro--- y los desajustes llegan a un
-metro. Con la formulación completa, la misma arquitectura sigue la parábola de
-cada clip.
+En la figura~\ref{fig:tray} se puede ver qué hay detrás de estos resultados. Con la formulación directa, la red produce prácticamente la misma curva para los cuatro clips, ya que su única entrada, $t$, no le permite distinguir entre uno u otro clip. Es por ello que los errores pueden llegar a alcanzar un metro. En cambio, con la formulación completa, la misma arquitectura es capaz de seguir la parábola correspondiente a cada clip.
 
 \begin{figure}[H]
   \centering
@@ -1106,66 +1084,39 @@ tres líneas base de la sección~\ref{subsec:baselines}.
   \label{tab:rmse}
 \end{table}
 
-Del cuadro~\ref{tab:rmse} se pueden hacer tres observaciones sobre el error de
-predicción.
+Con la formulación completa el RMSE es de \num{0.142}~\meter\ y el $R^2$ de
+\num{0.93}, que contrasta con el \num{0.553}~\meter\ del predictor constante; la red
+explica el \SI{93}{\percent} de la varianza. La formulación directa se
+queda en $R^2=\num{0.33}$, es decir que capta un tercio de la estructura de los
+datos, que es lo que se podría esperar de un modelo cuya entrada no determina la salida.
 
-\paragraph{La red explica el \SI{93}{\percent} de la varianza.} Con la
-formulación completa el RMSE es de \num{0.142}~\meter\ y el $R^2$ de
-\num{0.93}, frente a los \num{0.553}~\meter\ del predictor constante. La
-formulación directa se queda en $R^2=\num{0.33}$: capta un tercio de la
-estructura de los datos, que es lo que cabe esperar de un modelo cuya entrada
-no determina la salida.
+Un punto que cabe mencionar es que la red también supera al modelo físico
+analítico. La ecuación de MRUV con $g$ global alcanza RMSE~$=\num{0.202}~\meter$ y la red llega a $\num{0.142}~\meter$, aproximadamente un \SI{30}{\percent} mejor con las mismas entradas. La razón más probable es que $v_0$, que fue estimado a partir de tres puntos ruidosos, arrastra un sesgo sistemático
+que la red aprende a compensar y que la fórmula analítica no puede corregir.
+A pesar de ser un resultado interesante, para un sistema sin un marco teórico aceptado por la comunidad
+científica, puede ser difícil descifrar cuando el modelo está compensando estos sesgos sistemáticos de las observaciones.
 
-\paragraph{La red supera al modelo físico analítico.} La ecuación de MRUV con
-$g$ global alcanza RMSE~$=\num{0.202}~\meter$; la red llega a
-$\num{0.142}~\meter$, un \SI{30}{\percent} mejor \emph{con las mismas
-entradas}. La razón más probable es que $v_0$, estimado a partir de tres puntos
-ruidosos, arrastra un sesgo sistemático que la red aprende a compensar y que la
-fórmula analítica no puede corregir. Este es el punto del proyecto en el que la
-red aporta algo que el método clásico no da.
-
-\paragraph{Aún queda margen.} El oráculo por clip alcanza
+Aún hay margen de mejora. El oráculo por clip alcanza
 $\num{0.040}~\meter$, cerca del suelo de ruido de $\num{0.034}~\meter$. La
 diferencia con los $\num{0.142}~\meter$ de la red se explica porque el oráculo
-ajusta tres parámetros \emph{por clip}, mientras que la red dispone únicamente
-de $(\tau,v_0)$ y no puede reproducir las desviaciones individuales de cada
+ajusta tres parámetros por clip, mientras que la red dispone únicamente de
+$(\tau,v_0)$ y no puede reproducir las desviaciones individuales de cada
 trayectoria.
 
 \subsection{Representación de las entradas y capacidad de la red}
 \label{subsec:capacidad}
 
-Hay un contraste en los cuadros~\ref{tab:g} y~\ref{tab:rmse} que merece atención
-propia, porque es el resultado más instructivo del estudio.
+Bajo la formulación directa, pasar de 7 a \num{1153} parámetros, un factor 165,
+apenas cambia: el RMSE baja de \num{0.537} a \num{0.497}~\meter\ y la $g$
+recuperada sigue siendo inservible. Bajo la formulación completa, esa misma
+escalada lleva la $g$ de $\num{-4.68}$ a $\num{-9.46}$ y el RMSE de \num{0.177}
+a \num{0.142}~\meter.
 
-Bajo la formulación directa, pasar de 7 a \num{1153} parámetros ---un factor
-165--- apenas cambia nada: el RMSE baja de \num{0.537} a \num{0.497}~\meter\ y
-la $g$ recuperada sigue siendo inservible. Bajo la formulación completa, esa
-misma escalada lleva la $g$ de $\num{-4.68}$ a $\num{-9.46}$ y el RMSE de
-\num{0.177} a \num{0.142}~\meter.
+Mientras el problema no sea identificable, la capacidad de la red parece no importar. Una vez que el problema sí es identificable, la capacidad pasa a ser un factor importante. Esto es lo que se expone en la sección~\ref{subsubsec:identificabilidad}. Cuando el límite está en la información disponible, ninguna arquitectura puede superarlo, porque incluso una red pequeña puede aproximarse a la solución óptima, que en este caso es la media condicional. Cuando el límite está en la representación, una red con mayor capacidad sí puede mejorar los resultados.
 
-Es decir, mientras el problema no es identificable, la capacidad de la red no
-cambia el resultado, pero cuando el problema sí es identificable la capacidad
-se vuelve el factor más importante. Eso es
-exactamente lo que predice el análisis de la
-sección~\ref{subsubsec:identificabilidad}. Cuando el límite es de
-\emph{información}, ninguna arquitectura puede superarlo, porque la solución
-óptima ---la media condicional--- ya está al alcance de una red pequeña. Cuando
-el límite es de \emph{representación}, una red mayor sí ayuda.
+El comportamiento de la red $\to2\to1$ con la formulación completa ($g=\num{-4.68}$, con una dispersión entre semillas de $\num{4.30}$) muestra una limitación real de capacidad. Con dos unidades ReLU, la red únicamente puede representar una función lineal definida a trozos con a lo sumo dos cambios de pendiente (por limitantes de su arquitectura), por lo que no puede aproximar bien una parábola. La variación entre semillas también es coherente con el fenómeno de ReLU muerta descrito en la sección~\ref{subsec:redneuronal}. Si una de las dos unidades queda en la región de gradiente nulo, la red funciona en la práctica como una sola neurona. Por eso, el resultado puede depender mucho de la inicialización.
 
-El comportamiento de la red $\to2\to1$ bajo la formulación completa
-($g=\num{-4.68}$, con una dispersión entre semillas de $\num{4.30}$) es una
-limitación genuina de capacidad: dos unidades ReLU solo pueden formar una
-función lineal definida a trozos con a lo sumo dos cambios de pendiente, con la
-que no se aproxima una parábola. La inestabilidad entre semillas es coherente con el fenómeno de ReLU
-muerta descrito en la sección~\ref{subsec:redneuronal}: basta con que una de las
-dos unidades quede en la región de gradiente nulo para que la red se reduzca de
-hecho a una sola neurona, y el resultado depende entonces críticamente de la
-inicialización.
-
-La figura~\ref{fig:scatter} resume las 45 corridas en un solo gráfico y hace
-visible que ambos ejes ---error de predicción y error en $g$--- mejoran juntos,
-pero que solo la combinación de formulación identificable y capacidad
-suficiente baja del \SI{5}{\percent} de error en el parámetro físico.
+La figura~\ref{fig:scatter} resume las 45 corridas en un solo gráfico y muestra que ambos ejes, el error de predicción y el error en $g$, mejoran de la mano, aunque solo la combinación de formulación identificable y capacidad suficiente baja del \SI{5}{\percent} de error en el parámetro físico.
 
 \begin{figure}[H]
   \centering
@@ -1181,14 +1132,7 @@ suficiente baja del \SI{5}{\percent} de error en el parámetro físico.
 \subsection{Coste y beneficio del número de épocas}
 \label{subsec:epocas}
 
-Entrenar más épocas cuesta tiempo de cómputo. Para decidir cuánto conviene
-gastar se entrenó cada arquitectura bajo la formulación completa evaluándola en
-puntos de control a lo largo de un \emph{mismo} entrenamiento, de modo que el
-tiempo reportado para la época $N$ es el tiempo real acumulado hasta llegar a
-ella y la curva de error es una trayectoria de aprendizaje y no una colección
-de entrenamientos independientes. El cuadro~\ref{tab:epocas} y la
-figura~\ref{fig:epocas} recogen el resultado, promediado sobre las cinco
-semillas.
+Entrenar durante más épocas requiere más tiempo de cómputo. Para saber si este tiempo adicional compensa, se entrenó cada arquitectura con la formulación completa y se evaluó en distintos puntos del mismo entrenamiento. Por lo tanto el tiempo reportado para la época $N$ corresponde al tiempo real acumulado hasta llegar esa época, y la curva de error muestra cómo aprende la red, en lugar de comparar entrenamientos independientes. El cuadro~\ref{tab:epocas} y la figura~\ref{fig:epocas} muestran estos resultados, promediados sobre las cinco semillas.
 
 \begin{table}[H]
   \centering
@@ -1247,50 +1191,22 @@ semillas.
   \label{fig:epocas}
 \end{figure}
 
-Del cuadro~\ref{tab:epocas} y de la figura~\ref{fig:epocas} se pueden
-hacer tres observaciones.
+El coste es lineal. El panel (a) de la figura~\ref{fig:epocas} es una recta en escala doblemente logarítmica con pendiente 1; es decir, cada época cuesta lo mismo que la anterior, por lo que duplicar las épocas duplica el tiempo. Cabe notar que la red $\tanh$, con \num{1185} parámetros, cuesta apenas un \SI{50}{\percent} más por época que las de 9 y 17 parámetros; a estos tamaños el coste lo determina la lectura de los datos y no el número de parámetros.\\
 
-En primer lugar, el coste es lineal. El panel (a) de la
-figura~\ref{fig:epocas} es una recta en escala doblemente logarítmica con
-pendiente 1: cada época cuesta lo mismo que la anterior. Duplicar las épocas
-duplica el tiempo, sin excepción. La red $\tanh$, con \num{1185} parámetros,
-cuesta apenas un \SI{50}{\percent} más por época que las de 9 y 17: a estos
-tamaños el coste lo domina el recorrido de los datos, no el número de
-parámetros.
+Por otro lado, el error de posición se estanca muy pronto. Las tres redes
+alcanzan prácticamente su RMSE final en la época 10 o 20. De la época 50 a
+la 800, que representa un factor 16 en cuanto a tiempo, la red $\tanh$ mejora el RMSE en un
+\SI{4}{\percent} y después empeora. Tomando en cuenta solamente el RMSE, todo lo
+que se entrene por encima de unas 50 épocas es tiempo perdido.\\
 
-En segundo lugar, el error de posición se estanca muy pronto. Las tres redes
-alcanzan
-prácticamente su RMSE final hacia la época 10 o 20. De la época 50 a la 800 ---
-un factor 16 en tiempo --- la red $\tanh$ mejora el RMSE en un
-\SI{4}{\percent} y luego lo empeora. Juzgando solo por el RMSE, todo lo que se
-entrene por encima de unas 50 épocas es tiempo perdido.
+El panel (c) muestra que la física del marco teórico no aparece al mismo ritmo que baja el error, más bien puede retroceder (en este panel, igual que en los otros dos, las zonas sombreadas muestran la variación entre semillas). La red $\tanh$ necesita alrededor de 200 épocas para llegar a su mejor estimación de $g$, con un \SI{4.3}{\percent} de error, es decir, cuatro veces más entrenamiento del que necesitaba para estabilizar el RMSE. La red media $(4)$ hace lo contrario: su RMSE mejora monótonamente de \num{0.167} a
+\num{0.157}~\meter\ entre las épocas 10 y 800, mientras su error en $g$ empeora
+de \SI{17.7}{\percent} a \SI{29.1}{\percent}. Sigue reduciendo el error
+cuadrático, pero lo hace ajustando aspectos de los datos que no son la curvatura.
 
-Por último, la física no aparece al mismo ritmo que baja el error, y puede
-retroceder. El panel (c) muestra algo que el RMSE no deja ver (en este panel,
-igual que en los otros dos, las zonas sombreadas muestran la variación entre
-semillas).
-La red $\tanh$ necesita alrededor de 200 épocas para llegar a su mejor
-estimación de $g$ (\SI{4.3}{\percent} de error), es decir, cuatro veces más
-entrenamiento del que necesitaba para estabilizar el RMSE. Y la red media $(4)$
-hace lo contrario: su RMSE mejora monótonamente de \num{0.167} a
-\num{0.157}~\meter\ entre las épocas 10 y 800, mientras su error en $g$
-\emph{empeora} de \SI{17.7}{\percent} a \SI{29.1}{\percent}. Sigue reduciendo
-el error cuadrático, pero lo hace ajustando aspectos de los datos que no son la
-curvatura.
+De aquí se desprende una consecuencia práctica: el criterio de parada no debería basarse únicamente en el error de predicción cuando el objetivo es obtener un parámetro físico, ya que ambas cantidades no siempre mejoran al mismo tiempo. En este trabajo, la parada temprana sobre clips de validación completos (sección~\ref{subsec:arquitecturas}) hace que la red $\tanh$ seleccione, en promedio, los pesos de la época 162, con un rango de 41 a 275 entre semillas. El promedio queda dentro de la ventana de 100--200 épocas, donde la estimación de $g$ es mejor. Sin embargo, la amplitud del rango muestra que esto parece ser una coincidencia favorable de este problema y no una garantía que pueda generalizarse a otros casos.
 
-Esto tiene una consecuencia práctica directa: el criterio de parada no puede
-basarse solo en el error de predicción cuando lo que se busca es un parámetro
-físico, porque las dos cantidades no cambian de la misma forma durante el
-entrenamiento, y una puede seguir bajando mientras la otra sube. En este
-trabajo
-la parada temprana sobre clips de validación completos (sección
-\ref{subsec:arquitecturas}) restaura para la red $\tanh$ los pesos de la época
-162 de media, con un rango de 41 a 275 entre semillas. El valor medio cae en la
-ventana de 100--200 épocas donde la $g$ es mejor, pero la anchura de ese rango
-indica que se trata de una coincidencia afortunada del problema y no de una
-garantía general.
-
-En cuanto a la pregunta de coste-beneficio: para esta red y estos datos, el
+En cuanto a la pregunta de coste y beneficio, para esta red y estos datos el
 punto de operación razonable está entre 100 y 200 épocas, unos
 \SI{1.3}{\second} a \SI{2.6}{\second} de cómputo. Las 600 épocas adicionales
 hasta el límite de 800 multiplican por cuatro el tiempo, empeoran ligeramente
@@ -1301,10 +1217,10 @@ el RMSE y no mejoran la estimación de $g$.
 
 El objetivo general del anteproyecto no era solo predecir bien, sino
 \enquote{entender la estructura interna de las redes neuronales aplicadas a la
-elaboración de modelos matemáticos}. Ajustar una parábola a las
-\emph{salidas} de la red, como se hizo en la sección~\ref{subsec:g}, muestra
-que la red se \emph{comporta} como la física; esta sección mira la función que
-la red implementa, para ver si la física está además en su estructura.
+elaboración de modelos matemáticos}. Ajustar una parábola a las salidas de la
+red, como se hizo en la sección~\ref{subsec:g}, muestra que la red se comporta
+como la física. Lo que se hace en esta sección es mirar la función que la red
+implementa, para determinar si la física del marco teórico está también en su estructura.
 
 \subsubsection{La red simple, escrita a mano}
 
@@ -1315,34 +1231,29 @@ unidades físicas, para la semilla 0:
   h_1 &= \max(0,\; -4.530\,\tau + 0.410\,v_0 + 3.056), \label{eq:relu_explicita}\\
   \Delta y &= 0.006\,h_0 + 0.617\,h_1 - 1.585. \nonumber
 \end{align}
-Es una función lineal definida a trozos. En cada región del plano
+Se trata de una función lineal definida a trozos. En cada región del plano
 $(\tau,v_0)$ la pendiente es constante y solo cambia en los puntos donde una
 de las dos neuronas se activa o se apaga, así que hay a lo sumo dos cambios de
 pendiente. Por eso su segunda derivada es cero en todas partes, excepto en esos
-cambios de pendiente, donde no existe. No hay ningún valor de los
-nueve parámetros que produzca la curvatura constante que se necesita para
-representar $g$, lo que confirma por construcción ---y no por evidencia
-estadística--- la limitación de capacidad de la sección~\ref{subsec:capacidad}.
-Nótese además que la primera unidad llega a la salida con un peso de $0.006$:
-la red es efectivamente una sola neurona.
+cambios de pendiente, donde no existe. No hay ningún
+valor de los nueve parámetros que produzca la curvatura constante que se
+necesita para representar $g$, lo cual confirma, por construcción, la limitación de capacidad de la
+sección~\ref{subsec:capacidad}. Vale la pena notar además que la primera unidad
+llega a la salida con un peso de $0.006$, de manera que la red es en la
+práctica una sola neurona.
 
 \subsubsection{Las derivadas de la función aprendida}
 
-Para la red $\tanh$ $32\times32$ la función no se puede escribir a mano, pero
-sí se pueden calcular sus derivadas por diferenciación automática y compararlas
-con lo que exige la ecuación~\eqref{eq:mruv_ref}. Si la red implementara
-$\Delta y = v_0\tau + \tfrac{1}{2}g\tau^2$, entonces necesariamente
+Para la red $\tanh$ $32\times32$, la función que aprende la red ya no se puede escribir de forma sencilla. Sin embargo, sus derivadas sí se pueden obtener mediante diferenciación automática y compararlas con lo que debería cumplirse según la ecuación~\eqref{eq:mruv_ref}. Si la red aprendiera realmente la relación $\Delta y = v_0\tau + \tfrac{1}{2}g\tau^2$, entonces sus derivadas tendrían que cumplir necesariamente
+
 \begin{equation}
-  \pdv[2]{(\Delta y)}{\tau} = g \;\text{(constante)}, \qquad
-  \pdv{(\Delta y)}{v_0} = \tau, \qquad
-  \pdv{(\Delta y)}{\tau} = v_0 + g\,\tau .
-  \label{eq:predicciones_derivadas}
+	\pdv[2]{(\Delta y)}{\tau} = g \;\text{(constante)}, \qquad
+	\pdv{(\Delta y)}{v_0} = \tau, \qquad
+	\pdv{(\Delta y)}{\tau} = v_0 + g\,\tau .
+	\label{eq:predicciones_derivadas}
 \end{equation}
-Son tres predicciones falsables sobre el interior de la red, bastante más
-exigentes que ajustar una parábola a sus salidas. Evaluadas sobre los
-\num{2843} puntos experimentales de los 87 clips de prueba ---y no sobre una
-malla rectangular, que incluiría combinaciones $(\tau,v_0)$ inexistentes en los
-datos, donde la red extrapola--- se obtiene:
+
+Estas son tres condiciones que permiten comprobar qué está haciendo la red internamente, y son más exigentes que simplemente comprobar si sus salidas se parecen a una parábola. Se evaluaron sobre los \num{2843} puntos experimentales de los 87 clips de prueba. No se utilizó una malla rectangular, porque esta incluiría combinaciones de $(\tau,v_0)$ que no aparecen en los datos y obligaría a la red a extrapolar. El resultado se muestra en el cuadro~\ref{tab:derivadas}:
 
 \begin{table}[H]
   \centering
@@ -1365,15 +1276,9 @@ datos, donde la red extrapola--- se obtiene:
   \label{tab:derivadas}
 \end{table}
 
-La respuesta tiene dos partes. La curvatura de la
-red tiene el signo correcto y una mediana de
-$\num{-7.8}~\meter\per\second\squared$, del orden de $g$, pero \emph{no es
-constante}: fluctúa a lo largo del dominio con un rango intercuartil de
-$[\num{-13.9},\num{-2.8}]$, como se ve en el panel~(a) de la
-figura~\ref{fig:pesos}. La red no implementa un término de curvatura constante.
-Lo que reproduce bien es la curvatura \emph{promediada sobre cada clip}, que es
-justamente la que recoge el ajuste parabólico por clip del nivel~2 y la que da
-el $g=\num{-9.46}$ del cuadro~\ref{tab:g}.
+Los resultados, por tanto, no permiten dar una respuesta concisa. La red sí aprende parte de la estructura física, pero no la reproduce exactamente. La segunda derivada tiene el signo correcto y una mediana de $\num{-7.8}\meter\per\second\squared$, del mismo orden que $g$. Sin embargo, no es constante: cambia a lo largo del dominio y presenta un rango intercuartil de $[\num{-13.9},\num{-2.8}]$, como se observa en el panel (a) de la figura~\ref{fig:pesos}. Esto indica que la red no ha aprendido una curvatura constante.
+
+Lo que sí consigue reproducir es la curvatura promedio de cada clip. Esa es precisamente la información que recoge el ajuste parabólico por clip del nivel~2 y la que permite obtener $g=\num{-9.46}$ en el cuadro~\ref{tab:g}. Por tanto, la red consigue aprender una relación que funciona bien para estimar $g$, aunque su función interna no sea exactamente la ecuación física.
 
 \begin{figure}[H]
   \centering
@@ -1409,17 +1314,17 @@ represente la gravedad (sección~\ref{subsubsec:representacion}).
 \subsubsection{La ecuación que la red aprendió, contra los datos}
 \label{subsubsec:ecuacion}
 
-El resultado anterior invita a preguntar si la desviación respecto de la física
-ideal es culpa de la red o una propiedad del conjunto de datos. Para
-averiguarlo se ajusta el modelo
+El resultado anterior invita a preguntarse si la desviación respecto de la
+física ideal es culpa de la red o si más bien es una propiedad del conjunto de
+datos. Para averiguarlo se ajustó el modelo
 \begin{equation}
   \Delta y = a\,\tau + b\,v_0\tau + c\,\tau^2
   \label{eq:modelo_agrupado}
 \end{equation}
----cuyos coeficientes la física fija en $(0,\,1,\,g/2)$--- tanto a la
-superficie de salida de la red como a los datos experimentales mismos. Este
-segundo ajuste sirve de control, porque sin él la comparación no tendría
-sentido.
+cuyos coeficientes el marco teórico fija en $(0,\,1,\,g/2)$, tanto a la superficie de
+salida de la red como a los datos experimentales mismos. Este segundo ajuste es
+el que hace útil la comparación; sin ese control los números no significarían
+gran cosa.
 
 \begin{table}[H]
   \centering
@@ -1446,42 +1351,35 @@ sentido.
   \label{tab:ecuacion}
 \end{table}
 
-Sobre todo el dominio, el ajuste agrupado de los
-\emph{datos} da $g=\num{-4.67}~\meter\per\second\squared$, muy lejos del valor
-físico; la red da $\num{-4.66}$. Restringiendo a $\tau<\unit{0.6}{\second}$ ---
-donde vive el \SI{95}{\percent} de las muestras y el ajuste agrupado deja de
-estar contaminado por la cola de clips largos, que son pocos y los peor
-seguidos--- los datos dan $\num{-9.00}$ y la red $\num{-8.81}$. En los dos
-dominios la red reproduce el coeficiente cuadrático de los datos con menos del
-\SI{2}{\percent} de diferencia, \emph{sesgos incluidos}.
+Sobre todo el dominio, el ajuste agrupado de los datos da
+$g=\num{-4.67}~\meter\per\second\squared$, muy lejos del valor físico, y la red
+da $\num{-4.66}$. Al restringir a $\tau<\unit{0.6}{\second}$, donde vive el
+\SI{95}{\percent} de las muestras y donde el ajuste agrupado deja de estar
+contaminado por la cola de clips largos, que son pocos y los peor seguidos, los
+datos dan $\num{-9.00}$ y la red $\num{-8.81}$. En los dos dominios la red
+reproduce el coeficiente cuadrático de los datos con menos del
+\SI{2}{\percent} de diferencia, sesgos incluidos.
 
-La conclusión es que la red aprendió lo que el conjunto de datos contiene, no
-la ley ideal, y que es fiel a él hasta en sus defectos. Donde sí se aparta es
-en el coeficiente $b$, la sensibilidad a la velocidad inicial: la red usa
-$b\approx\num{0.65}$ donde los datos piden $\num{1.04}$. Eso es coherente con
-lo observado en la sección~\ref{subsec:error} ---que la red supera al modelo
-analítico de MRUV--- e indica que no toma $v_0$ al pie de la letra sino que la
-descuenta parcialmente, verosímilmente porque la estimación de $v_0$ a partir
-de tres puntos es ruidosa.
+En resumen, la red aprendió lo que está presente en los datos y no la ley física ideal. Incluso reproduce parte de los errores que aparecen en el conjunto de datos. La principal diferencia está en el coeficiente $b$, que mide cuánto influye la velocidad inicial. La red obtiene $b\approx\num{0.65}$, mientras que los datos indican un valor de $\num{1.04}$. Esto coincide con lo observado en la sección~\ref{subsec:error}, donde la red supera al modelo analítico de MRUV. Una posible explicación es que la red no toma $v_0$ directamente, sino que reduce parcialmente su influencia, probablemente porque la estimación de $v_0$ a partir de solo tres puntos es ruidosa.
 
 \subsubsection{Cómo está repartida la representación}
 \label{subsubsec:representacion}
 
 El panel~(c) de la figura~\ref{fig:pesos} muestra los pesos de entrada de las
-32 neuronas de la primera capa. No hay ninguna \enquote{neurona de la
+32 neuronas de la primera capa. No aparece ninguna \enquote{neurona de la
 gravedad}: las neuronas se reparten por todo el plano $(w_\tau, w_{v_0})$, con
 una razón mediana $\abs{w_{v_0}/w_\tau}=\num{0.54}$, y las seis de mayor
-contribución a la salida no comparten estructura reconocible. Además, 15 de las
-32 operan casi siempre en el régimen lineal de la $\tanh$ (activación con
-$\abs{\tanh}>0.9$ en menos del \SI{10}{\percent} del dominio).
+contribución a la salida no comparten ninguna estructura reconocible. A esto se
+suma que 15 de las 32 operan casi siempre en el régimen lineal de la $\tanh$,
+con activación $\abs{\tanh}>0.9$ en menos del \SI{10}{\percent} del dominio.
 
-Es decir: la parábola no está codificada en ninguna unidad ni en ningún peso
-identificable, sino en la \emph{combinación} de muchas neuronas casi lineales,
-ninguna de las cuales es interpretable por separado. En resumen, la red
-recupera correctamente el
-parámetro físico, pero no lo hace construyendo internamente una representación
-de la ecuación de movimiento que un físico pueda leer. La física está en el
-comportamiento agregado de la red, no en su estructura.
+La parábola, entonces, no está codificada en ninguna unidad ni en ningún peso
+identificable, sino en la combinación de muchas neuronas casi lineales,
+ninguna de las cuales es interpretable por separado. Dicho de otra manera, la
+red recupera correctamente el parámetro físico, pero al hacerlo no construye
+internamente ninguna representación de la ecuación de movimiento que un físico
+pueda leer. La física está en el
+comportamiento agregado de la red y no en su estructura.
 
 \subsection{Síntesis}
 
@@ -1511,12 +1409,12 @@ Reuniendo la evidencia:
   y~\ref{tab:ecuacion}).
 \end{itemize}
 
-\textbf{El supuesto del anteproyecto se verifica:} una red neuronal entrenada
-con datos experimentales de caída libre sí permite recuperar el modelo físico
-subyacente. Lo que el estudio muestra además es que ese resultado depende
-críticamente de cómo se estructuren las entradas: la misma arquitectura, con
-los mismos datos y el mismo entrenamiento, entrega o no entrega la gravedad
-según que la representación haga identificable el problema.
+El supuesto del anteproyecto queda verificado: una red neuronal entrenada con
+datos experimentales de caída libre sí permite recuperar el modelo físico
+subyacente. Lo que el estudio muestra además es que ese resultado depende de
+manera crítica de cómo se estructuren las entradas, ya que la misma
+arquitectura, con los mismos datos y el mismo entrenamiento, entrega o no
+entrega la gravedad según que la representación haga identificable el problema.
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -1529,10 +1427,10 @@ acotan lo que puede lograrse con ellos, con red o sin ella.
 \begin{enumerate}
 \item \textbf{Sesgo experimental en $g$.} El método clásico aplicado a estos
   datos da $\num{-9.43}~\meter\per\second\squared$, un \SI{3.9}{\percent} por
-  debajo del valor físico. Ese sesgo ---probablemente de calibración de la
-  escala espacial o de la velocidad de fotogramas--- afecta por igual a la red
-  y al ajuste clásico, y fija el techo de exactitud alcanzable con este
-  conjunto.
+  debajo del valor físico. Ese sesgo, que probablemente proviene de la
+  calibración de la escala espacial o de la velocidad de fotogramas, afecta por
+  igual a la red y al ajuste clásico, y fija el techo de exactitud alcanzable
+  con este conjunto.
 
 \item \textbf{Calidad de la digitalización.} La dispersión de
   $\num{1.82}~\meter\per\second\squared$ en la $g$ experimental por clip indica
@@ -1548,20 +1446,20 @@ acotan lo que puede lograrse con ellos, con red o sin ella.
 \item \textbf{Estimación de $v_0$.} Se obtiene de los tres primeros puntos de
   cada clip y arrastra el ruido de esas mediciones. Que la red supere al modelo
   analítico de MRUV (sección~\ref{subsec:error}) sugiere que compensa un sesgo
-  de esa estimación, pero no se comprobó de forma directa.
+  de esa estimación, pero eso no se comprobó de forma directa.
 
 \item \textbf{La física no es legible en la estructura de la red.} Como muestra
   la sección~\ref{subsec:pesos}, la red recupera $g$ correctamente pero su
   curvatura punto a punto no es constante y la representación está repartida
   entre muchas neuronas casi lineales, ninguna interpretable por separado. La
-  inspección permite afirmar qué \emph{no} hay dentro de la red, pero no
-  extraer de ella una forma cerrada del modelo físico.
+  inspección permite afirmar qué no hay dentro de la red, pero no extraer de
+  ella una forma cerrada del modelo físico.
 
 \item \textbf{El criterio de parada se apoya en el error de predicción.} La
   sección~\ref{subsec:epocas} muestra que el RMSE y el error en $g$ no cambian de la misma forma durante el entrenamiento (uno puede seguir
   bajando mientras el otro sube), de modo que la parada temprana sobre el error de
   validación no garantiza detenerse en el óptimo del parámetro físico. En este
-  problema coincidieron aproximadamente, pero eso no es general.
+  problema ambos coincidieron aproximadamente, pero eso no es general.
 \end{enumerate}
 
 
@@ -1573,9 +1471,9 @@ acotan lo que puede lograrse con ellos, con red o sin ella.
 \item Se construyó un conjunto de datos experimental propio de caída libre: 609
   clips grabados a \unit{60}{\hertz}, 606 utilizables y 581 tras el filtro de
   calidad, con \num{18\,992} pares $(t,y)$ digitalizados con \emph{Tracker}. El
-  conjunto contiene la física buscada: un ajuste cuadrático clip por clip
-  recupera $g=\num{-9.43}~\meter\per\second\squared$, a un \SI{3.9}{\percent}
-  del valor esperado.
+  conjunto contiene la física buscada, ya que un ajuste cuadrático clip por
+  clip recupera $g=\num{-9.43}~\meter\per\second\squared$, a un
+  \SI{3.9}{\percent} del valor esperado.
 
 \item Se implementaron y entrenaron en PyTorch tres arquitecturas de red
   neuronal de capacidad creciente, bajo tres formulaciones de las entradas y
@@ -1583,74 +1481,74 @@ acotan lo que puede lograrse con ellos, con red o sin ella.
   y tres líneas base clásicas. Con ello se cumplieron los objetivos específicos
   relativos a la construcción, entrenamiento y estudio de redes neuronales.
 
-\item El supuesto del anteproyecto se verifica. Con entradas
-  $(\tau,v_0)$ y salida $\Delta y$, la red $\tanh$ profunda recupera
+\item El supuesto del anteproyecto se verifica. Con entradas $(\tau,v_0)$ y
+  salida $\Delta y$, la red $\tanh$ profunda recupera
   $g=\num{-9.46}\pm\num{0.33}~\meter\per\second\squared$ sobre clips que no vio
   durante el entrenamiento. Frente al $\num{-9.48}~\meter\per\second\squared$
   que el método clásico extrae de esos mismos datos, la discrepancia es del
-  \SI{0.2}{\percent}. La diferencia restante con $\num{-9.81}$ es sesgo
-  experimental, no fallo del modelo.
+  \SI{0.2}{\percent}. La diferencia restante con $\num{-9.81}$ corresponde al
+  sesgo experimental y no a un fallo del modelo.
 
 \item En términos de predicción, la red alcanza RMSE~$=\num{0.142}~\meter$ y
   $R^2=\num{0.93}$ sobre clips no vistos, frente a los \num{0.553}~\meter\ del
   predictor constante.
 
-\item La red supera al modelo analítico. RMSE de \num{0.142}~\meter\
-  frente a \num{0.202}~\meter\ de la ecuación de MRUV con una única $g$
-  ajustada, con las mismas entradas. Es el punto del proyecto en que la red
-  aporta algo que el método clásico no proporciona, verosímilmente por
-  compensar el sesgo de la estimación de $v_0$.
+\item La red supera al modelo analítico: RMSE de \num{0.142}~\meter\ frente a
+  \num{0.202}~\meter\ de la ecuación de MRUV con una única $g$ ajustada, y con
+  las mismas entradas. Éste es el punto del proyecto en que la red aporta algo
+  que el método clásico no proporciona, verosímilmente por compensar el sesgo
+  de la estimación de $v_0$.
 
-\item La representación de las entradas y la capacidad de la red son
-  dos límites distintos y sucesivos. Con la formulación directa, multiplicar
-  por 165 el número de parámetros no mejora la estimación de $g$; con la
-  formulación completa, la misma escalada la lleva de $\num{-4.68}$ a
+\item La representación de las entradas y la capacidad de la red son dos
+  límites distintos y sucesivos. Con la formulación directa, multiplicar por
+  165 el número de parámetros no mejora la estimación de $g$; con la
+  formulación completa, esa misma escalada la lleva de $\num{-4.68}$ a
   $\num{-9.46}~\meter\per\second\squared$. Cuando el límite es de información,
   ninguna arquitectura lo supera; cuando es de representación, la capacidad
   pasa a ser decisiva.
 
-\item El beneficio de entrenar más se agota mucho antes que el coste.
-  El tiempo crece linealmente con las épocas, mientras que el RMSE alcanza su
-  valor final hacia la época 20 y la mejor estimación de $g$ hacia la 200. Para
-  esta red y estos datos el punto de operación razonable son 100--200 épocas,
-  unos \SI{2}{\second} de cómputo; las 600 épocas siguientes cuadruplican el
-  tiempo y no mejoran nada.
+\item El beneficio de entrenar más se agota mucho antes que el coste. El tiempo
+  crece linealmente con las épocas, mientras que el RMSE alcanza su valor final
+  hacia la época 20 y la mejor estimación de $g$ hacia la 200. Para esta red y
+  estos datos el punto de operación razonable son 100--200 épocas, unos
+  \SI{2}{\second} de cómputo; las 600 épocas siguientes cuadruplican el tiempo
+  y no mejoran nada.
 
-\item El error de predicción y la recuperación de la física no van al
-  mismo ritmo, y pueden ir en sentidos opuestos. La red media $(4)$ mejora su
+\item El error de predicción y la recuperación de la física no van al mismo
+  ritmo, e incluso pueden ir en sentidos opuestos. La red media $(4)$ mejora su
   RMSE de \num{0.167} a \num{0.157}~\meter\ entre las épocas 10 y 800 mientras
   su error en $g$ empeora del \SI{17.7}{\percent} al \SI{29.1}{\percent}. Un
   criterio de parada basado únicamente en el error de validación no garantiza,
   por tanto, detenerse donde el parámetro físico es mejor.
 
-\item La red aprende lo que los datos contienen, con sus sesgos. Al
-  ajustar el modelo $\Delta y = a\tau + b\,v_0\tau + c\tau^2$ a la salida de la
-  red y, como control, a los datos experimentales, el coeficiente cuadrático de
-  la red sigue al de los datos con menos del \SI{2}{\percent} de diferencia en
-  los dos dominios examinados, incluso donde el de los datos se aparta mucho
-  del valor físico.
+\item La red aprende lo que los datos contienen, con sesgos y todo. Al ajustar
+  el modelo $\Delta y = a\tau + b\,v_0\tau + c\tau^2$ a la salida de la red y,
+  como control, a los datos experimentales, el coeficiente cuadrático de la red
+  sigue al de los datos con menos del \SI{2}{\percent} de diferencia en los dos
+  dominios examinados, incluso donde el de los datos se aparta mucho del valor
+  físico.
 
-\item La física está en el comportamiento de la red, no en su
-  estructura. La curvatura de la función aprendida tiene el signo y el orden
-  de magnitud correctos pero no es constante, y la representación está
-  repartida entre muchas neuronas casi lineales sin que ninguna sea
-  interpretable por separado. La red recupera $g$ correctamente sin construir
-  internamente nada que se parezca a la ecuación de movimiento. Extraer una
-  forma cerrada exigiría arquitecturas diseñadas para ello, y esa es la
-  continuación natural del trabajo.
+\item La física está en el comportamiento de la red y no en su estructura. La
+  curvatura de la función aprendida tiene el signo y el orden de magnitud
+  correctos pero no es constante, y la representación está repartida entre
+  muchas neuronas casi lineales sin que ninguna sea interpretable por separado.
+  La red recupera $g$ correctamente sin construir internamente nada que se
+  parezca a la ecuación de movimiento. Extraer una forma cerrada exigiría
+  arquitecturas diseñadas para ello, y ésa es la continuación natural del
+  trabajo.
 
 \item Una red neuronal entrenada con MSE converge a la media condicional de los
   datos. Que esa media condicional coincida o no con la ley física depende
-  enteramente de cómo se hayan estructurado las entradas: la condición de
-  identificabilidad es previa a cualquier consideración de arquitectura. Este
-  es el aprendizaje central del proyecto y la base sobre la que se plantea su
-  continuación.
+  enteramente de cómo se hayan estructurado las entradas, de manera que la
+  condición de identificabilidad es previa a cualquier consideración de
+  arquitectura. Éste es el aprendizaje central del proyecto y la base sobre la
+  que se plantea su continuación.
 
-\item Desde el punto de vista metodológico, la validación de un modelo de
-  aprendizaje automático contra una teoría física exige que el valor de
-  referencia se verifique con el mismo rigor que el valor predicho. Aquí eso
-  significó estimar $g$ \emph{clip por clip} en ambos lados de la comparación y
-  contrastar el resultado contra líneas base clásicas explícitas.
+\item Desde el punto de vista metodológico, validar un modelo de aprendizaje
+  automático contra una teoría física exige que el valor de referencia se
+  verifique con el mismo rigor que el valor predicho. Aquí eso significó
+  estimar $g$ clip por clip en ambos lados de la comparación y contrastar el
+  resultado contra líneas base clásicas explícitas.
 \end{enumerate}
 
 
@@ -1663,10 +1561,11 @@ ambiciosa, y constituyen la continuación natural hacia el EPS.
 
 \paragraph{Cerrar la brecha con el oráculo.} La red alcanza
 RMSE~$=\num{0.142}~\meter$ frente a los $\num{0.040}~\meter$ del ajuste por
-clip. Parte de esa diferencia es irreducible ---el oráculo dispone de tres
-parámetros por clip--- pero conviene medir cuánta. Dos vías: predecir
+clip. Parte de esa diferencia es irreducible, porque el oráculo dispone de tres
+parámetros por clip, pero conviene medir cuánta. Hay dos vías: predecir
 directamente los coeficientes $(c_0,c_1,c_2)$ de cada clip en lugar de puntos
-sueltos, y estimar $v_0$ con más robustez (ajuste local en vez de tres puntos).
+sueltos, y estimar $v_0$ con más robustez, con un ajuste local en vez de tres
+puntos.
 
 \paragraph{Diagnosticar el sesgo experimental.} El método clásico da
 $\num{-9.43}~\meter\per\second\squared$ sobre estos datos, un
@@ -1677,19 +1576,18 @@ corregirlo en la toma de datos.
 
 \paragraph{Mejorar la calidad de los datos.} Grabar clips más largos o desde
 mayor altura, para que el término cuadrático domine sobre el ruido, y aumentar
-la resolución espacial o la frecuencia de muestreo. Con
-\unit{0.53}{\second} de media por clip, la señal cuadrática es débil frente a
-la cuantización de píxel.
+la resolución espacial o la frecuencia de muestreo. Con \unit{0.53}{\second} de
+media por clip, la señal cuadrática es débil frente a la cuantización de píxel.
 
 \paragraph{Hacer la red interpretable a propósito.} La inspección de la
 sección~\ref{subsec:pesos} muestra que la física no está codificada de forma
-legible en los pesos. Si se quiere que lo esté hay que forzarlo: redes con una
-capa de cuello de botella de una sola unidad, activaciones polinómicas, o
-regresión simbólica sobre la función aprendida. Cualquiera de las tres
-convertiría \enquote{la red predice bien} en \enquote{la red entrega una
-ecuación}, que es el objetivo natural del EPS.
+legible en los pesos. Si se quiere que lo esté hay que forzarlo, por ejemplo
+con redes que tengan una capa de cuello de botella de una sola unidad, con
+activaciones polinómicas, o aplicando regresión simbólica sobre la función
+aprendida. Cualquiera de las tres convertiría \enquote{la red predice bien} en
+\enquote{la red entrega una ecuación}, que es el objetivo natural del EPS.
 
-\paragraph{Un criterio de parada basado en la física.} Como el error de
+\paragraph{Un criterio de parada basado en la física.} Dado que el error de
 predicción y el error en $g$ no cambian de la misma forma durante el entrenamiento
 (sección~\ref{subsec:epocas}), tiene sentido explorar una parada temprana que
 vigile directamente la $g$ estimada sobre los clips de validación en lugar del
@@ -1698,15 +1596,15 @@ MSE.
 \paragraph{Explorar el aprendizaje con restricciones físicas.} Incorporar el
 residuo de la ecuación de movimiento a la función de coste (\emph{physics-informed
 neural networks}) permitiría comparar cuánta física aporta la arquitectura
-frente a cuánta aporta la función de coste, y previsiblemente reducir la
+frente a cuánta aporta la función de coste, y previsiblemente reduciría la
 dispersión entre semillas.
 
 \paragraph{Generalizar a otros marcos teóricos.} Con el protocolo ya validado
 sobre la caída libre, extender el estudio a movimiento en dos dimensiones, a
 sistemas con fricción y a osciladores, que es el objetivo planteado para el
-EPS. El procedimiento desarrollado aquí ---formular el problema de modo que sea
-identificable, comparar contra una línea base clásica y estimar el parámetro
-físico caso por caso--- es directamente transferible a esos sistemas.
+EPS. El procedimiento desarrollado aquí, esto es, formular el problema de modo
+que sea identificable, comparar contra una línea base clásica y estimar el
+parámetro físico caso por caso, es directamente transferible a esos sistemas.
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -1718,10 +1616,11 @@ físico caso por caso--- es directamente transferible a esos sistemas.
 
 Todo lo pertinente a teoría física fue tomado de Blatt~\cite{Fisica}. La
 referencia estadística predeterminada, para regresión, mínimos cuadrados y
-métricas de error, es el libro de Triola~\cite{triola_2018_estadstica}. La parte
-matemática --- derivadas parciales y regla de la cadena --- se consultó en el
-libro de cálculo de Zill~\cite{zill_1985_clculo}. El canal de YouTube DotCSV es
-una referencia audiovisual bastante completa en cuanto a redes neuronales se
+métricas de error, es el libro de Triola~\cite{triola_2018_estadstica}. La
+parte matemática, es decir, derivadas parciales y regla de la cadena, se
+consultó en el libro de cálculo de Zill~\cite{zill_1985_clculo}. El canal de
+YouTube DotCSV es una referencia audiovisual bastante completa en cuanto a
+redes neuronales se
 refiere~\cite{santana_2018_1,santana_2018_2,santana_2018_3,santana_2018_3_5}, y
 complementa la introducción de Antonio~\cite{antonio_2023_introduccin} y la
 documentación divulgativa de IBM~\cite{ibm_qu}. Para consultas técnicas rápidas
