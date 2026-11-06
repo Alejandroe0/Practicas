@@ -205,7 +205,7 @@ cursos cortos.
 La Física de Materia Condensada es un área muy amplia e interesante. Mediante
 el estudio de las propiedades fundamentales de la materia se pueden observar
 fenómenos interesantes que permiten el desarrollo de nuevas tecnologías. En
-años recientes la relación entre éstos fenómenos a nivel subatómico y las
+años recientes la relación entre estos fenómenos a nivel subatómico y las
 propiedades generales de los materiales ha permitido el desarrollo de
 materiales con nuevas propiedades o materiales de diseño.
 
@@ -266,13 +266,17 @@ la posición
   y(t) = y_0 + v_0\,t + \frac{1}{2}a\,t^2,
   \label{eq:mruv}
 \end{equation}
-donde $y_0$ es la posición en $t=0$ y $v_0$ la velocidad inicial. En caída
+donde $y_0$ y $v_0$ son la posición y velocidad en $t=0$ respectivamente. En caída
 libre, si se desprecia el arrastre del aire, la aceleración es la de la
-gravedad, $a=g$. Para digitalizar las trayectorias se usó \emph{Tracker}~\cite{tracker}, un
+gravedad, $a=g$.
+
+Para digitalizar las trayectorias se usó \emph{Tracker}~\cite{tracker}, un
 programa gratuito de análisis de video del proyecto \emph{Open Source Physics}
 que sirve para seguir un objeto en cada fotograma de un video y obtener su
 posición en función del tiempo. Está disponible en
-\url{https://physlets.org/tracker/}. Con el eje $y$ orientado hacia arriba, que es la convención
+\url{https://physlets.org/tracker/}.
+
+Con el eje $y$ orientado hacia arriba, que es la convención
 que usa \emph{Tracker} y la que se mantiene en todo este informe,
 $g\approx\num{-9.81}~\meter\per\second\squared$, y tanto $y$ como $v_0$ pueden
 ser negativos.
@@ -376,7 +380,7 @@ la suma ponderada de entradas y pesos, las funciones más comunes son:
     \label{eq:relu}
   \end{equation}
 
-  La ReLU es barata de evaluar y su derivada no se satura para
+  La ReLU es simple de evaluar y su derivada no se satura para
   $x>0$~\cite{goodfellow_2016_deep}, pero
   tiene un modo de falla conocido. Si durante el entrenamiento el argumento de
   una neurona se vuelve negativo para todos los datos, su gradiente queda en
@@ -520,7 +524,7 @@ Por eso toda estimación de $g$ que aparece en este informe, sea de los datos o
 de las predicciones, se hace clip por clip.
 
 \subsubsection{Coeficiente de determinación}
-Para juzgar si un modelo aporta información sobre la simple media de los datos
+Para juzgar si un modelo aporta información sobre la media de los datos
 se usa
 \begin{equation}
   R^2 = 1 - \frac{\sum_i (y_i-\hat y_i)^2}{\sum_i (y_i-\bar y)^2},
@@ -560,7 +564,7 @@ sección~\ref{subsec:ML}.
 
 \subsubsection{Normalización de los datos}
 \label{subsubsec:zscore}
-Antes de entrenar conviene llevar entradas y salidas a una escala común. La
+Antes de entrenar una red neuronal conviene llevar entradas y salidas a una escala común. La
 normalización $z$ transforma cada variable según
 \begin{equation}
   \tilde x = \frac{x-\mu_x}{\sigma_x},
@@ -632,7 +636,7 @@ capacidad o más épocas que se le den al modelo. Una red suficientemente
 expresiva entrenada con MSE converge a~\eqref{eq:mediacondicional} y no
 necesariamente a la ley física que generó los datos.
 
-Ésta es la consideración que gobierna el diseño experimental de la
+Esta es la consideración que gobierna el diseño experimental de la
 sección~\ref{subsec:formulaciones}. Aplicada a la caída libre dice lo
 siguiente: si a la red se le da como única entrada el tiempo~$t$ del video y se
 le pide la posición~$y$, un mismo $t$ queda asociado a las posiciones de muchas
@@ -652,7 +656,7 @@ mantenida por Meta AI, por dos razones prácticas. La primera es que su modo de
 ejecución inmediata (\emph{eager}) permite inspeccionar tensores y gradientes
 con un depurador convencional, cosa que resultó decisiva para un proyecto cuyo
 objetivo es estudiar el interior de la red y no solamente entrenarla. La
-segunda es que su API de módulos (\texttt{torch.nn}) expresa arquitecturas
+segunda es que su interfaz de programación de aplicaciones (API, en inglés) de módulos (\texttt{torch.nn}) expresa arquitecturas
 pequeñas y no estándar con menos código intermedio. Ambas bibliotecas
 implementan diferenciación automática sobre grafos de cómputo y son
 equivalentes para los fines de este trabajo. Los conceptos descritos en las
@@ -661,7 +665,8 @@ y optimizador Adam (sección~\ref{subsubsec:coste}), se traducen directamente a 
 \texttt{nn.ReLU}/\texttt{nn.Tanh}, \texttt{nn.MSELoss} y
 \texttt{torch.optim.Adam}.
 
-El entorno de trabajo se gestionó con \texttt{conda} (entorno
+El entorno de trabajo se gestionó con un sistema de gestión de entornos de Python que se llama
+\texttt{conda} y que permite mantener entornos aislados (entorno
 \texttt{practicas}) y todos los scripts, datos y salidas quedaron versionados
 en el repositorio del proyecto, que está disponible en
 \url{https://github.com/Alejandroe0/Practicas}~\cite{repositorio}.
@@ -891,7 +896,7 @@ entender la estructura interna de la red, se añadieron dos análisis complement
 \begin{itemize}
 \item Un \textbf{estudio del número de épocas}, que mide el tiempo acumulado de
   entrenamiento, el RMSE y la $g$ recuperada en puntos de control a lo largo de
-  un mismo entrenamiento, para valorar el coste/beneficio del entrenamiento.
+  un mismo entrenamiento, para valorar el coste/beneficio del entrenamiento
   (sección~\ref{subsec:epocas}).
 \item Una \textbf{inspección de la red entrenada}, que escribe explícitamente
   la función de la red pequeña, calcula por diferenciación automática, las
@@ -937,7 +942,7 @@ datos (tiempo de lectura) y no la aritmética, así que una GPU podría ralentiz
 cuatro hilos.
 
 \paragraph{Memoria.} El conjunto de datos cabe holgadamente en memoria. Las
-\num{18\,992} muestras con dos entradas y una salida ocupan alrededor de 223\,KiB en
+\num{18\,992} muestras con dos entradas y una salida ocupan alrededor de 228\,kB en
 precisión simple, así que no hay carga por lotes desde disco ni ninguna
 limitación de memoria. Todo el conjunto reside en RAM durante el entrenamiento,
 y el uso máximo del proceso es de unos pocos cientos de megabytes, casi todos
@@ -1545,7 +1550,7 @@ acotan lo que puede lograrse con ellos, con red o sin ella.
 
 \item La red supera al modelo analítico: RMSE de \num{0.142}~\meter\ frente a
   \num{0.202}~\meter\ de la ecuación de MRUV con una única $g$ ajustada, y con
-  las mismas entradas. Éste es el punto del proyecto en que la red aporta algo
+  las mismas entradas. Este es el punto del proyecto en que la red aporta algo
   que el método clásico no proporciona, verosímilmente por compensar el sesgo
   de la estimación de $v_0$.
 
@@ -1584,14 +1589,14 @@ acotan lo que puede lograrse con ellos, con red o sin ella.
   muchas neuronas casi lineales sin que ninguna sea interpretable por separado.
   La red recupera $g$ correctamente sin construir internamente nada que se
   parezca a la ecuación de movimiento. Extraer una forma cerrada exigiría
-  arquitecturas diseñadas para ello, y ésa es la continuación natural del
+  arquitecturas diseñadas para ello, y esa es la continuación natural del
   trabajo.
 
 \item Una red neuronal entrenada con MSE converge a la media condicional de los
   datos. Que esa media condicional coincida o no con la ley física depende
   enteramente de cómo se hayan estructurado las entradas, de manera que la
   condición de identificabilidad es previa a cualquier consideración de
-  arquitectura. Éste es el aprendizaje central del proyecto y la base sobre la
+  arquitectura. Este es el aprendizaje central del proyecto y la base sobre la
   que se plantea su continuación.
 
 \item Desde el punto de vista metodológico, validar un modelo de aprendizaje
